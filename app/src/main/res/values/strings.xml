@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Homebook</string>
+    <string name="email">Email address</string>
+    <string name="password">Password</string>
+    <string name="button_login">LOGIN</string>
+    <string name="homebook">Homebook</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="register_headline">Enter your credentials</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="register_label">REGISTER</string>
+    <string name="button_register">REGISTER</string>
+    <string name="goto_register"><u>Don\'t have an account, register here</u></string>
+    <string name="menu_navigation_categories">Categories</string>
+    <string name="menu_navigation_statistic">Statistics</string>
 </resources>
