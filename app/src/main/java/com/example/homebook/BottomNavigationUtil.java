@@ -114,7 +114,8 @@ public class BottomNavigationUtil {
         int finalHomeNavGraphId = homeNavGraphId;
         fragmentManager.addOnBackStackChangedListener(() -> {
             if(!isOnHomeWrapper.get() && !isOnBackStack(fragmentManager, homeTag)){
-                bottomNavigationView.setSelectedItemId(finalHomeNavGraphId);
+                currentTagWrapper.set(homeTag);
+                bottomNavigationView.setVisibility(View.GONE);
             }
         });
     }
