@@ -13,4 +13,6 @@
     <string name="goto_register"><u>Don\'t have an account, register here</u></string>
     <string name="menu_navigation_categories">Categories</string>
     <string name="menu_navigation_statistic">Statistics</string>
+    <string name="button_subcategories">Subcategories</string>
+    <string name="button_show_items">Show items</string>
 </resources>

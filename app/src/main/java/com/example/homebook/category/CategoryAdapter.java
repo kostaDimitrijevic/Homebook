@@ -1,4 +1,61 @@
 package com.example.homebook.category;
 
-public class CategoryAdapter {
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.homebook.data.Category;
+import com.example.homebook.databinding.ViewHolderCategoryBinding;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
+
+    private List<Category> categories = new ArrayList<>();
+
+    public CategoryAdapter() {
+    }
+
+    public void setCategories(List<Category> categories){
+        this.categories = categories;
+        notifyDataSetChanged();
+    }
+
+    @NonNull
+    @Override
+    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        ViewHolderCategoryBinding viewHolderCategoryBinding = ViewHolderCategoryBinding.inflate(layoutInflater, parent, false);
+
+        return new CategoryAdapter.CategoryViewHolder(viewHolderCategoryBinding);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+        holder.bind(categories.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return categories.size();
+    }
+
+    public class CategoryViewHolder extends RecyclerView.ViewHolder {
+
+        public ViewHolderCategoryBinding binding;
+
+        public CategoryViewHolder(@NonNull ViewHolderCategoryBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        public void bind(Category category){
+            binding.categoryLabel.setText(category.getCategoryName());
+        }
+    }
 }
