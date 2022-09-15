@@ -52,8 +52,8 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
             this.binding = binding;
         }
 
-        public void bind(Item item){
-            binding.itemLabel.setText(item.getItemName());b
+        public void bind(@NonNull Item item){
+            binding.itemLabel.setText(item.getItemName());
             binding.itemAmount.setText(String.valueOf(item.getAmount()));
             if(item.getAmount() == 0){
                 binding.itemLayout.setBackgroundColor(Color.RED);

@@ -2,6 +2,7 @@ package com.example.homebook.category;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.homebook.data.categorydata.Category;
 import com.example.homebook.data.categorydata.CategoryRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,6 +24,7 @@ public class CategoryViewModel extends ViewModel {
     private final SavedStateHandle savedStateHandle;
 
     private final LiveData<List<Category>> categories;
+    private List<String> imageUrls;
 
     @Inject
     public CategoryViewModel(@NonNull SavedStateHandle savedStateHandle, CategoryRepository categoryRepository){
@@ -39,4 +42,12 @@ public class CategoryViewModel extends ViewModel {
     }
 
     public long getCategoryIdByName(String category) { return categoryRepository.getCategoryIdByName(category); }
+
+    public List<String> getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(List<String> imageUrls) {
+        this.imageUrls = imageUrls;
+    }
 }

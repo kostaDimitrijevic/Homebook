@@ -18,4 +18,7 @@
     <string name="button_amount">Change amount of items</string>
     <string name="add_category">Add category</string>
     <string name="add_item">Add item</string>
+    <string name="neutral_btn">Cancel</string>
+    <string name="decline_btn">Decline</string>
+    <string name="accept_btn">Accept</string>
 </resources>

@@ -23,5 +23,9 @@
             android:name="categoryId"
             android:defaultValue="0L"
             app:argType="long"/>
+        <argument
+            android:name="categoryName"
+            android:defaultValue=""
+            app:argType="string"/>
     </fragment>
 </navigation>

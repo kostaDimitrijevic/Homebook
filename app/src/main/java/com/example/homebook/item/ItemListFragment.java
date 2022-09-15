@@ -47,6 +47,7 @@ public class ItemListFragment extends Fragment {
         ItemListAdapter itemListAdapter = new ItemListAdapter();
         itemViewModel.getItemList().observe(getViewLifecycleOwner(), itemListAdapter::setItemList);
 
+        binding.toolbar.setTitle(ItemListFragmentArgs.fromBundle(requireArguments()).getCategoryName());
         binding.recyclerView.setAdapter(itemListAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
         return binding.getRoot();

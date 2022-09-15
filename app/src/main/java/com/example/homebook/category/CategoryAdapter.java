@@ -1,5 +1,6 @@
 package com.example.homebook.category;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -7,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.FutureTarget;
 import com.example.homebook.data.categorydata.Category;
 import com.example.homebook.databinding.ViewHolderCategoryBinding;
 
@@ -21,9 +24,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     private List<Category> categories = new ArrayList<>();
     private final Callback<String> callbackCategoryName;
+    private CategoryViewModel viewModel;
 
-    public CategoryAdapter(Callback<String> callbackCategoryName) {
+    public CategoryAdapter(CategoryViewModel viewModel, Callback<String> callbackCategoryName) {
         this.callbackCategoryName = callbackCategoryName;
+        this.viewModel = viewModel;
     }
 
     public void setCategories(List<Category> categories){
@@ -42,7 +47,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        holder.bind(categories.get(position));
+        holder.bind(categories.get(position), position);
     }
 
     @Override
@@ -63,8 +68,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             });
         }
 
-        public void bind(Category category){
+        public void bind(Category category, int index){
             binding.categoryLabel.setText(category.getCategoryName());
+            FutureTarget<Bitmap> futureTarget = Glide.with(binding.getRoot()).load(viewModel.getImageUrls().get(index)).into(binding.categoryImage);
         }
     }
 }
