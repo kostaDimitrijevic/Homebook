@@ -3,7 +3,9 @@ package com.example.homebook.data.categorydata;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 import javax.inject.Inject;
 
@@ -30,5 +32,13 @@ public class CategoryRepository {
         return categoryDao.getAllCategories();
     }
 
-    public long getCategoryIdByName(String category) { return categoryDao.getCategoryIdByName(category); }
+    public long getCategoryIdByName(String category) {
+        Future<Long> task = executorService.submit(() -> categoryDao.getCategoryIdByName(category));
+        try {
+            return task.get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 }

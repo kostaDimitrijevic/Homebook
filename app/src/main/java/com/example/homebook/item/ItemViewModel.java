@@ -32,17 +32,19 @@ public class ItemViewModel extends ViewModel {
         this.savedStateHandle = savedStateHandle;
         this.itemRepository = itemRepository;
 
-        itemList = Transformations.switchMap(this.savedStateHandle.getLiveData(CURRENT_CATEGORY, 0),
-                (Function<Integer, LiveData<List<Item>>>) this.itemRepository::getAllItemsByCategoryId);
+        itemList = Transformations.switchMap(this.savedStateHandle.getLiveData(CURRENT_CATEGORY, 0L),
+                (Function<Long, LiveData<List<Item>>>) this.itemRepository::getAllItemsByCategoryId);
     }
 
-
+    public LiveData<List<Item>> getItemList() {
+        return itemList;
+    }
 
     public long getCurrentCategoryId() {
         return currentCategoryId;
     }
 
-    public void setCurrentCategoryId(int currentCategoryId) {
+    public void setCurrentCategoryId(long currentCategoryId) {
         this.currentCategoryId = currentCategoryId;
         savedStateHandle.set(CURRENT_CATEGORY, currentCategoryId);
     }
