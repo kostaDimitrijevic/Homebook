@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -47,7 +48,12 @@ public class CategoryFragment extends Fragment {
         // Inflate the layout for this fragment
        binding = FragmentCategoryBinding.inflate(inflater, container, false);
 
-       CategoryAdapter categoryAdapter = new CategoryAdapter();
+       CategoryAdapter categoryAdapter = new CategoryAdapter(category -> {
+           long categoryId = categoryViewModel.getCategoryIdByName(category);
+           CategoryFragmentDirections.ActionItemList action = CategoryFragmentDirections.actionItemList();
+           action.setCategoryId(categoryId);
+           navController.navigate(action);
+       });
 
        categoryViewModel.getAllCategories().observe(getViewLifecycleOwner(), categoryAdapter::setCategories);
 

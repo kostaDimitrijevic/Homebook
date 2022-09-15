@@ -5,6 +5,7 @@ import static androidx.room.ForeignKey.CASCADE;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.example.homebook.data.categorydata.Category;
@@ -15,7 +16,8 @@ import com.example.homebook.data.categorydata.Category;
         childColumns = "idC",
         onUpdate = CASCADE,
         onDelete = CASCADE
-))
+),
+indices = {@Index(value = {"idC"})})
 public class Item {
 
     @PrimaryKey(autoGenerate = true)
@@ -23,6 +25,8 @@ public class Item {
 
     @NonNull
     String itemName;
+
+    int amount;
 
     long idC;
 
@@ -55,5 +59,13 @@ public class Item {
 
     public void setIdC(long idC) {
         this.idC = idC;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

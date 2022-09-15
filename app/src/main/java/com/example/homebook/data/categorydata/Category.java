@@ -2,9 +2,10 @@ package com.example.homebook.data.categorydata;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "category")
+@Entity(tableName = "category", indices = {@Index(value = {"categoryName"}, unique = true)})
 public class Category {
 
     @PrimaryKey(autoGenerate = true)

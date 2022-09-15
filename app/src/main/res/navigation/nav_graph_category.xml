@@ -9,5 +9,19 @@
         android:id="@+id/category_fragment"
         android:name="com.example.homebook.category.CategoryFragment"
         android:label="fragment_category"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_item_list"
+            app:destination="@id/itemListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemListFragment"
+        android:name="com.example.homebook.item.ItemListFragment"
+        android:label="fragment_item_list"
+        tools:layout="@layout/fragment_item_list">
+        <argument
+            android:name="categoryId"
+            android:defaultValue="0L"
+            app:argType="long"/>
+    </fragment>
 </navigation>

@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homebook.data.categorydata.Category;
@@ -14,9 +15,15 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
-    private List<Category> categories = new ArrayList<>();
+    public interface Callback<T>{
+        void Invoke(T parameter);
+    }
 
-    public CategoryAdapter() {
+    private List<Category> categories = new ArrayList<>();
+    private final Callback<String> callbackCategoryName;
+
+    public CategoryAdapter(Callback<String> callbackCategoryName) {
+        this.callbackCategoryName = callbackCategoryName;
     }
 
     public void setCategories(List<Category> categories){
@@ -50,6 +57,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         public CategoryViewHolder(@NonNull ViewHolderCategoryBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+
+            this.binding.buttonShowItems.setOnClickListener(view -> {
+                callbackCategoryName.Invoke(this.binding.categoryLabel.getText().toString());
+            });
         }
 
         public void bind(Category category){

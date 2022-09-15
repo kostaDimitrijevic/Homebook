@@ -29,4 +29,6 @@ public class CategoryRepository {
     public LiveData<List<Category>> getAllCategories() {
         return categoryDao.getAllCategories();
     }
+
+    public long getCategoryIdByName(String category) { return categoryDao.getCategoryIdByName(category); }
 }
