@@ -70,7 +70,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         public void bind(Category category, int index){
             binding.categoryLabel.setText(category.getCategoryName());
-            FutureTarget<Bitmap> futureTarget = Glide.with(binding.getRoot()).load(viewModel.getImageUrls().get(index)).into(binding.categoryImage);
+            Glide.with(binding.getRoot()).load(viewModel.getImageUrls().get(index)).into(binding.categoryImage);
         }
     }
 }
