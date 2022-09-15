@@ -1,6 +1,5 @@
 package com.example.homebook.category;
 
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -9,7 +8,6 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.FutureTarget;
 import com.example.homebook.data.categorydata.Category;
 import com.example.homebook.databinding.ViewHolderCategoryBinding;
 
@@ -70,7 +68,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         public void bind(Category category, int index){
             binding.categoryLabel.setText(category.getCategoryName());
-            Glide.with(binding.getRoot()).load(viewModel.getImageUrls().get(index)).into(binding.categoryImage);
+            if(index < 4){
+                Glide.with(binding.getRoot()).load(viewModel.getImageUrls().get(index)).into(binding.categoryImage);
+            }
+
         }
     }
 }

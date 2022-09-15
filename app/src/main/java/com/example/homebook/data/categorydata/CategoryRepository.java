@@ -22,7 +22,7 @@ public class CategoryRepository {
         this.executorService = executorService;
     }
 
-    public void insert(Category category){
+    public void insert(String category){
         executorService.submit(() -> {
             categoryDao.insert(category);
         });

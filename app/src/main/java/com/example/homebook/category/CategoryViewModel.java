@@ -35,7 +35,7 @@ public class CategoryViewModel extends ViewModel {
         this.categories = categoryRepository.getAllCategories();
     }
 
-    public void insertCategory(Category category) { categoryRepository.insert(category); }
+    public void insertCategory(String category) { categoryRepository.insert(category); }
 
     public LiveData<List<Category>> getAllCategories(){
         return categories;

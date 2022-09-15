@@ -94,7 +94,7 @@ public class CategoryFragment extends Fragment {
                    })
                    .setPositiveButton(R.string.accept_btn, (dialog, which) -> {
                        String newCategory = input.getText().toString();
-                       categoryViewModel.insertCategory(new Category(0, newCategory));
+                       categoryViewModel.insertCategory(newCategory);
                    })
                    .show();
        });
