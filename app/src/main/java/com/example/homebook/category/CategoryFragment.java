@@ -55,6 +55,7 @@ public class CategoryFragment extends Fragment {
         imageUrls.add(getResources().getText(R.string.Food).toString());
         imageUrls.add(getResources().getText(R.string.Pet).toString());
         imageUrls.add(getResources().getText(R.string.Garden).toString());
+        imageUrls.add(getResources().getResourceName(R.string.Default).toString());
 
         categoryViewModel.setImageUrls(imageUrls);
     }
@@ -71,6 +72,9 @@ public class CategoryFragment extends Fragment {
            action.setCategoryId(categoryId);
            action.setCategoryName(category);
            navController.navigate(action);
+       }, category -> {
+           long categoryId = categoryViewModel.getCategoryIdByName(category);
+           categoryViewModel.deleteCategory(categoryId);
        });
 
        categoryViewModel.getAllCategories().observe(getViewLifecycleOwner(), categoryAdapter::setCategories);

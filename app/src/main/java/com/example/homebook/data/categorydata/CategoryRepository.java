@@ -28,6 +28,12 @@ public class CategoryRepository {
         });
     }
 
+    public void delete(long id){
+        executorService.submit(() -> {
+            categoryDao.delete(id);
+        });
+    }
+
     public LiveData<List<Category>> getAllCategories() {
         return categoryDao.getAllCategories();
     }

@@ -25,8 +25,7 @@ public abstract class HomebookDatabase extends RoomDatabase {
         if(instance == null){
             synchronized (HomebookDatabase.class){
                 if(instance == null){
-                    instance = Room.databaseBuilder(context.getApplicationContext(), HomebookDatabase.class, DATABASE_NAME)
-                            .fallbackToDestructiveMigration().createFromAsset("homebook.db").build();
+                    instance = Room.databaseBuilder(context.getApplicationContext(), HomebookDatabase.class, DATABASE_NAME).createFromAsset("homebook.db").build();
                 }
             }
         }

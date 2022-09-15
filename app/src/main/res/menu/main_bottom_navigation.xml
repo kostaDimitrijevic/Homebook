@@ -3,9 +3,12 @@
     <item
         android:id="@+id/bottom_navigation_category"
         android:icon="@drawable/outline_category_24"
-        android:title="@string/menu_navigation_categories"/>
+        android:title="@string/menu_navigation_categories"
+        android:gravity="center"
+        />
     <item
         android:id="@+id/bottom_navigation_statistic"
         android:icon="@drawable/outline_receipt_24"
-        android:title="@string/menu_navigation_statistic"/>
+        android:title="@string/menu_navigation_statistic"
+        android:gravity="center"/>
 </menu>

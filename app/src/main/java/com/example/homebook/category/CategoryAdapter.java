@@ -22,10 +22,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     private List<Category> categories = new ArrayList<>();
     private final Callback<String> callbackCategoryName;
+    private final Callback<String> callbackDeleteCategory;
     private CategoryViewModel viewModel;
 
-    public CategoryAdapter(CategoryViewModel viewModel, Callback<String> callbackCategoryName) {
+    public CategoryAdapter(CategoryViewModel viewModel, Callback<String> callbackCategoryName, Callback<String> callbackDeleteCategory) {
         this.callbackCategoryName = callbackCategoryName;
+        this.callbackDeleteCategory = callbackDeleteCategory;
         this.viewModel = viewModel;
     }
 
@@ -64,6 +66,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             this.binding.buttonShowItems.setOnClickListener(view -> {
                 callbackCategoryName.Invoke(this.binding.categoryLabel.getText().toString());
             });
+
+            this.binding.buttonDelete.setOnClickListener(view -> {
+                callbackDeleteCategory.Invoke(this.binding.categoryLabel.getText().toString());
+            });
         }
 
         public void bind(Category category, int index){
@@ -71,7 +77,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             if(index < 4){
                 Glide.with(binding.getRoot()).load(viewModel.getImageUrls().get(index)).into(binding.categoryImage);
             }
-
+            else{
+                Glide.with(binding.getRoot()).load(viewModel.getImageUrls().get(4)).into(binding.categoryImage);
+            }
         }
     }
 }

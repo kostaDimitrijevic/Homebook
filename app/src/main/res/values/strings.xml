@@ -21,4 +21,6 @@
     <string name="neutral_btn">Cancel</string>
     <string name="decline_btn">Decline</string>
     <string name="accept_btn">Accept</string>
+    <string name="item_name">Item name</string>
+    <string name="item_amount">Item amount</string>
 </resources>

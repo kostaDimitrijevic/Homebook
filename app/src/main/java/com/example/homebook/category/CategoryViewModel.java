@@ -37,6 +37,8 @@ public class CategoryViewModel extends ViewModel {
 
     public void insertCategory(String category) { categoryRepository.insert(category); }
 
+    public void deleteCategory(long id) { categoryRepository.delete(id); }
+
     public LiveData<List<Category>> getAllCategories(){
         return categories;
     }

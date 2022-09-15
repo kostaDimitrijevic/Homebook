@@ -27,5 +27,13 @@
             android:name="categoryName"
             android:defaultValue=""
             app:argType="string"/>
+        <action
+            android:id="@+id/action_create"
+            app:destination="@id/itemCreateFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/itemCreateFragment"
+        android:name="com.example.homebook.item.ItemCreateFragment"
+        android:label="fragment_item_create"
+        tools:layout="@layout/fragment_item_create" />
 </navigation>

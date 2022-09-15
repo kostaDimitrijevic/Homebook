@@ -18,4 +18,7 @@ public interface CategoryDao {
 
     @Query("SELECT id FROM category WHERE categoryName=:category")
     long getCategoryIdByName(String category);
+
+    @Query("DELETE FROM category WHERE id=:id")
+    void delete(long id);
 }
