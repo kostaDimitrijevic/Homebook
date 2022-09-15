@@ -1,18 +1,21 @@
 package com.example.homebook.data;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Category.class}, version = 1, exportSchema = false)
+import com.example.homebook.data.categorydata.Category;
+import com.example.homebook.data.categorydata.CategoryDao;
+import com.example.homebook.data.itemsdata.Item;
+import com.example.homebook.data.itemsdata.ItemDao;
+
+@Database(entities = {Category.class, Item.class}, version = 1, exportSchema = false)
 public abstract class HomebookDatabase extends RoomDatabase {
 
     public abstract CategoryDao categoryDao();
+    public abstract ItemDao itemDao();
 
     private static volatile HomebookDatabase instance = null;
     private static final String DATABASE_NAME = "homebook.db";

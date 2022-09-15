@@ -2,8 +2,9 @@ package com.example.homebook.di;
 
 import android.content.Context;
 
-import com.example.homebook.data.CategoryDao;
+import com.example.homebook.data.categorydata.CategoryDao;
 import com.example.homebook.data.HomebookDatabase;
+import com.example.homebook.data.itemsdata.ItemDao;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,5 +19,10 @@ public interface DatabaseModule {
     @Provides
     static CategoryDao provideCategoryDao(@ApplicationContext Context context){
         return HomebookDatabase.getInstance(context).categoryDao();
+    }
+
+    @Provides
+    static ItemDao provideItemDao(@ApplicationContext Context context){
+        return HomebookDatabase.getInstance(context).itemDao();
     }
 }

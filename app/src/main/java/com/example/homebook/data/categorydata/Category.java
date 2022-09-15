@@ -1,4 +1,4 @@
-package com.example.homebook.data;
+package com.example.homebook.data.categorydata;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

@@ -1,4 +1,4 @@
-package com.example.homebook.data;
+package com.example.homebook.data.categorydata;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -13,6 +13,6 @@ public interface CategoryDao {
     @Insert
     long insert(Category category);
 
-    @Query("SELECT * FROM Category")
+    @Query("SELECT * FROM category")
     LiveData<List<Category>> getAllCategories();
 }

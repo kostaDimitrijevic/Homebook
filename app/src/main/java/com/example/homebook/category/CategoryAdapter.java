@@ -1,14 +1,12 @@
 package com.example.homebook.category;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.homebook.data.Category;
+import com.example.homebook.data.categorydata.Category;
 import com.example.homebook.databinding.ViewHolderCategoryBinding;
 
 import java.util.ArrayList;

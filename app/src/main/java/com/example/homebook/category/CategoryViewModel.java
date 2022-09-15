@@ -6,8 +6,8 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.example.homebook.data.Category;
-import com.example.homebook.data.CategoryRepository;
+import com.example.homebook.data.categorydata.Category;
+import com.example.homebook.data.categorydata.CategoryRepository;
 
 import java.util.List;
 

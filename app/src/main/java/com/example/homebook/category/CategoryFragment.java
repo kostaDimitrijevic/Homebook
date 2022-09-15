@@ -15,9 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.homebook.MainActivity;
-import com.example.homebook.R;
-import com.example.homebook.data.Category;
-import com.example.homebook.databinding.ActivityMainBinding;
 import com.example.homebook.databinding.FragmentCategoryBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;
