@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,16 @@ public class SubcategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = FragmentSubcategoryBinding.inflate(inflater, container, false);
+        binding.toolbarSub.setTitle(SubcategoryFragmentArgs.fromBundle(requireArguments()).getCategoryName());
 
+        long idCat = SubcategoryFragmentArgs.fromBundle(requireArguments()).getCategoryId();
+        subcategoryViewModel.setCurrentCategoryId(idCat);
+
+        SubcategoryAdapter subcategoryAdapter = new SubcategoryAdapter();
+        subcategoryViewModel.getSubcategories().observe(getViewLifecycleOwner(), subcategoryAdapter::setSubcategories);
+
+        binding.recyclerViewSub.setAdapter(subcategoryAdapter);
+        binding.recyclerViewSub.setLayoutManager(new LinearLayoutManager(mainActivity));
         return binding.getRoot();
     }
 

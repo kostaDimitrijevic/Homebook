@@ -84,11 +84,11 @@ public class Item {
         this.amount = amount;
     }
 
-    public long getIdS() {
+    public Long getIdS() {
         return idS;
     }
 
-    public void setIdS(long idS) {
+    public void setIdS(Long idS) {
         this.idS = idS;
     }
 }

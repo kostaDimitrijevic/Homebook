@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_item_list"
             app:destination="@id/itemListFragment" />
+        <action
+            android:id="@+id/action_subcategory"
+            app:destination="@id/subcategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemListFragment"
@@ -41,5 +44,20 @@
             android:defaultValue="0L"
             app:argType="long"/>
     </fragment>
+    <fragment
+        android:id="@+id/subcategoryFragment"
+        android:name="com.example.homebook.subcategory.SubcategoryFragment"
+        android:label="SubcategoryFragment"
+        tools:layout="@layout/fragment_subcategory">
+        <argument
+            android:name="categoryId"
+            android:defaultValue="0L"
+            app:argType="long"/>
+        <argument
+            android:name="categoryName"
+            android:defaultValue=""
+            app:argType="string"/>
+    </fragment>
+
 
 </navigation>

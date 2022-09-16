@@ -75,6 +75,12 @@ public class CategoryFragment extends Fragment {
        }, category -> {
            long categoryId = categoryViewModel.getCategoryIdByName(category);
            categoryViewModel.deleteCategory(categoryId);
+       }, category -> {
+           CategoryFragmentDirections.ActionSubcategory action = CategoryFragmentDirections.actionSubcategory();
+           long categoryId = categoryViewModel.getCategoryIdByName(category);
+           action.setCategoryName(category);
+           action.setCategoryId(categoryId);
+           navController.navigate(action);
        });
 
        categoryViewModel.getAllCategories().observe(getViewLifecycleOwner(), categoryAdapter::setCategories);

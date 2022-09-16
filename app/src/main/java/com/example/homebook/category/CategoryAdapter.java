@@ -23,11 +23,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     private List<Category> categories = new ArrayList<>();
     private final Callback<String> callbackCategoryName;
     private final Callback<String> callbackDeleteCategory;
+    private final Callback<String> callbackSubcategory;
     private CategoryViewModel viewModel;
 
-    public CategoryAdapter(CategoryViewModel viewModel, Callback<String> callbackCategoryName, Callback<String> callbackDeleteCategory) {
+    public CategoryAdapter(
+            CategoryViewModel viewModel,
+            Callback<String> callbackCategoryName,
+            Callback<String> callbackDeleteCategory,
+            Callback<String> callbackSubcategory) {
         this.callbackCategoryName = callbackCategoryName;
         this.callbackDeleteCategory = callbackDeleteCategory;
+        this.callbackSubcategory = callbackSubcategory;
         this.viewModel = viewModel;
     }
 
@@ -69,6 +75,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
             this.binding.buttonDelete.setOnClickListener(view -> {
                 callbackDeleteCategory.Invoke(this.binding.categoryLabel.getText().toString());
+            });
+
+            this.binding.buttonSubcategories.setOnClickListener(view -> {
+                callbackSubcategory.Invoke(this.binding.categoryLabel.getText().toString());
             });
         }
 
