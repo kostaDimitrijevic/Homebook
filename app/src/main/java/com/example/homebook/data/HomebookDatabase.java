@@ -10,12 +10,15 @@ import com.example.homebook.data.categorydata.Category;
 import com.example.homebook.data.categorydata.CategoryDao;
 import com.example.homebook.data.itemsdata.Item;
 import com.example.homebook.data.itemsdata.ItemDao;
+import com.example.homebook.data.subcategorydata.Subcategory;
+import com.example.homebook.data.subcategorydata.SubcategoryDao;
 
-@Database(entities = {Category.class, Item.class}, version = 1, exportSchema = false)
+@Database(entities = {Category.class, Item.class, Subcategory.class}, version = 1, exportSchema = false)
 public abstract class HomebookDatabase extends RoomDatabase {
 
     public abstract CategoryDao categoryDao();
     public abstract ItemDao itemDao();
+    public abstract SubcategoryDao subcategoryDao();
 
     private static volatile HomebookDatabase instance = null;
     private static final String DATABASE_NAME = "homebook.db";
@@ -32,4 +35,5 @@ public abstract class HomebookDatabase extends RoomDatabase {
 
         return instance;
     }
+
 }
