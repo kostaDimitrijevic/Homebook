@@ -3,6 +3,7 @@ package com.example.homebook.data.itemsdata;
 import static androidx.room.ForeignKey.CASCADE;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
@@ -25,7 +26,7 @@ import com.example.homebook.data.subcategorydata.Subcategory;
         onUpdate = CASCADE,
         onDelete = CASCADE
 )},
-indices = {@Index(value = {"idC", "idS"})})
+indices = {@Index(value = {"idC"}), @Index(value = {"idS"})})
 public class Item {
 
     @PrimaryKey(autoGenerate = true)
@@ -40,16 +41,9 @@ public class Item {
     long idC;
 
     //subcategory id
-    long idS;
+    Long idS;
 
-    public Item(long id, @NonNull String itemName, long idC, int amount) {
-        this.id = id;
-        this.itemName = itemName;
-        this.idC = idC;
-        this.amount = amount;
-    }
-
-    public Item(long id, @NonNull String itemName, long idC, long idS, int amount) {
+    public Item(long id, @NonNull String itemName, long idC, Long idS, int amount) {
         this.id = id;
         this.itemName = itemName;
         this.idC = idC;
@@ -88,5 +82,13 @@ public class Item {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public long getIdS() {
+        return idS;
+    }
+
+    public void setIdS(long idS) {
+        this.idS = idS;
     }
 }

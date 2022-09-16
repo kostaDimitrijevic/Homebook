@@ -50,7 +50,7 @@ public class ItemCreateFragment extends Fragment {
             String itemName = binding.itemName.getEditText().getText().toString();
             int amount = Integer.parseInt(binding.itemAmount.getEditText().getText().toString());
             long categoryId = ItemCreateFragmentArgs.fromBundle(requireArguments()).getCategoryId();
-            itemViewModel.insertItem(new Item(0, itemName, categoryId, amount));
+            itemViewModel.insertItem(new Item(0, itemName, categoryId, null, amount));
             navController.navigateUp();
         });
 

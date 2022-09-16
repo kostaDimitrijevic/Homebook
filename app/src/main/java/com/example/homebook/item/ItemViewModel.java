@@ -52,4 +52,8 @@ public class ItemViewModel extends ViewModel {
     public void insertItem(Item item){
         itemRepository.insert(item.getItemName(), item.getIdC(), item.getAmount());
     }
+
+    public void deleteItem(long id){
+        itemRepository.delete(id);
+    }
 }

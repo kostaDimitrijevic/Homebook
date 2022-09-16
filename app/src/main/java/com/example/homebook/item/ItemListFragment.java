@@ -46,7 +46,7 @@ public class ItemListFragment extends Fragment {
         binding = FragmentItemListBinding.inflate(inflater, container, false);
         itemViewModel.setCurrentCategoryId(ItemListFragmentArgs.fromBundle(requireArguments()).getCategoryId());
 
-        ItemListAdapter itemListAdapter = new ItemListAdapter();
+        ItemListAdapter itemListAdapter = new ItemListAdapter(itemViewModel);
         itemViewModel.getItemList().observe(getViewLifecycleOwner(), itemListAdapter::setItemList);
 
         binding.toolbar.setTitle(ItemListFragmentArgs.fromBundle(requireArguments()).getCategoryName());

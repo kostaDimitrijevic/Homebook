@@ -25,6 +25,12 @@ public class ItemRepository {
         });
     }
 
+    public void delete(long id){
+        executorService.submit(() ->{
+            itemDao.delete(id);
+        });
+    }
+
     public LiveData<List<Item>> getAllItemsByCategoryId(long categoryId){
         return itemDao.getAllItemsByCategoryId(categoryId);
     }

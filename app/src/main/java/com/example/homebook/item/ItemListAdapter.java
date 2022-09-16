@@ -18,6 +18,11 @@ import java.util.zip.Inflater;
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemListViewHolder> {
 
     private List<Item> itemList = new ArrayList<>();
+    private ItemViewModel itemViewModel;
+
+    public ItemListAdapter(ItemViewModel itemViewModel) {
+        this.itemViewModel = itemViewModel;
+    }
 
     public void setItemList(List<Item> itemList) {
         this.itemList = itemList;
@@ -66,6 +71,10 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
                 binding.itemCountLabel.setText("Amount:");
                 binding.itemCountLabel.setTextColor(Color.BLACK);
             }
+
+            this.binding.buttonItemDelete.setOnClickListener(view -> {
+                itemViewModel.deleteItem(itemList.get(position).getId());
+            });
         }
     }
 }

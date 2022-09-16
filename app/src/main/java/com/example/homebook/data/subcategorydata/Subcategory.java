@@ -18,7 +18,7 @@ import com.example.homebook.data.categorydata.Category;
             onUpdate = CASCADE,
             onDelete = CASCADE
         ),
-        indices = {@Index(value = {"idC"})}
+        indices = {@Index(value = {"idCat"})}
 )
 public class Subcategory {
 
