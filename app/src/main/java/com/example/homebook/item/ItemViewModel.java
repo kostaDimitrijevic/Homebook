@@ -56,4 +56,8 @@ public class ItemViewModel extends ViewModel {
     public void deleteItem(long id){
         itemRepository.delete(id);
     }
+
+    public void updateAmount(long id, int amount){
+        itemRepository.updateAmount(id, amount);
+    }
 }

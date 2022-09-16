@@ -4,12 +4,16 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.homebook.R;
 import com.example.homebook.data.itemsdata.Item;
 import com.example.homebook.databinding.ViewHolderItemBinding;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +78,27 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
 
             this.binding.buttonItemDelete.setOnClickListener(view -> {
                 itemViewModel.deleteItem(itemList.get(position).getId());
+            });
+
+            this.binding.buttonAmount.setOnClickListener(view -> {
+                final EditText input = new EditText(binding.getRoot().getContext());
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(60, 100);
+                input.setLayoutParams(lp);
+
+                new MaterialAlertDialogBuilder(binding.getRoot().getContext())
+                        .setTitle("Insert name of your category:")
+                        .setView(input)
+                        .setNeutralButton(R.string.neutral_btn, (dialog, which) -> {
+                            // nothing happens
+                        })
+                        .setNegativeButton(R.string.decline_btn, (dialog, which) -> {
+                            // nothing happens
+                        })
+                        .setPositiveButton(R.string.accept_btn, (dialog, which) -> {
+                            String amount = input.getText().toString();
+                            itemViewModel.updateAmount(itemList.get(position).getId(), Integer.parseInt(amount));
+                        })
+                        .show();
             });
         }
     }

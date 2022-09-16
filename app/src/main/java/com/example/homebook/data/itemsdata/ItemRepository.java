@@ -34,4 +34,10 @@ public class ItemRepository {
     public LiveData<List<Item>> getAllItemsByCategoryId(long categoryId){
         return itemDao.getAllItemsByCategoryId(categoryId);
     }
+
+    public void updateAmount(long id, int amount){
+        executorService.submit(() -> {
+            itemDao.updateAmount(id, amount);
+        });
+    }
 }
