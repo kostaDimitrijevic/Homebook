@@ -15,4 +15,7 @@ public interface SubcategoryDao {
 
     @Query("SELECT * FROM subcategory WHERE idCat = :categoryId")
     LiveData<List<Subcategory>> getSubcategoriesByCatId(long categoryId);
+
+    @Query("DELETE FROM subcategory WHERE id=:id")
+    void delete(long id);
 }

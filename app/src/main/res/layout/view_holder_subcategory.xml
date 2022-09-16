@@ -35,7 +35,7 @@
                 />
 
             <Button
-                android:id="@+id/button_item_delete"
+                android:id="@+id/button_sub_delete"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 app:backgroundTint="@color/white"

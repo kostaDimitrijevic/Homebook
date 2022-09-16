@@ -17,6 +17,11 @@ import java.util.zip.Inflater;
 public class SubcategoryAdapter extends RecyclerView.Adapter<SubcategoryAdapter.SubcategoryViewHolder> {
 
     private List<Subcategory> subcategories = new ArrayList<>();
+    private SubcategoryViewModel subcategoryViewModel;
+
+    public SubcategoryAdapter(SubcategoryViewModel subcategoryViewModel) {
+        this.subcategoryViewModel = subcategoryViewModel;
+    }
 
     public void setSubcategories(List<Subcategory> subcategories) {
         this.subcategories = subcategories;
@@ -53,6 +58,10 @@ public class SubcategoryAdapter extends RecyclerView.Adapter<SubcategoryAdapter.
 
         public void bind(Subcategory subcategory, int position) {
             this.binding.subcategoryLabel.setText(subcategory.getSubName());
+
+            this.binding.buttonSubDelete.setOnClickListener(view -> {
+                subcategoryViewModel.deleteSubcategory(subcategories.get(position).getId());
+            });
         }
     }
 }

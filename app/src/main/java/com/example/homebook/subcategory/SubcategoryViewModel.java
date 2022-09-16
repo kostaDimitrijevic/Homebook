@@ -48,5 +48,10 @@ public class SubcategoryViewModel extends ViewModel {
 
     public void setCurrentCategoryId(long currentCategoryId) {
         this.currentCategoryId = currentCategoryId;
+        this.savedStateHandle.set(CURRENT_CATEGORY, currentCategoryId);
+    }
+
+    public void deleteSubcategory(long id) {
+        this.subcategoryRepository.deleteSubcategory(id);
     }
 }

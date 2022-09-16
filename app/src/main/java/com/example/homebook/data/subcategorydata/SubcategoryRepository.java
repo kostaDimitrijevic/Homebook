@@ -28,4 +28,10 @@ public class SubcategoryRepository {
     public LiveData<List<Subcategory>> getSubcategoriesByCatId(long categoryId){
         return subcategoryDao.getSubcategoriesByCatId(categoryId);
     }
+
+    public void deleteSubcategory(long id) {
+        executorService.submit(() -> {
+            subcategoryDao.delete(id);
+        });
+    }
 }
