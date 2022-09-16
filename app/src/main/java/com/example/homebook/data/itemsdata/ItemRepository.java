@@ -18,10 +18,10 @@ public class ItemRepository {
         this.executorService = executorService;
     }
 
-    public void insert(Item item){
+    public void insert(String itemName, long idC, int amount){
 
         executorService.submit(() -> {
-            itemDao.insert(item);
+            itemDao.insert(itemName, idC, amount);
         });
     }
 

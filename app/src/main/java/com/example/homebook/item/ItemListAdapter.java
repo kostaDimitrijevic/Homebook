@@ -35,7 +35,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
 
     @Override
     public void onBindViewHolder(@NonNull ItemListViewHolder holder, int position) {
-        holder.bind(itemList.get(position));
+        holder.bind(itemList.get(position), position);
     }
 
     @Override
@@ -52,11 +52,19 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
             this.binding = binding;
         }
 
-        public void bind(@NonNull Item item){
+        public void bind(@NonNull Item item, int position){
+
             binding.itemLabel.setText(item.getItemName());
-            binding.itemAmount.setText(String.valueOf(item.getAmount()));
             if(item.getAmount() == 0){
-                binding.itemLayout.setBackgroundColor(Color.RED);
+                binding.itemAmount.setText("OUT OF STOCK!");
+                binding.itemAmount.setTextColor(Color.RED);
+                binding.itemCountLabel.setText("");
+            }
+            else{
+                binding.itemAmount.setText(String.valueOf(item.getAmount()));
+                binding.itemAmount.setTextColor(Color.BLACK);
+                binding.itemCountLabel.setText("Amount:");
+                binding.itemCountLabel.setTextColor(Color.BLACK);
             }
         }
     }

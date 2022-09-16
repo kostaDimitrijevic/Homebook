@@ -30,10 +30,11 @@ public class Item {
 
     long idC;
 
-    public Item(long id, @NonNull String itemName, long idC) {
+    public Item(long id, @NonNull String itemName, long idC, int amount) {
         this.id = id;
         this.itemName = itemName;
         this.idC = idC;
+        this.amount = amount;
     }
 
     public long getId() {

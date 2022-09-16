@@ -50,6 +50,6 @@ public class ItemViewModel extends ViewModel {
     }
 
     public void insertItem(Item item){
-        itemRepository.insert(item);
+        itemRepository.insert(item.getItemName(), item.getIdC(), item.getAmount());
     }
 }

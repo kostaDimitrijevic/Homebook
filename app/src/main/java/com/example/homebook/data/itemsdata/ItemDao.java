@@ -10,8 +10,8 @@ import java.util.List;
 @Dao
 public interface ItemDao {
 
-    @Insert
-    long insert(Item item);
+    @Query("INSERT INTO items ('itemName', 'idC', 'amount') VALUES(:itemName, :idC, :amount)")
+    long insert(String itemName, long idC, int amount);
 
     @Query("SELECT * FROM items WHERE idC=:categoryId")
     LiveData<List<Item>> getAllItemsByCategoryId(long categoryId);

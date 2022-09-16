@@ -35,5 +35,11 @@
         android:id="@+id/itemCreateFragment"
         android:name="com.example.homebook.item.ItemCreateFragment"
         android:label="fragment_item_create"
-        tools:layout="@layout/fragment_item_create" />
+        tools:layout="@layout/fragment_item_create">
+        <argument
+            android:name="categoryId"
+            android:defaultValue="0L"
+            app:argType="long"/>
+    </fragment>
+
 </navigation>

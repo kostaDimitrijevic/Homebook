@@ -1,5 +1,6 @@
 package com.example.homebook.item;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -50,6 +52,12 @@ public class ItemListFragment extends Fragment {
         binding.toolbar.setTitle(ItemListFragmentArgs.fromBundle(requireArguments()).getCategoryName());
         binding.recyclerView.setAdapter(itemListAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
+
+        binding.addItem.setOnClickListener(view -> {
+            ItemListFragmentDirections.ActionCreate action = ItemListFragmentDirections.actionCreate();
+            action.setCategoryId(itemViewModel.getCurrentCategoryId());
+            navController.navigate(action);
+        });
         return binding.getRoot();
     }
 

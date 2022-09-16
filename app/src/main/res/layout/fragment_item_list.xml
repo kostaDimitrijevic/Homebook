@@ -24,7 +24,7 @@
         tools:listitem="@layout/view_holder_item" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/extended_fab"
+        android:id="@+id/add_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
