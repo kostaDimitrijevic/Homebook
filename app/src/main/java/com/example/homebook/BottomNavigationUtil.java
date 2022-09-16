@@ -22,6 +22,7 @@ public class BottomNavigationUtil {
     }
 
     private static NavHostFragmentChanger navHostFragmentChanger;
+    private static boolean login_passed = false;
 
     public static void setup(
             BottomNavigationView bottomNavigationView,
@@ -42,14 +43,14 @@ public class BottomNavigationUtil {
                 homeNavGraphId = navGraphId;
             }
 
-            if(navGraphId == R.id.nav_graph_login){
+            if(navGraphId == R.id.nav_graph_login && !login_passed){
                 attachNavHostFragment(fragmentManager, navHostFragment, i == 0);
             }
             else{
-                if(bottomNavigationView.getSelectedItemId() == navGraphId && bottomNavigationView.getVisibility() == View.VISIBLE){
+                if(bottomNavigationView.getSelectedItemId() == navGraphId && login_passed){
                     attachNavHostFragment(fragmentManager, navHostFragment, i == 0);
                 }
-                else{
+                else if(navGraphId != R.id.nav_graph_login){
                     detachNavHostFragment(fragmentManager, navHostFragment);
                 }
             }
@@ -96,6 +97,7 @@ public class BottomNavigationUtil {
                     isOnHomeWrapper.set(dstTag.equals(homeTag));
 
                     if(bottomNavigationView.getVisibility() != View.VISIBLE){
+                        login_passed = true;
                         bottomNavigationView.setVisibility(View.VISIBLE);
                     }
 
@@ -116,6 +118,7 @@ public class BottomNavigationUtil {
             if(!isOnHomeWrapper.get() && !isOnBackStack(fragmentManager, homeTag)){
                 currentTagWrapper.set(homeTag);
                 bottomNavigationView.setVisibility(View.GONE);
+                login_passed = false;
             }
         });
     }
