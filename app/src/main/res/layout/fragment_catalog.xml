@@ -12,18 +12,20 @@
         android:layout_height="0dp"
         tools:listitem="@layout/view_holder_catalog"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/add_catalog_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="@string/add_category"
+        android:text="@string/add_list"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:backgroundTint="@color/teal_200"
+        app:backgroundTint="#0A03DA"
         app:icon="@drawable/baseline_add_20"
         app:iconTint="@color/white"/>
 
