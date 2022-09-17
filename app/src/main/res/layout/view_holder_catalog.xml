@@ -4,38 +4,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
-
+        android:padding="16dp"
+        >
         <TextView
-            android:id="@+id/subcategory_label"
+            android:id="@+id/catalog_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceHeadline5"
-            android:textStyle="bold"
-            tools:text="Subcategory"
-            />
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="@tools:sample/date/ddmmyy" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/catalog_label"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            tools:text="Shopping list" />
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/button_sub_items"
+                android:id="@+id/button_show_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="@string/button_show_items"
+                android:text="@string/button_show_list"
                 style="?attr/materialButtonOutlinedStyle"
                 />
 
             <Button
-                android:id="@+id/button_sub_delete"
+                android:id="@+id/button_delete_list"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 app:backgroundTint="@color/white"
@@ -45,13 +50,6 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 />
         </LinearLayout>
-
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:dividerInsetStart="16dp"
-            app:dividerInsetEnd="16dp"/>
-
     </LinearLayout>
+
 </com.google.android.material.card.MaterialCardView>

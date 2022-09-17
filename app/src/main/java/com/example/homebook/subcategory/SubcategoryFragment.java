@@ -28,6 +28,7 @@ public class SubcategoryFragment extends Fragment {
     private MainActivity mainActivity;
     private NavController navController;
     private SubcategoryViewModel subcategoryViewModel;
+    private long idCat;
 
     public SubcategoryFragment() {
         // Required empty public constructor
@@ -48,10 +49,17 @@ public class SubcategoryFragment extends Fragment {
         binding = FragmentSubcategoryBinding.inflate(inflater, container, false);
         binding.toolbarSub.setTitle(SubcategoryFragmentArgs.fromBundle(requireArguments()).getCategoryName() + "  -> SUBCATEGORIES:");
 
-        long idCat = SubcategoryFragmentArgs.fromBundle(requireArguments()).getCategoryId();
+        idCat = SubcategoryFragmentArgs.fromBundle(requireArguments()).getCategoryId();
         subcategoryViewModel.setCurrentCategoryId(idCat);
 
-        SubcategoryAdapter subcategoryAdapter = new SubcategoryAdapter(subcategoryViewModel);
+        SubcategoryAdapter subcategoryAdapter = new SubcategoryAdapter(subcategoryViewModel, subId -> {
+            SubcategoryFragmentDirections.ActionSubItem action = SubcategoryFragmentDirections.actionSubItem();
+            action.setCategoryId(idCat);
+            action.setSubcategoryId(subId);
+            action.setCategoryName(subcategoryViewModel.getSubcategoryNameById(subId));
+            action.setIsCategory(false);
+            navController.navigate(action);
+        });
         subcategoryViewModel.getSubcategories().observe(getViewLifecycleOwner(), subcategoryAdapter::setSubcategories);
 
         binding.recyclerViewSub.setAdapter(subcategoryAdapter);

@@ -10,11 +10,14 @@ import java.util.List;
 @Dao
 public interface ItemDao {
 
-    @Query("INSERT INTO items ('itemName', 'idC', 'amount') VALUES(:itemName, :idC, :amount)")
-    long insert(String itemName, long idC, int amount);
+    @Query("INSERT INTO items ('itemName', 'idC', 'idS', 'amount') VALUES(:itemName, :idC, :idS, :amount)")
+    long insert(String itemName, long idC, Long idS, int amount);
 
     @Query("SELECT * FROM items WHERE idC=:categoryId")
     LiveData<List<Item>> getAllItemsByCategoryId(long categoryId);
+
+    @Query("SELECT * FROM items WHERE idS=:subcategoryId")
+    LiveData<List<Item>> getAllItemsBySubcategoryId(long subcategoryId);
 
     @Query("DELETE FROM items WHERE id=:id")
     void delete(long id);

@@ -18,4 +18,7 @@ public interface SubcategoryDao {
 
     @Query("DELETE FROM subcategory WHERE id=:id")
     void delete(long id);
+
+    @Query("SELECT subName FROM subcategory WHERE id=:id")
+    String getSubcategoryNameById(long id);
 }

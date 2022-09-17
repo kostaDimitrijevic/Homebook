@@ -71,6 +71,7 @@ public class CategoryFragment extends Fragment {
            CategoryFragmentDirections.ActionItemList action = CategoryFragmentDirections.actionItemList();
            action.setCategoryId(categoryId);
            action.setCategoryName(category);
+           action.setIsCategory(true);
            navController.navigate(action);
        }, category -> {
            long categoryId = categoryViewModel.getCategoryIdByName(category);

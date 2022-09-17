@@ -44,10 +44,22 @@ public class ItemListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = FragmentItemListBinding.inflate(inflater, container, false);
-        itemViewModel.setCurrentCategoryId(ItemListFragmentArgs.fromBundle(requireArguments()).getCategoryId());
+        itemViewModel.setForCategory(ItemListFragmentArgs.fromBundle(requireArguments()).getIsCategory());
+        if(itemViewModel.isForCategory()){
+            itemViewModel.setCurrentCategoryId(ItemListFragmentArgs.fromBundle(requireArguments()).getCategoryId());
+        }
+        else{
+            itemViewModel.setCurrentCategoryId(ItemListFragmentArgs.fromBundle(requireArguments()).getCategoryId());
+            itemViewModel.setCurrentSubcategoryId(ItemListFragmentArgs.fromBundle(requireArguments()).getSubcategoryId());
+        }
 
         ItemListAdapter itemListAdapter = new ItemListAdapter(itemViewModel);
-        itemViewModel.getItemList().observe(getViewLifecycleOwner(), itemListAdapter::setItemList);
+        if(itemViewModel.isForCategory()) {
+            itemViewModel.getItemList().observe(getViewLifecycleOwner(), itemListAdapter::setItemList);
+        }
+        else{
+            itemViewModel.getSubItemList().observe(getViewLifecycleOwner(), itemListAdapter::setItemList);
+        }
 
         binding.toolbar.setTitle(ItemListFragmentArgs.fromBundle(requireArguments()).getCategoryName());
         binding.recyclerView.setAdapter(itemListAdapter);
@@ -56,6 +68,12 @@ public class ItemListFragment extends Fragment {
         binding.addItem.setOnClickListener(view -> {
             ItemListFragmentDirections.ActionCreate action = ItemListFragmentDirections.actionCreate();
             action.setCategoryId(itemViewModel.getCurrentCategoryId());
+            if(itemViewModel.isForCategory()){
+                action.setSubcategoryId(-1);
+            }
+            else{
+                action.setSubcategoryId(ItemListFragmentArgs.fromBundle(requireArguments()).getSubcategoryId());
+            }
             navController.navigate(action);
         });
         return binding.getRoot();

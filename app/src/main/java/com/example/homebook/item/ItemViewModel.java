@@ -20,11 +20,17 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class ItemViewModel extends ViewModel {
 
     private final LiveData<List<Item>> itemList;
+    private final LiveData<List<Item>> subItemList;
+
     private final SavedStateHandle savedStateHandle;
     private final ItemRepository itemRepository;
+
     private long currentCategoryId;
+    private long currentSubcategoryId;
+    private boolean forCategory = true;
 
     private static final String CURRENT_CATEGORY ="current-category";
+    private static final String CURRENT_SUBCATEGORY = "current-subcategory";
 
     @Inject
     public ItemViewModel(@NonNull SavedStateHandle savedStateHandle, ItemRepository itemRepository) {
@@ -32,8 +38,12 @@ public class ItemViewModel extends ViewModel {
         this.savedStateHandle = savedStateHandle;
         this.itemRepository = itemRepository;
 
-        itemList = Transformations.switchMap(this.savedStateHandle.getLiveData(CURRENT_CATEGORY, 0L),
-                (Function<Long, LiveData<List<Item>>>) this.itemRepository::getAllItemsByCategoryId);
+            itemList = Transformations.switchMap(this.savedStateHandle.getLiveData(CURRENT_CATEGORY, 0L),
+                    (Function<Long, LiveData<List<Item>>>) this.itemRepository::getAllItemsByCategoryId);
+
+            subItemList = Transformations.switchMap(this.savedStateHandle.getLiveData(CURRENT_SUBCATEGORY, 0L),
+                    (Function<Long, LiveData<List<Item>>>) this.itemRepository::getAllItemsBySubcategoryId);
+
     }
 
     public LiveData<List<Item>> getItemList() {
@@ -50,7 +60,7 @@ public class ItemViewModel extends ViewModel {
     }
 
     public void insertItem(Item item){
-        itemRepository.insert(item.getItemName(), item.getIdC(), item.getAmount());
+        itemRepository.insert(item.getItemName(), item.getIdC(), item.getIdS(), item.getAmount());
     }
 
     public void deleteItem(long id){
@@ -59,5 +69,26 @@ public class ItemViewModel extends ViewModel {
 
     public void updateAmount(long id, int amount){
         itemRepository.updateAmount(id, amount);
+    }
+
+    public boolean isForCategory() {
+        return forCategory;
+    }
+
+    public void setForCategory(boolean forCategory) {
+        this.forCategory = forCategory;
+    }
+
+    public long getCurrentSubcategoryId() {
+        return currentSubcategoryId;
+    }
+
+    public void setCurrentSubcategoryId(long currentSubcategoryId) {
+        this.currentSubcategoryId = currentSubcategoryId;
+        this.savedStateHandle.set(CURRENT_SUBCATEGORY, currentSubcategoryId);
+    }
+
+    public LiveData<List<Item>> getSubItemList() {
+        return subItemList;
     }
 }

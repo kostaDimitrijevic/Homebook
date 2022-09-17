@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 import javax.inject.Inject;
 
@@ -33,5 +35,16 @@ public class SubcategoryRepository {
         executorService.submit(() -> {
             subcategoryDao.delete(id);
         });
+    }
+
+    public String getSubcategoryNameById(long id){
+        Future<String> task = executorService.submit(() -> subcategoryDao.getSubcategoryNameById(id));
+
+        try {
+            return task.get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

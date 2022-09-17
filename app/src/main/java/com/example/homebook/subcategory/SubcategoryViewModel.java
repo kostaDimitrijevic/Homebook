@@ -54,4 +54,8 @@ public class SubcategoryViewModel extends ViewModel {
     public void deleteSubcategory(long id) {
         this.subcategoryRepository.deleteSubcategory(id);
     }
+
+    public String getSubcategoryNameById(long id){
+        return this.subcategoryRepository.getSubcategoryNameById(id);
+    }
 }

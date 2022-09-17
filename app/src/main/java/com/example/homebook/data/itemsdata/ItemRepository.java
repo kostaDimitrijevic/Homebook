@@ -18,10 +18,10 @@ public class ItemRepository {
         this.executorService = executorService;
     }
 
-    public void insert(String itemName, long idC, int amount){
+    public void insert(String itemName, long idC, Long idS, int amount){
 
         executorService.submit(() -> {
-            itemDao.insert(itemName, idC, amount);
+            itemDao.insert(itemName, idC, idS, amount);
         });
     }
 
@@ -33,6 +33,10 @@ public class ItemRepository {
 
     public LiveData<List<Item>> getAllItemsByCategoryId(long categoryId){
         return itemDao.getAllItemsByCategoryId(categoryId);
+    }
+
+    public LiveData<List<Item>> getAllItemsBySubcategoryId(long subcategoryId){
+        return itemDao.getAllItemsBySubcategoryId(subcategoryId);
     }
 
     public void updateAmount(long id, int amount){

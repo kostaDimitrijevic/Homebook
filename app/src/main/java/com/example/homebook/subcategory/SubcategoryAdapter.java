@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.homebook.category.CategoryFragmentDirections;
 import com.example.homebook.data.subcategorydata.Subcategory;
 import com.example.homebook.databinding.ViewHolderSubcategoryBinding;
 
@@ -16,11 +17,17 @@ import java.util.zip.Inflater;
 
 public class SubcategoryAdapter extends RecyclerView.Adapter<SubcategoryAdapter.SubcategoryViewHolder> {
 
+    public interface Callback<T>{
+        void Invoke(T parameter);
+    }
+
     private List<Subcategory> subcategories = new ArrayList<>();
     private SubcategoryViewModel subcategoryViewModel;
+    private final Callback<Long> callback;
 
-    public SubcategoryAdapter(SubcategoryViewModel subcategoryViewModel) {
+    public SubcategoryAdapter(SubcategoryViewModel subcategoryViewModel, Callback<Long> callback) {
         this.subcategoryViewModel = subcategoryViewModel;
+        this.callback = callback;
     }
 
     public void setSubcategories(List<Subcategory> subcategories) {
@@ -61,6 +68,10 @@ public class SubcategoryAdapter extends RecyclerView.Adapter<SubcategoryAdapter.
 
             this.binding.buttonSubDelete.setOnClickListener(view -> {
                 subcategoryViewModel.deleteSubcategory(subcategories.get(position).getId());
+            });
+
+            this.binding.buttonSubItems.setOnClickListener(view -> {
+                callback.Invoke(subcategories.get(position).getId());
             });
         }
     }

@@ -77,6 +77,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
             }
 
             this.binding.buttonItemDelete.setOnClickListener(view -> {
+
                 itemViewModel.deleteItem(itemList.get(position).getId());
             });
 

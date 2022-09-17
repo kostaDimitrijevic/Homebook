@@ -11,17 +11,25 @@
     <string name="register_label">REGISTER</string>
     <string name="button_register">REGISTER</string>
     <string name="goto_register"><u>Don\'t have an account, register here</u></string>
+
     <string name="menu_navigation_categories">Categories</string>
-    <string name="menu_navigation_statistic">Statistics</string>
+    <string name="menu_navigation_catalog">Catalog</string>
+    <string name="menu_navigation_analytics">Analytics</string>
+
     <string name="button_subcategories">Subcategories</string>
     <string name="button_show_items">Show items</string>
     <string name="button_amount">Change amount of items</string>
+    <string name="button_show_list">Show list</string>
+
     <string name="add_category">Add category</string>
     <string name="add_item">Add item</string>
+    <string name="add_list">Add list</string>
     <string name="add_subcategory">Add subcategory</string>
+
     <string name="neutral_btn">Cancel</string>
     <string name="decline_btn">Decline</string>
     <string name="accept_btn">Accept</string>
+
     <string name="item_name">Item name</string>
     <string name="item_amount">Item amount</string>
 </resources>
