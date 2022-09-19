@@ -18,6 +18,9 @@ import com.example.homebook.R;
 import com.example.homebook.data.itemsdata.Item;
 import com.example.homebook.databinding.FragmentItemCreateBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class ItemCreateFragment extends Fragment {
 
     private FragmentItemCreateBinding binding;

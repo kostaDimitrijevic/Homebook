@@ -20,6 +20,9 @@ import com.example.homebook.MainActivity;
 import com.example.homebook.R;
 import com.example.homebook.databinding.FragmentItemListBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class ItemListFragment extends Fragment {
 
     private FragmentItemListBinding binding;

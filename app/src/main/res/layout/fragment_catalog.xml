@@ -8,6 +8,7 @@
     tools:context=".catalog.CatalogFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/catalog_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         tools:listitem="@layout/view_holder_catalog"

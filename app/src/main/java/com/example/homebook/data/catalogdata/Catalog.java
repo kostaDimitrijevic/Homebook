@@ -15,6 +15,7 @@ public class Catalog {
 
     private int status;
 
+    @NonNull
     private String date;
 
     public Catalog(long id, @NonNull String catalogName, int status, String date) {

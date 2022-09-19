@@ -22,6 +22,9 @@ import com.example.homebook.data.subcategorydata.Subcategory;
 import com.example.homebook.databinding.FragmentSubcategoryBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class SubcategoryFragment extends Fragment {
 
     private FragmentSubcategoryBinding binding;
