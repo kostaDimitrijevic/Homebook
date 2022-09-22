@@ -16,12 +16,17 @@ import java.util.List;
 
 public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder> {
 
+    public interface Callback<T>{
+        void Invoke(T parameter);
+    }
 
     private List<Catalog> catalogs = new ArrayList<>();
     private CatalogViewModel catalogViewModel;
+    private Callback<String> callback;
 
-    public CatalogAdapter(CatalogViewModel catalogViewModel) {
+    public CatalogAdapter(CatalogViewModel catalogViewModel, Callback<String> callback) {
         this.catalogViewModel = catalogViewModel;
+        this.callback = callback;
     }
 
     public void setCatalogs(List<Catalog> catalogs) {
@@ -69,12 +74,13 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
             }
 
             binding.buttonDeleteList.setOnClickListener(view -> {
+                catalogViewModel.deleteCatalogItems(catalog.getId());
                 catalogViewModel.deleteCatalog(catalog.getId());
             });
 
             binding.buttonShowList.setOnClickListener(view -> {
                 catalogViewModel.setCurrentCatalog(catalog.getId());
-                catalogViewModel.setCatalogName(catalog.getCatalogName());
+                callback.Invoke(catalog.getCatalogName());
             });
         }
     }

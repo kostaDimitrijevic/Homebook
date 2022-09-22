@@ -49,7 +49,12 @@ public class CatalogFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentCatalogBinding.inflate(inflater, container, false);
 
-        CatalogAdapter catalogAdapter = new CatalogAdapter(catalogViewModel);
+        CatalogAdapter catalogAdapter = new CatalogAdapter(catalogViewModel, name ->{
+            CatalogFragmentDirections.ActionToCatalogItems action = CatalogFragmentDirections.actionToCatalogItems();
+            action.setShowCatalog(true);
+            action.setCatalogName(name);
+            navController.navigate(action);
+        });
         catalogViewModel.getAllCatalogs().observe(getViewLifecycleOwner(), catalogAdapter::setCatalogs);
 
         binding.catalogRecyclerView.setAdapter(catalogAdapter);

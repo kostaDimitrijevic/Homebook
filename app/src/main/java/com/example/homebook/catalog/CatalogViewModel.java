@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel;
 import com.example.homebook.data.JoinItemsCatalog;
 import com.example.homebook.data.catalogdata.Catalog;
 import com.example.homebook.data.catalogdata.CatalogRepository;
-import com.example.homebook.data.catalogitemsdata.CatalogItems;
 import com.example.homebook.data.catalogitemsdata.CatalogItemsRepository;
 import com.example.homebook.data.itemsdata.Item;
 
@@ -39,8 +38,8 @@ public class CatalogViewModel extends ViewModel {
         this.catalogItemsRepository = catalogItemsRepository;
 
         catalogList = this.catalogRepository.getAllCatalogs();
-        joinItemsCatalogList = Transformations.switchMap(this.savedStateHandle.getLiveData(CURRENT_CATALOG, 0),
-                (Function<Integer, LiveData<List<JoinItemsCatalog>>>) this.catalogItemsRepository::getItemsForCatalog);
+        joinItemsCatalogList = Transformations.switchMap(this.savedStateHandle.getLiveData(CURRENT_CATALOG, 0L),
+                (Function<Long, LiveData<List<JoinItemsCatalog>>>) this.catalogItemsRepository::getItemsForCatalog);
     }
 
     public long insertCatalog(Catalog catalog){
@@ -49,6 +48,10 @@ public class CatalogViewModel extends ViewModel {
 
     public void deleteCatalog(long idC) {
         this.catalogRepository.delete(idC);
+    }
+
+    public void deleteCatalogItems(long idC) {
+        this.catalogItemsRepository.deleteCatalogItems(idC);
     }
 
     public LiveData<List<Catalog>> getAllCatalogs(){
@@ -63,7 +66,7 @@ public class CatalogViewModel extends ViewModel {
         return joinItemsCatalogList;
     }
 
-    public void setCurrentCatalog(long currentCatalog) {
+    public void setCurrentCatalog(Long currentCatalog) {
         this.currentCatalog = currentCatalog;
         this.savedStateHandle.set(CURRENT_CATALOG, currentCatalog);
     }

@@ -19,4 +19,7 @@ public interface CatalogItemsDao {
 
     @Query("SELECT items.itemName, catalog_items.amount FROM items INNER JOIN catalog_items ON items.id=catalog_items.idI WHERE catalog_items.idC=:idC")
     LiveData<List<JoinItemsCatalog>> getItemsForCatalog(long idC);
+
+    @Query("DELETE FROM catalog_items WHERE idC=:idC")
+    void delete(long idC);
 }

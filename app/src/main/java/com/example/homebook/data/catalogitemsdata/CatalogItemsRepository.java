@@ -26,6 +26,12 @@ public class CatalogItemsRepository {
         });
     }
 
+    public void deleteCatalogItems(long idC){
+        executorService.submit(() -> {
+            catalogItemsDao.delete(idC);
+        });
+    }
+
     public LiveData<List<CatalogItems>> retrieveItemsByCatalog(long idC){
         return catalogItemsDao.retrieveItemsByCatalog(idC);
     }

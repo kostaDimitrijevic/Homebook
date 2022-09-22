@@ -95,6 +95,7 @@ public class CatalogItemsAdapter extends RecyclerView.Adapter<CatalogItemsAdapte
         public void bindNotShow(Item catalogItem, int position) {
             this.binding.listItemLabel.setText(catalogItem.getItemName());
             this.binding.amountToBuy.setText("10");
+            catalogItemsList.get(position).setAmount(10);
             this.binding.amountToBuy.setTextColor(Color.GREEN);
 
             this.binding.buttonAmount.setOnClickListener(view -> {
@@ -129,7 +130,7 @@ public class CatalogItemsAdapter extends RecyclerView.Adapter<CatalogItemsAdapte
 
         public void bindShowCatalog(JoinItemsCatalog joinItem, int position){
             this.binding.listItemLabel.setText(joinItem.getItemName());
-            this.binding.amountToBuy.setText(joinItem.getAmount());
+            this.binding.amountToBuy.setText(String.valueOf(joinItem.getAmount()));
             this.binding.amountToBuy.setTextColor(Color.GREEN);
 
             this.binding.buttonAmount.setVisibility(View.INVISIBLE);
