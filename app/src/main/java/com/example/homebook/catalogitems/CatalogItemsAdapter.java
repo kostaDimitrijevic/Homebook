@@ -4,16 +4,20 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.homebook.R;
 import com.example.homebook.catalog.CatalogViewModel;
 import com.example.homebook.data.catalogdata.Catalog;
 import com.example.homebook.data.catalogitemsdata.CatalogItems;
 import com.example.homebook.data.itemsdata.Item;
 import com.example.homebook.databinding.ViewHolderListBinding;
 import com.example.homebook.services.DateTimeUtil;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,6 +34,11 @@ public class CatalogItemsAdapter extends RecyclerView.Adapter<CatalogItemsAdapte
 
     public void setCatalogItemsList(List<Item> catalogItemsList) {
         this.catalogItemsList = catalogItemsList;
+        notifyDataSetChanged();
+    }
+
+    public List<Item> getCatalogItemsList() {
+        return catalogItemsList;
     }
 
     @NonNull
@@ -66,8 +75,29 @@ public class CatalogItemsAdapter extends RecyclerView.Adapter<CatalogItemsAdapte
             this.binding.amountToBuy.setText("10");
             this.binding.amountToBuy.setTextColor(Color.GREEN);
 
-            Date date = new Date();
-            catalogViewModel.insertCatalog(new Catalog(0, catalogViewModel.getCatalogName(), 0, DateTimeUtil.getSimpleDateFormat().format(date)));
+            this.binding.buttonAmount.setOnClickListener(view -> {
+                final EditText input = new EditText(binding.getRoot().getContext());
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(60, 100);
+                input.setLayoutParams(lp);
+
+                new MaterialAlertDialogBuilder(binding.getRoot().getContext())
+                        .setTitle("Insert name of your category:")
+                        .setView(input)
+                        .setNeutralButton(R.string.neutral_btn, (dialog, which) -> {
+                            // nothing happens
+                        })
+                        .setNegativeButton(R.string.decline_btn, (dialog, which) -> {
+                            // nothing happens
+                        })
+                        .setPositiveButton(R.string.accept_btn, (dialog, which) -> {
+                            String amount = input.getText().toString();
+                            catalogItemsList.get(position).setAmount(Integer.parseInt(amount));
+                            this.binding.amountToBuy.setText(amount);
+                            this.binding.amountToBuy.setTextColor(Color.GREEN);
+                        })
+                        .show();
+            });
+
         }
     }
 }

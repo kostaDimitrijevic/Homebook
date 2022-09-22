@@ -21,10 +21,32 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         tools:listitem="@layout/view_holder_list"
-        tools:itemCount="4"
+        tools:itemCount="3"
         app:layout_constraintTop_toBottomOf="@id/toolbar_catalog_items"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <TextView
+        android:id="@+id/warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/recycler_view_catalog_items"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="TO SAVE LIST CLICK SUBMIT!"
+        android:textColor="#0A03DA"
+        android:textAppearance="?attr/textAppearanceHeadline6"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/submit_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Submit list"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:backgroundTint="#0A03DA"
+        app:icon="@drawable/outline_receipt_24"
+        app:iconTint="@color/white"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

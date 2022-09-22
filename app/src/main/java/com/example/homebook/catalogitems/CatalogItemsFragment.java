@@ -1,5 +1,6 @@
 package com.example.homebook.catalogitems;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,8 +18,14 @@ import android.view.ViewGroup;
 import com.example.homebook.MainActivity;
 import com.example.homebook.R;
 import com.example.homebook.catalog.CatalogViewModel;
+import com.example.homebook.data.catalogdata.Catalog;
+import com.example.homebook.data.itemsdata.Item;
 import com.example.homebook.databinding.FragmentCatalogItemsBinding;
 import com.example.homebook.item.ItemViewModel;
+import com.example.homebook.services.DateTimeUtil;
+
+import java.util.Date;
+import java.util.List;
 
 public class CatalogItemsFragment extends Fragment {
 
@@ -54,6 +61,16 @@ public class CatalogItemsFragment extends Fragment {
         itemViewModel.getAllItemsWithAmountZero().observe(getViewLifecycleOwner(), catalogItemsAdapter::setCatalogItemsList);
         binding.recyclerViewCatalogItems.setAdapter(catalogItemsAdapter);
         binding.recyclerViewCatalogItems.setLayoutManager(new LinearLayoutManager(mainActivity));
+
+        binding.submitList.setOnClickListener(view -> {
+
+            Date date = new Date();
+            long idC = catalogViewModel.insertCatalog(new Catalog(0, catalogViewModel.getCatalogName(), 0, DateTimeUtil.getSimpleDateFormat().format(date)));
+            List<Item> itemsToInsert = catalogItemsAdapter.getCatalogItemsList();
+            for (Item item : itemsToInsert) {
+                this.catalogViewModel.insertItemForCatalog(idC, item);
+            }
+        });
 
         return binding.getRoot();
     }

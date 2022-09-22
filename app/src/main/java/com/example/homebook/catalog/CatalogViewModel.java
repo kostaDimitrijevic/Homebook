@@ -41,18 +41,16 @@ public class CatalogViewModel extends ViewModel {
                 (Function<Integer, LiveData<List<Long>>>) this.catalogItemsRepository::retrieveItemIdsByCatalog);
     }
 
-    public void insertCatalog(Catalog catalog){
-        this.catalogRepository.insert(catalog);
+    public long insertCatalog(Catalog catalog){
+        return this.catalogRepository.insert(catalog);
     }
 
     public LiveData<List<Catalog>> getAllCatalogs(){
         return catalogList;
     }
 
-    public void insertItemsForCatalog(long idC, List<Item> itemList){
-        for (Item item : itemList) {
-            this.catalogItemsRepository.insert(idC, item.getId(), item.getAmount());
-        }
+    public void insertItemForCatalog(long idC, Item item){
+        this.catalogItemsRepository.insert(idC, item.getId(), item.getAmount());
     }
 
     public LiveData<List<Long>> retrieveItemIdsByCatalog(){
