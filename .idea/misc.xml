@@ -12,6 +12,7 @@
         <entry key="..\:/Users/koled/AndroidStudioProjects/Homebook/app/src/main/res/layout/activity_main.xml" value="0.3625" />
         <entry key="..\:/Users/koled/AndroidStudioProjects/Homebook/app/src/main/res/layout/fragment_catalog.xml" value="0.3625" />
         <entry key="..\:/Users/koled/AndroidStudioProjects/Homebook/app/src/main/res/layout/fragment_catalog_create.xml" value="0.3625" />
+        <entry key="..\:/Users/koled/AndroidStudioProjects/Homebook/app/src/main/res/layout/fragment_catalog_items.xml" value="0.3625" />
         <entry key="..\:/Users/koled/AndroidStudioProjects/Homebook/app/src/main/res/layout/fragment_category.xml" value="0.33" />
         <entry key="..\:/Users/koled/AndroidStudioProjects/Homebook/app/src/main/res/layout/fragment_category_create.xml" value="0.3484375" />
         <entry key="..\:/Users/koled/AndroidStudioProjects/Homebook/app/src/main/res/layout/fragment_item_create.xml" value="0.3625" />
@@ -23,6 +24,7 @@
         <entry key="..\:/Users/koled/AndroidStudioProjects/Homebook/app/src/main/res/layout/view_holder_catalog.xml" value="0.3614583333333333" />
         <entry key="..\:/Users/koled/AndroidStudioProjects/Homebook/app/src/main/res/layout/view_holder_category.xml" value="0.33" />
         <entry key="..\:/Users/koled/AndroidStudioProjects/Homebook/app/src/main/res/layout/view_holder_item.xml" value="0.3614583333333333" />
+        <entry key="..\:/Users/koled/AndroidStudioProjects/Homebook/app/src/main/res/layout/view_holder_list.xml" value="0.33" />
         <entry key="..\:/Users/koled/AndroidStudioProjects/Homebook/app/src/main/res/layout/view_holder_subcategory.xml" value="0.3625" />
         <entry key="..\:/Users/koled/AndroidStudioProjects/Homebook/app/src/main/res/menu/main_bottom_navigation.xml" value="0.3625" />
       </map>

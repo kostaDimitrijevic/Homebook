@@ -19,6 +19,9 @@ public interface ItemDao {
     @Query("SELECT * FROM items WHERE idS=:subcategoryId")
     LiveData<List<Item>> getAllItemsBySubcategoryId(long subcategoryId);
 
+    @Query("SELECT * FROM items WHERE amount=0")
+    LiveData<List<Item>> getAllItemsWithAmountZero();
+
     @Query("DELETE FROM items WHERE id=:id")
     void delete(long id);
 

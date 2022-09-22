@@ -9,5 +9,20 @@
         android:id="@+id/catalogFragment"
         android:name="com.example.homebook.catalog.CatalogFragment"
         android:label="fragment_catalog"
-        tools:layout="@layout/fragment_catalog" />
+        tools:layout="@layout/fragment_catalog" >
+        <action
+            android:id="@+id/action_to_catalog_items"
+            app:destination="@id/catalogItemsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/catalogItemsFragment"
+        android:name="com.example.homebook.catalogitems.CatalogItemsFragment"
+        android:label="fragment_catalog_items"
+        tools:layout="@layout/fragment_catalog_items"
+        >
+        <argument
+            android:name="catalogName"
+            android:defaultValue=""
+            app:argType="string"/>
+    </fragment>
 </navigation>

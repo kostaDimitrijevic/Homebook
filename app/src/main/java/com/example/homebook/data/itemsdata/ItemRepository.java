@@ -39,6 +39,10 @@ public class ItemRepository {
         return itemDao.getAllItemsBySubcategoryId(subcategoryId);
     }
 
+    public LiveData<List<Item>> getAllItemsWithAmountZero(){
+        return itemDao.getAllItemsWithAmountZero();
+    }
+
     public void updateAmount(long id, int amount){
         executorService.submit(() -> {
             itemDao.updateAmount(id, amount);

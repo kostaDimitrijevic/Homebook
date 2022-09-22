@@ -13,10 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.example.homebook.MainActivity;
 import com.example.homebook.R;
 import com.example.homebook.databinding.FragmentCatalogBinding;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -51,6 +54,29 @@ public class CatalogFragment extends Fragment {
 
         binding.catalogRecyclerView.setAdapter(catalogAdapter);
         binding.catalogRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
+
+        binding.addCatalogBtn.setOnClickListener(view -> {
+            final EditText input = new EditText(mainActivity);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(60, 100);
+            input.setLayoutParams(lp);
+
+            new MaterialAlertDialogBuilder(mainActivity)
+                    .setTitle("Insert name of your shopping list:")
+                    .setView(input)
+                    .setNeutralButton(R.string.neutral_btn, (dialog, which) -> {
+                        // nothing happens
+                    })
+                    .setNegativeButton(R.string.decline_btn, (dialog, which) -> {
+                        // nothing happens
+                    })
+                    .setPositiveButton(R.string.accept_btn, (dialog, which) -> {
+                        String newCatalog = input.getText().toString();
+                        CatalogFragmentDirections.ActionToCatalogItems action = CatalogFragmentDirections.actionToCatalogItems();
+                        action.setCatalogName(newCatalog);
+                        navController.navigate(action);
+                    })
+                    .show();
+        });
 
         return binding.getRoot();
     }

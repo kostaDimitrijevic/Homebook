@@ -1,5 +1,6 @@
 package com.example.homebook.catalog;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,11 +47,20 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
         public CatalogViewHolder(@NonNull ViewHolderCatalogBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+
         }
 
         public void bind(Catalog catalog, int position){
             binding.catalogDate.setText(catalog.getDate());
             binding.catalogLabel.setText(catalog.getCatalogName());
+            if(catalog.getStatus() == 0){
+                binding.status.setText("ACTIVE");
+                binding.status.setTextColor(Color.GREEN);
+            }
+            else{
+                binding.status.setText("PROCESSED");
+                binding.status.setTextColor(Color.YELLOW);
+            }
         }
     }
 }
