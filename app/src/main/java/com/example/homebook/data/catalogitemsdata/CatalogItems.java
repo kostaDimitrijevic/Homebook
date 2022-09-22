@@ -34,7 +34,9 @@ public class CatalogItems {
     //Item
     long idI;
 
-    public CatalogItems(long id, long idC, long idI) {
+    int amount;
+
+    public CatalogItems(long id, long idC, long idI, int amount) {
         this.id = id;
         this.idC = idC;
         this.idI = idI;
@@ -62,5 +64,13 @@ public class CatalogItems {
 
     public void setIdI(long idI) {
         this.idI = idI;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

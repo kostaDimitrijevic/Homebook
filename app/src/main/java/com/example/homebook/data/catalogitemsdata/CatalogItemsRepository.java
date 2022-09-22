@@ -18,9 +18,9 @@ public class CatalogItemsRepository {
         this.executorService = executorService;
     }
 
-    public void insert(long idC, long idI){
+    public void insert(long idC, long idI, int amount){
         executorService.submit(() -> {
-            catalogItemsDao.insert(idC, idI);
+            catalogItemsDao.insert(idC, idI, amount);
         });
     }
 

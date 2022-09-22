@@ -50,7 +50,7 @@ public class CatalogViewModel extends ViewModel {
 
     public void insertItemsForCatalog(long idC, List<Item> itemList){
         for (Item item : itemList) {
-            this.catalogItemsRepository.insert(idC, item.getId());
+            this.catalogItemsRepository.insert(idC, item.getId(), item.getAmount());
         }
     }
 

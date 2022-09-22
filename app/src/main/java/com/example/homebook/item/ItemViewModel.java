@@ -21,6 +21,7 @@ public class ItemViewModel extends ViewModel {
 
     private final LiveData<List<Item>> itemList;
     private final LiveData<List<Item>> subItemList;
+    private final LiveData<List<Item>> itemsZero;
 
     private final SavedStateHandle savedStateHandle;
     private final ItemRepository itemRepository;
@@ -44,10 +45,16 @@ public class ItemViewModel extends ViewModel {
             subItemList = Transformations.switchMap(this.savedStateHandle.getLiveData(CURRENT_SUBCATEGORY, 0L),
                     (Function<Long, LiveData<List<Item>>>) this.itemRepository::getAllItemsBySubcategoryId);
 
+            itemsZero = this.itemRepository.getAllItemsWithAmountZero();
+
     }
 
     public LiveData<List<Item>> getItemList() {
         return itemList;
+    }
+
+    public LiveData<List<Item>> getAllItemsWithAmountZero(){
+        return itemsZero;
     }
 
     public long getCurrentCategoryId() {
