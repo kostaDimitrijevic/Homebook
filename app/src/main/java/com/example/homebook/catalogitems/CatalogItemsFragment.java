@@ -48,8 +48,9 @@ public class CatalogItemsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentCatalogItemsBinding.inflate(inflater, container, false);
         binding.toolbarCatalogItems.setTitle(CatalogItemsFragmentArgs.fromBundle(requireArguments()).getCatalogName());
+        catalogViewModel.setCatalogName(CatalogItemsFragmentArgs.fromBundle(requireArguments()).getCatalogName());
 
-        CatalogItemsAdapter catalogItemsAdapter = new CatalogItemsAdapter();
+        CatalogItemsAdapter catalogItemsAdapter = new CatalogItemsAdapter(catalogViewModel);
         itemViewModel.getAllItemsWithAmountZero().observe(getViewLifecycleOwner(), catalogItemsAdapter::setCatalogItemsList);
         binding.recyclerViewCatalogItems.setAdapter(catalogItemsAdapter);
         binding.recyclerViewCatalogItems.setLayoutManager(new LinearLayoutManager(mainActivity));

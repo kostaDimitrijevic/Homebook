@@ -28,6 +28,7 @@ public class CatalogViewModel extends ViewModel {
     private LiveData<List<Long>> catalogItemIdsList;
     private long currentCatalog;
     private static final String CURRENT_CATALOG = "current-catalog";
+    private String catalogName;
 
     @Inject
     public CatalogViewModel(SavedStateHandle savedStateHandle, CatalogRepository catalogRepository, CatalogItemsRepository catalogItemsRepository) {
@@ -61,6 +62,14 @@ public class CatalogViewModel extends ViewModel {
     public void setCurrentCatalog(long currentCatalog) {
         this.currentCatalog = currentCatalog;
         this.savedStateHandle.set(CURRENT_CATALOG, currentCatalog);
+    }
+
+    public String getCatalogName() {
+        return catalogName;
+    }
+
+    public void setCatalogName(String catalogName) {
+        this.catalogName = catalogName;
     }
 }
 
