@@ -1,6 +1,7 @@
 package com.example.homebook.catalogitems;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homebook.R;
@@ -49,6 +51,7 @@ public class CatalogItemsAdapter extends RecyclerView.Adapter<CatalogItemsAdapte
         return new ListViewHolder(binding);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         holder.bind(catalogItemsList.get(position), position);
@@ -70,6 +73,7 @@ public class CatalogItemsAdapter extends RecyclerView.Adapter<CatalogItemsAdapte
         }
 
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         public void bind(Item catalogItem, int position) {
             this.binding.listItemLabel.setText(catalogItem.getItemName());
             this.binding.amountToBuy.setText("10");
@@ -96,6 +100,11 @@ public class CatalogItemsAdapter extends RecyclerView.Adapter<CatalogItemsAdapte
                             this.binding.amountToBuy.setTextColor(Color.GREEN);
                         })
                         .show();
+            });
+
+            binding.buttonItemDelete.setOnClickListener(view -> {
+                catalogItemsList.removeIf(item -> item.getId() == catalogItem.getId());
+                notifyItemRemoved(position);
             });
 
         }
