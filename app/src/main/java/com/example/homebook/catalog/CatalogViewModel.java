@@ -6,6 +6,7 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
+import com.example.homebook.data.JoinItemsCatalog;
 import com.example.homebook.data.catalogdata.Catalog;
 import com.example.homebook.data.catalogdata.CatalogRepository;
 import com.example.homebook.data.catalogitemsdata.CatalogItems;
@@ -25,10 +26,11 @@ public class CatalogViewModel extends ViewModel {
     private final CatalogRepository catalogRepository;
     private final CatalogItemsRepository catalogItemsRepository;
     private LiveData<List<Catalog>> catalogList;
-    private LiveData<List<Long>> catalogItemIdsList;
+    private LiveData<List<JoinItemsCatalog>> joinItemsCatalogList;
     private long currentCatalog;
     private static final String CURRENT_CATALOG = "current-catalog";
     private String catalogName;
+    private boolean showCatalog;
 
     @Inject
     public CatalogViewModel(SavedStateHandle savedStateHandle, CatalogRepository catalogRepository, CatalogItemsRepository catalogItemsRepository) {
@@ -37,12 +39,16 @@ public class CatalogViewModel extends ViewModel {
         this.catalogItemsRepository = catalogItemsRepository;
 
         catalogList = this.catalogRepository.getAllCatalogs();
-        catalogItemIdsList = Transformations.switchMap(this.savedStateHandle.getLiveData(CURRENT_CATALOG, 0),
-                (Function<Integer, LiveData<List<Long>>>) this.catalogItemsRepository::retrieveItemIdsByCatalog);
+        joinItemsCatalogList = Transformations.switchMap(this.savedStateHandle.getLiveData(CURRENT_CATALOG, 0),
+                (Function<Integer, LiveData<List<JoinItemsCatalog>>>) this.catalogItemsRepository::getItemsForCatalog);
     }
 
     public long insertCatalog(Catalog catalog){
         return this.catalogRepository.insert(catalog);
+    }
+
+    public void deleteCatalog(long idC) {
+        this.catalogRepository.delete(idC);
     }
 
     public LiveData<List<Catalog>> getAllCatalogs(){
@@ -53,8 +59,8 @@ public class CatalogViewModel extends ViewModel {
         this.catalogItemsRepository.insert(idC, item.getId(), item.getAmount());
     }
 
-    public LiveData<List<Long>> retrieveItemIdsByCatalog(){
-        return catalogItemIdsList;
+    public LiveData<List<JoinItemsCatalog>> getItemsForCatalog(){
+        return joinItemsCatalogList;
     }
 
     public void setCurrentCatalog(long currentCatalog) {
@@ -68,6 +74,14 @@ public class CatalogViewModel extends ViewModel {
 
     public void setCatalogName(String catalogName) {
         this.catalogName = catalogName;
+    }
+
+    public boolean isShowCatalog() {
+        return showCatalog;
+    }
+
+    public void setShowCatalog(boolean showCatalog) {
+        this.showCatalog = showCatalog;
     }
 }
 

@@ -54,11 +54,20 @@ public class CatalogItemsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentCatalogItemsBinding.inflate(inflater, container, false);
+
+        boolean showCatalog = CatalogItemsFragmentArgs.fromBundle(requireArguments()).getShowCatalog();
+        catalogViewModel.setShowCatalog(showCatalog);
         binding.toolbarCatalogItems.setTitle(CatalogItemsFragmentArgs.fromBundle(requireArguments()).getCatalogName());
         catalogViewModel.setCatalogName(CatalogItemsFragmentArgs.fromBundle(requireArguments()).getCatalogName());
-
         CatalogItemsAdapter catalogItemsAdapter = new CatalogItemsAdapter(catalogViewModel);
-        itemViewModel.getAllItemsWithAmountZero().observe(getViewLifecycleOwner(), catalogItemsAdapter::setCatalogItemsList);
+
+        if(showCatalog){
+            catalogViewModel.getItemsForCatalog().observe(getViewLifecycleOwner(), catalogItemsAdapter::setJoinItemsCatalogList);
+        }
+        else{
+            itemViewModel.getAllItemsWithAmountZero().observe(getViewLifecycleOwner(), catalogItemsAdapter::setCatalogItemsList);
+        }
+
         binding.recyclerViewCatalogItems.setAdapter(catalogItemsAdapter);
         binding.recyclerViewCatalogItems.setLayoutManager(new LinearLayoutManager(mainActivity));
 
@@ -70,7 +79,11 @@ public class CatalogItemsFragment extends Fragment {
             for (Item item : itemsToInsert) {
                 this.catalogViewModel.insertItemForCatalog(idC, item);
             }
+
+            navController.navigateUp();
         });
+
+
 
         return binding.getRoot();
     }

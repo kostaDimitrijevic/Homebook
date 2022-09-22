@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homebook.R;
 import com.example.homebook.catalog.CatalogViewModel;
+import com.example.homebook.data.JoinItemsCatalog;
 import com.example.homebook.data.catalogdata.Catalog;
 import com.example.homebook.data.catalogitemsdata.CatalogItems;
 import com.example.homebook.data.itemsdata.Item;
@@ -28,6 +29,7 @@ import java.util.List;
 public class CatalogItemsAdapter extends RecyclerView.Adapter<CatalogItemsAdapter.ListViewHolder> {
 
     private List<Item> catalogItemsList = new ArrayList<>();
+    private List<JoinItemsCatalog> joinItemsCatalogList = new ArrayList();
     private CatalogViewModel catalogViewModel;
 
     public CatalogItemsAdapter(CatalogViewModel catalogViewModel) {
@@ -36,6 +38,11 @@ public class CatalogItemsAdapter extends RecyclerView.Adapter<CatalogItemsAdapte
 
     public void setCatalogItemsList(List<Item> catalogItemsList) {
         this.catalogItemsList = catalogItemsList;
+        notifyDataSetChanged();
+    }
+
+    public void setJoinItemsCatalogList(List<JoinItemsCatalog> joinItemsCatalogList) {
+        this.joinItemsCatalogList = joinItemsCatalogList;
         notifyDataSetChanged();
     }
 
@@ -54,11 +61,22 @@ public class CatalogItemsAdapter extends RecyclerView.Adapter<CatalogItemsAdapte
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
-        holder.bind(catalogItemsList.get(position), position);
+
+        if(catalogViewModel.isShowCatalog()){
+            holder.bindShowCatalog(joinItemsCatalogList.get(position), position);
+        }
+        else{
+            holder.bindNotShow(catalogItemsList.get(position), position);
+        }
+
     }
 
     @Override
     public int getItemCount() {
+
+        if(catalogViewModel.isShowCatalog()){
+            return joinItemsCatalogList.size();
+        }
         return catalogItemsList.size();
     }
 
@@ -74,7 +92,7 @@ public class CatalogItemsAdapter extends RecyclerView.Adapter<CatalogItemsAdapte
 
 
         @RequiresApi(api = Build.VERSION_CODES.N)
-        public void bind(Item catalogItem, int position) {
+        public void bindNotShow(Item catalogItem, int position) {
             this.binding.listItemLabel.setText(catalogItem.getItemName());
             this.binding.amountToBuy.setText("10");
             this.binding.amountToBuy.setTextColor(Color.GREEN);
@@ -106,6 +124,16 @@ public class CatalogItemsAdapter extends RecyclerView.Adapter<CatalogItemsAdapte
                 catalogItemsList.removeIf(item -> item.getId() == catalogItem.getId());
                 notifyItemRemoved(position);
             });
+
+        }
+
+        public void bindShowCatalog(JoinItemsCatalog joinItem, int position){
+            this.binding.listItemLabel.setText(joinItem.getItemName());
+            this.binding.amountToBuy.setText(joinItem.getAmount());
+            this.binding.amountToBuy.setTextColor(Color.GREEN);
+
+            this.binding.buttonAmount.setVisibility(View.INVISIBLE);
+            this.binding.buttonItemDelete.setVisibility(View.INVISIBLE);
 
         }
     }

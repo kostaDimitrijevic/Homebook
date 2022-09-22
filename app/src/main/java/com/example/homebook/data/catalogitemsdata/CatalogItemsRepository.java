@@ -2,6 +2,8 @@ package com.example.homebook.data.catalogitemsdata;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.homebook.data.JoinItemsCatalog;
+
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
@@ -24,7 +26,11 @@ public class CatalogItemsRepository {
         });
     }
 
-    public LiveData<List<Long>> retrieveItemIdsByCatalog(long idC){
-        return catalogItemsDao.retrieveItemIdsByCatalog(idC);
+    public LiveData<List<CatalogItems>> retrieveItemsByCatalog(long idC){
+        return catalogItemsDao.retrieveItemsByCatalog(idC);
+    }
+
+    public LiveData<List<JoinItemsCatalog>> getItemsForCatalog(long idC){
+        return catalogItemsDao.getItemsForCatalog(idC);
     }
 }

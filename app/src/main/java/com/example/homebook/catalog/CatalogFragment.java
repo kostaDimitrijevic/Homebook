@@ -49,7 +49,7 @@ public class CatalogFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentCatalogBinding.inflate(inflater, container, false);
 
-        CatalogAdapter catalogAdapter = new CatalogAdapter();
+        CatalogAdapter catalogAdapter = new CatalogAdapter(catalogViewModel);
         catalogViewModel.getAllCatalogs().observe(getViewLifecycleOwner(), catalogAdapter::setCatalogs);
 
         binding.catalogRecyclerView.setAdapter(catalogAdapter);
@@ -72,6 +72,7 @@ public class CatalogFragment extends Fragment {
                     .setPositiveButton(R.string.accept_btn, (dialog, which) -> {
                         String newCatalog = input.getText().toString();
                         CatalogFragmentDirections.ActionToCatalogItems action = CatalogFragmentDirections.actionToCatalogItems();
+                        action.setShowCatalog(false);
                         action.setCatalogName(newCatalog);
                         navController.navigate(action);
                     })

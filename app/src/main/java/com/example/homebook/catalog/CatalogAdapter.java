@@ -16,7 +16,13 @@ import java.util.List;
 
 public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder> {
 
+
     private List<Catalog> catalogs = new ArrayList<>();
+    private CatalogViewModel catalogViewModel;
+
+    public CatalogAdapter(CatalogViewModel catalogViewModel) {
+        this.catalogViewModel = catalogViewModel;
+    }
 
     public void setCatalogs(List<Catalog> catalogs) {
         this.catalogs = catalogs;
@@ -61,6 +67,15 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
                 binding.status.setText("PROCESSED");
                 binding.status.setTextColor(Color.YELLOW);
             }
+
+            binding.buttonDeleteList.setOnClickListener(view -> {
+                catalogViewModel.deleteCatalog(catalog.getId());
+            });
+
+            binding.buttonShowList.setOnClickListener(view -> {
+                catalogViewModel.setCurrentCatalog(catalog.getId());
+                catalogViewModel.setCatalogName(catalog.getCatalogName());
+            });
         }
     }
 }
