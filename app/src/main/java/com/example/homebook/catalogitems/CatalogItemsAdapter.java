@@ -50,6 +50,10 @@ public class CatalogItemsAdapter extends RecyclerView.Adapter<CatalogItemsAdapte
         return catalogItemsList;
     }
 
+    public void addToCatalogItemsList(List<Item> list){
+        catalogItemsList.addAll(list);
+    }
+
     @NonNull
     @Override
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

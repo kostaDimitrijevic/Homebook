@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.homebook.data.itemsdata.Item;
 import com.example.homebook.data.itemsdata.ItemRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,6 +24,7 @@ public class ItemViewModel extends ViewModel {
     private final LiveData<List<Item>> subItemList;
     private final LiveData<List<Item>> itemsZero;
     private final LiveData<List<Item>> itemsNotZero;
+    private List<Item> itemsToAdd = new ArrayList<>();
 
     private final SavedStateHandle savedStateHandle;
     private final ItemRepository itemRepository;
@@ -61,6 +63,10 @@ public class ItemViewModel extends ViewModel {
 
     public LiveData<List<Item>> getAllItemsWithAmountNotZero() {
         return itemsNotZero;
+    }
+
+    public List<Item> getItemsToAdd() {
+        return itemsToAdd;
     }
 
     public long getCurrentCategoryId() {

@@ -25,6 +25,7 @@ import com.example.homebook.databinding.FragmentCatalogItemsBinding;
 import com.example.homebook.item.ItemViewModel;
 import com.example.homebook.services.DateTimeUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -87,8 +88,14 @@ public class CatalogItemsFragment extends Fragment {
         });
 
         binding.buttonAddMoreItems.setOnClickListener(view -> {
-            NavDirections navDirections = CatalogItemsFragmentDirections.actionOpenDialog();
-            navController.navigate(navDirections);
+            SelectItemDialogFragment selectItemDialogFragment = new SelectItemDialogFragment(itemsToAdd->{
+                if(itemsToAdd.size() > 0){
+                    catalogItemsAdapter.getCatalogItemsList().addAll(itemsToAdd);
+                    catalogItemsAdapter.setCatalogItemsList(catalogItemsAdapter.getCatalogItemsList());
+                    itemViewModel.getItemsToAdd().clear();
+                }
+            });
+            selectItemDialogFragment.show(mainActivity.getSupportFragmentManager(), "select-item-dialog");
         });
 
         return binding.getRoot();
