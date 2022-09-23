@@ -22,6 +22,9 @@ public interface ItemDao {
     @Query("SELECT * FROM items WHERE amount=0")
     LiveData<List<Item>> getAllItemsWithAmountZero();
 
+    @Query("SELECT * FROM items WHERE amount!=0")
+    LiveData<List<Item>> getAllItemsWithAmountNotZero();
+
     @Query("DELETE FROM items WHERE id=:id")
     void delete(long id);
 

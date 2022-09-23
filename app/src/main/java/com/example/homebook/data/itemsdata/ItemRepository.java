@@ -43,6 +43,10 @@ public class ItemRepository {
         return itemDao.getAllItemsWithAmountZero();
     }
 
+    public LiveData<List<Item>> getAllItemsWithAmountNotZero(){
+        return itemDao.getAllItemsWithAmountNotZero();
+    }
+
     public void updateAmount(long id, int amount){
         executorService.submit(() -> {
             itemDao.updateAmount(id, amount);

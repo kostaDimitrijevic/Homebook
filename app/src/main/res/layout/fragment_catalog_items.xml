@@ -26,11 +26,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <Button
+        android:id="@+id/button_add_more_items"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADD MORE ITEMS"
+        style="?attr/materialButtonOutlinedStyle"
+        app:layout_constraintTop_toBottomOf="@id/recycler_view_catalog_items"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
     <TextView
         android:id="@+id/warning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/recycler_view_catalog_items"
+        app:layout_constraintTop_toBottomOf="@id/button_add_more_items"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="TO SAVE LIST CLICK SUBMIT!"

@@ -22,6 +22,7 @@ public class ItemViewModel extends ViewModel {
     private final LiveData<List<Item>> itemList;
     private final LiveData<List<Item>> subItemList;
     private final LiveData<List<Item>> itemsZero;
+    private final LiveData<List<Item>> itemsNotZero;
 
     private final SavedStateHandle savedStateHandle;
     private final ItemRepository itemRepository;
@@ -47,6 +48,7 @@ public class ItemViewModel extends ViewModel {
 
             itemsZero = this.itemRepository.getAllItemsWithAmountZero();
 
+            itemsNotZero = this.itemRepository.getAllItemsWithAmountNotZero();
     }
 
     public LiveData<List<Item>> getItemList() {
@@ -55,6 +57,10 @@ public class ItemViewModel extends ViewModel {
 
     public LiveData<List<Item>> getAllItemsWithAmountZero(){
         return itemsZero;
+    }
+
+    public LiveData<List<Item>> getAllItemsWithAmountNotZero() {
+        return itemsNotZero;
     }
 
     public long getCurrentCategoryId() {
