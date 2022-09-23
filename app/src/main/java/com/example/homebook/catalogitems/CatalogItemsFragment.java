@@ -67,6 +67,8 @@ public class CatalogItemsFragment extends Fragment {
             catalogViewModel.getItemsForCatalog().observe(getViewLifecycleOwner(), catalogItemsAdapter::setJoinItemsCatalogList);
             binding.submitList.setVisibility(View.INVISIBLE);
             binding.warning.setVisibility(View.INVISIBLE);
+            binding.floatingActionButton.setVisibility(View.VISIBLE);
+            binding.floatingActionButton.inflate(R.menu.list_options);
         }
         else{
             itemViewModel.getAllItemsWithAmountZero().observe(getViewLifecycleOwner(), catalogItemsAdapter::setCatalogItemsList);

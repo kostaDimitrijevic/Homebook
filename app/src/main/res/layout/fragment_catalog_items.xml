@@ -60,4 +60,26 @@
         app:backgroundTint="#0A03DA"
         app:icon="@drawable/outline_receipt_24"
         app:iconTint="@color/white"/>
+
+    <com.leinardi.android.speeddial.SpeedDialOverlayLayout
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:sdMainFabClosedIconColor="@color/white"/>
+
+    <com.leinardi.android.speeddial.SpeedDialView
+        android:id="@+id/floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:sdMainFabClosedSrc="@drawable/outline_add_24"
+        app:sdMainFabClosedBackgroundColor="#0A03DA"
+        app:sdMainFabClosedIconColor="@color/white"
+        app:sdOverlayLayout="@id/overlay"
+        android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
