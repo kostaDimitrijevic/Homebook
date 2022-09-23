@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import com.example.homebook.databinding.ActivityMainBinding;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        binding.bottomNavigation.setVisibility(View.VISIBLE);
         setupBottomNavigation();
     }
 
