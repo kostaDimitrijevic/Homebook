@@ -29,5 +29,13 @@
             android:defaultValue="false"
             app:argType="boolean"
             />
+        <action
+            android:id="@+id/action_show_map"
+            app:destination="@id/homebookMapFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homebookMapFragment"
+        android:name="com.example.homebook.maps.HomebookMapFragment"
+        android:label="fragment_homebook_map"
+        tools:layout="@layout/fragment_homebook_map" />
 </navigation>

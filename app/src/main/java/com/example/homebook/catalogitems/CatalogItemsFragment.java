@@ -69,6 +69,18 @@ public class CatalogItemsFragment extends Fragment {
             binding.warning.setVisibility(View.INVISIBLE);
             binding.floatingActionButton.setVisibility(View.VISIBLE);
             binding.floatingActionButton.inflate(R.menu.list_options);
+
+            binding.floatingActionButton.setOnActionSelectedListener(actionItem -> {
+                switch (actionItem.getId()){
+                    case R.id.list_send:
+                        return false;
+                    case R.id.maps:
+                        navController.navigate(CatalogItemsFragmentDirections.actionShowMap());
+                        return false;
+                }
+
+                return true;
+            });
         }
         else{
             itemViewModel.getAllItemsWithAmountZero().observe(getViewLifecycleOwner(), catalogItemsAdapter::setCatalogItemsList);
@@ -88,6 +100,8 @@ public class CatalogItemsFragment extends Fragment {
 
             navController.navigateUp();
         });
+
+
 
         binding.buttonAddMoreItems.setOnClickListener(view -> {
             SelectItemDialogFragment selectItemDialogFragment = new SelectItemDialogFragment(itemsToAdd->{

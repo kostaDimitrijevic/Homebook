@@ -69,6 +69,10 @@ public class ItemViewModel extends ViewModel {
         return itemsToAdd;
     }
 
+    public LiveData<List<Item>> getSubItemList() {
+        return subItemList;
+    }
+
     public long getCurrentCategoryId() {
         return currentCategoryId;
     }
@@ -107,7 +111,4 @@ public class ItemViewModel extends ViewModel {
         this.savedStateHandle.set(CURRENT_SUBCATEGORY, currentSubcategoryId);
     }
 
-    public LiveData<List<Item>> getSubItemList() {
-        return subItemList;
-    }
 }

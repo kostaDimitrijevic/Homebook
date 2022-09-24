@@ -8,6 +8,9 @@
     a disconnected to a connected network state.
     -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:node="remove"/>
     <application
         android:name=".HomebookApplication"
@@ -23,6 +26,9 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
+            <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB_qsP8AOP_P0MdlPz-48TDaJYjTP3vbjo"/>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
