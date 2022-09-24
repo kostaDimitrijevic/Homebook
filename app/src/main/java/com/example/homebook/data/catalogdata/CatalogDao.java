@@ -9,8 +9,8 @@ import java.util.List;
 @Dao
 public interface CatalogDao {
 
-    @Query("INSERT INTO catalog ('catalogName', 'status', 'date') VALUES(:catalogName, :status, :date)")
-    long insert(String catalogName, int status, String date);
+    @Query("INSERT INTO catalog ('catalogName', 'status', 'user', 'date') VALUES(:catalogName, :status, :user, :date)")
+    long insert(String catalogName, int status, String user, String date);
 
     @Query("DELETE FROM catalog WHERE id=:id")
     void delete(long id);

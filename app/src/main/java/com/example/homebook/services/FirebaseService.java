@@ -49,6 +49,7 @@ public class FirebaseService extends Service {
                     Catalog catalog = data.child("catalog").getValue(Catalog.class);
                     if (catalog.getToUserEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
                         MainActivity.firebaseCatalogList.add(catalog);
+                        reference.child(data.getKey()).removeValue();
                     }
                 }
             }

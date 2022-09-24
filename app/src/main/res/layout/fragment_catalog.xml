@@ -30,19 +30,10 @@
         tools:listitem="@layout/view_holder_catalog"
         tools:itemCount="3"
         app:layout_constraintTop_toBottomOf="@id/toolbar_list"
-        app:layout_constraintBottom_toTopOf="@id/catalog_recycler_view_firebase"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/catalog_recycler_view_firebase"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        tools:listitem="@layout/view_holder_catalog"
-        tools:itemCount="2"
-        app:layout_constraintTop_toBottomOf="@id/catalog_recycler_view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/add_catalog_btn"

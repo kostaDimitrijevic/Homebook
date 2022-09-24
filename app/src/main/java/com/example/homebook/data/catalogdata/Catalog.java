@@ -13,15 +13,19 @@ public class Catalog {
     @NonNull
     private String catalogName;
 
+    @NonNull
+    private String user;
+
     private int status;
 
     @NonNull
     private String date;
 
-    public Catalog(long id, @NonNull String catalogName, int status, String date) {
+    public Catalog(long id, @NonNull String catalogName, int status, String user, String date) {
         this.id = id;
         this.catalogName = catalogName;
         this.status = status;
+        this.user = user;
         this.date = date;
     }
 
@@ -56,5 +60,14 @@ public class Catalog {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    @NonNull
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(@NonNull String user) {
+        this.user = user;
     }
 }

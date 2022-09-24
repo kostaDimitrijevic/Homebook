@@ -101,7 +101,8 @@ public class CatalogItemsFragment extends Fragment {
                                 .setPositiveButton(R.string.accept_btn, (dialog, which) -> {
                                     String toUserEmail = input.getText().toString();
                                     String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-                                    com.example.homebook.data.firebase.Catalog catalog = new com.example.homebook.data.firebase.Catalog(userEmail, toUserEmail, catalogViewModel.getCatalogName(), catalogViewModel.getItemsForCatalog().getValue());
+                                    String date = DateTimeUtil.getSimpleDateFormat().format(new Date());
+                                    com.example.homebook.data.firebase.Catalog catalog = new com.example.homebook.data.firebase.Catalog(userEmail, toUserEmail, catalogViewModel.getCatalogName(), date, 0, catalogViewModel.getItemsForCatalog().getValue());
                                     DatabaseReference reference = FirebaseDatabase.getInstance("https://homebook-e8d20-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Catalogs").push();
                                     Map<String, Object> map = new HashMap<>();
                                     map.put("catalog", catalog);
@@ -138,7 +139,8 @@ public class CatalogItemsFragment extends Fragment {
         binding.submitList.setOnClickListener(view -> {
 
             Date date = new Date();
-            long idC = catalogViewModel.insertCatalog(new Catalog(0, catalogViewModel.getCatalogName(), 0, DateTimeUtil.getSimpleDateFormat().format(date)));
+            String user =  FirebaseAuth.getInstance().getCurrentUser().getEmail();
+            long idC = catalogViewModel.insertCatalog(new Catalog(0, catalogViewModel.getCatalogName(), 0, user, DateTimeUtil.getSimpleDateFormat().format(date)));
             List<Item> itemsToInsert = catalogItemsAdapter.getCatalogItemsList();
             for (Item item : itemsToInsert) {
                 this.catalogViewModel.insertItemForCatalog(idC, item);

@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 
 import com.example.homebook.MainActivity;
 import com.example.homebook.R;
+import com.example.homebook.data.firebase.Catalog;
 import com.example.homebook.databinding.FragmentCatalogBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -41,6 +42,7 @@ public class CatalogFragment extends Fragment {
         mainActivity = (MainActivity) requireActivity();
 
         catalogViewModel = new ViewModelProvider(mainActivity).get(CatalogViewModel.class);
+
     }
 
     @Override
@@ -48,6 +50,13 @@ public class CatalogFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentCatalogBinding.inflate(inflater, container, false);
+
+        if(MainActivity.firebaseCatalogList.size() > 0){
+            for (Catalog catalog: MainActivity.firebaseCatalogList) {
+                catalogViewModel.insertCatalog(new com.example.homebook.data.catalogdata.Catalog(0, catalog.getCatalogName(), 0, catalog.getUserEmail(), catalog.getDate()));
+            }
+
+        }
 
         CatalogAdapter catalogAdapter = new CatalogAdapter(catalogViewModel, name ->{
             CatalogFragmentDirections.ActionToCatalogItems action = CatalogFragmentDirections.actionToCatalogItems();

@@ -64,6 +64,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
         public void bind(Catalog catalog, int position){
             binding.catalogDate.setText(catalog.getDate());
             binding.catalogLabel.setText(catalog.getCatalogName());
+            binding.userList.setText(catalog.getUser());
             if(catalog.getStatus() == 0){
                 binding.status.setText("ACTIVE");
                 binding.status.setTextColor(Color.GREEN);

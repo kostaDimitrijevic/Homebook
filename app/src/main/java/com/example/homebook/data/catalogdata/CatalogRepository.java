@@ -20,7 +20,7 @@ public class CatalogRepository {
     }
 
     public long insert(Catalog catalog){
-        Future<Long> task = executorService.submit(() -> catalogDao.insert(catalog.getCatalogName(), catalog.getStatus(), catalog.getDate()));
+        Future<Long> task = executorService.submit(() -> catalogDao.insert(catalog.getCatalogName(), catalog.getStatus(), catalog.getUser(), catalog.getDate()));
 
         try {
             return task.get();
