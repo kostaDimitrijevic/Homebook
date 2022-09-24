@@ -4,6 +4,9 @@ public class JoinItemsCatalog {
     private String itemName;
     private int amount;
 
+    public JoinItemsCatalog() {
+    }
+
     public JoinItemsCatalog(String itemName, int amount) {
         this.itemName = itemName;
         this.amount = amount;

@@ -32,4 +32,10 @@
 
     <string name="item_name">Item name</string>
     <string name="item_amount">Item amount</string>
+
+    <string name="homebook_notification_channel_name">Grocery list</string>
+    <string name="homebook_notification_content_title">Catalog</string>
+    <string name="homebook_notification_content_text">
+        You have new grocery list in catalog section!
+    </string>
 </resources>
