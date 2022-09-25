@@ -67,14 +67,15 @@ public class MainActivity extends AppCompatActivity {
         int[] navResourceIds = new int[]{
             R.navigation.nav_graph_login,
             R.navigation.nav_graph_category,
-            R.navigation.nav_graph_catalog
+            R.navigation.nav_graph_catalog,
+            R.navigation.nav_graph_analytics
         };
 
         BottomNavigationUtil.setup(
-                binding.bottomNavigation,
-                getSupportFragmentManager(),
-                navResourceIds,
-                R.id.nav_host_conatiner
+            binding.bottomNavigation,
+            getSupportFragmentManager(),
+            navResourceIds,
+            R.id.nav_host_conatiner
         );
     }
 }
