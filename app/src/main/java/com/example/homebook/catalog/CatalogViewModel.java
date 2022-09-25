@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.homebook.data.JoinItemsCatalog;
 import com.example.homebook.data.catalogdata.Catalog;
 import com.example.homebook.data.catalogdata.CatalogRepository;
+import com.example.homebook.data.catalogitemsdata.CatalogItems;
 import com.example.homebook.data.catalogitemsdata.CatalogItemsRepository;
 import com.example.homebook.data.itemsdata.Item;
 
@@ -27,7 +28,6 @@ public class CatalogViewModel extends ViewModel {
     private final CatalogItemsRepository catalogItemsRepository;
     private LiveData<List<Catalog>> catalogList;
     private LiveData<List<JoinItemsCatalog>> joinItemsCatalogList;
-    private List<JoinItemsCatalog> firebaseItemCatalogList = new ArrayList<>();
     private long currentCatalog;
     private static final String CURRENT_CATALOG = "current-catalog";
     private String catalogName;
@@ -60,17 +60,26 @@ public class CatalogViewModel extends ViewModel {
         return catalogList;
     }
 
-    public void insertItemForCatalog(long idC, Item item){
-        this.catalogItemsRepository.insert(idC, item.getId(), item.getAmount());
-    }
 
     public LiveData<List<JoinItemsCatalog>> getItemsForCatalog(){
         return joinItemsCatalogList;
     }
 
+    public List<CatalogItems> getItemIdsByCatalogId(long id){
+        return catalogItemsRepository.retrieveItemIdsByCatalog(id);
+    }
+
+    public void insertItemForCatalog(long idC, Item item){
+        this.catalogItemsRepository.insert(idC, item.getId(), item.getAmount());
+    }
+
     public void setCurrentCatalog(Long currentCatalog) {
         this.currentCatalog = currentCatalog;
         this.savedStateHandle.set(CURRENT_CATALOG, currentCatalog);
+    }
+
+    public void updateStatus(int stat, long idC){
+        catalogRepository.updateStatus(stat, idC);
     }
 
     public long getCurrentCatalog() {
@@ -91,14 +100,6 @@ public class CatalogViewModel extends ViewModel {
 
     public void setShowCatalog(boolean showCatalog) {
         this.showCatalog = showCatalog;
-    }
-
-    public List<JoinItemsCatalog> getFirebaseItemCatalogList() {
-        return firebaseItemCatalogList;
-    }
-
-    public void setFirebaseItemCatalogList(List<JoinItemsCatalog> firebaseItemCatalogList) {
-        this.firebaseItemCatalogList = firebaseItemCatalogList;
     }
 }
 

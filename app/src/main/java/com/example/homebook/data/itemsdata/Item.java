@@ -38,12 +38,12 @@ public class Item {
     int amount;
 
     //category id
-    long idC;
+    Long idC;
 
     //subcategory id
     Long idS;
 
-    public Item(long id, @NonNull String itemName, long idC, Long idS, int amount) {
+    public Item(long id, @NonNull String itemName, Long idC, Long idS, int amount) {
         this.id = id;
         this.itemName = itemName;
         this.idC = idC;
@@ -68,11 +68,11 @@ public class Item {
         this.itemName = itemName;
     }
 
-    public long getIdC() {
+    public Long getIdC() {
         return idC;
     }
 
-    public void setIdC(long idC) {
+    public void setIdC(Long idC) {
         this.idC = idC;
     }
 

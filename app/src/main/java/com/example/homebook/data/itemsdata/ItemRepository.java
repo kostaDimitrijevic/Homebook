@@ -20,7 +20,7 @@ public class ItemRepository {
         this.executorService = executorService;
     }
 
-    public long insert(String itemName, long idC, Long idS, int amount){
+    public long insert(String itemName, Long idC, Long idS, int amount){
 
         Future<Long> future =  executorService.submit(() -> itemDao.insert(itemName, idC, idS, amount));
 
@@ -68,6 +68,12 @@ public class ItemRepository {
     public void updateAmount(long id, int amount){
         executorService.submit(() -> {
             itemDao.updateAmount(id, amount);
+        });
+    }
+
+    public void updateAddToAmount(long id, int amount){
+        executorService.submit(() -> {
+            itemDao.updateAddToAmount(id, amount);
         });
     }
 }

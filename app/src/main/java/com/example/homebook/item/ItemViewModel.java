@@ -115,4 +115,7 @@ public class ItemViewModel extends ViewModel {
         this.savedStateHandle.set(CURRENT_SUBCATEGORY, currentSubcategoryId);
     }
 
+    public void updateAddToAmount(long id, int amount){
+        this.itemRepository.updateAddToAmount(id, amount);
+    }
 }

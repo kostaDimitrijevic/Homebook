@@ -17,4 +17,7 @@ public interface CatalogDao {
 
     @Query("SELECT * FROM catalog")
     LiveData<List<Catalog>> getAllCatalogs();
+
+    @Query("UPDATE catalog SET status=:stat WHERE id=:idC")
+    void updateStatus(int stat, long idC);
 }

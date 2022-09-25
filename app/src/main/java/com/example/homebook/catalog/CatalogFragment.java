@@ -60,7 +60,7 @@ public class CatalogFragment extends Fragment {
                 Catalog catalog = MainActivity.firebaseCatalogList.get(i);
                 long id = catalogViewModel.insertCatalog(new com.example.homebook.data.catalogdata.Catalog(0, catalog.getCatalogName(), 0, catalog.getUserEmail(), catalog.getDate()));
                 for (JoinItemsCatalog joinItem : catalog.getCatalogItems()) {
-                    long idI = itemViewModel.insertItem(new Item(0, joinItem.getItemName(), id, null, joinItem.getAmount()));
+                    long idI = itemViewModel.insertItem(new Item(0, joinItem.getItemName(), null, null, joinItem.getAmount()));
                     Item item = itemViewModel.getItemById(idI);
                     catalogViewModel.insertItemForCatalog(id, item);
                 }

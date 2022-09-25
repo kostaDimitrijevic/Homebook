@@ -36,6 +36,12 @@ public class CatalogRepository {
         });
     }
 
+    public void updateStatus(int stat, long id){
+        executorService.submit(() -> {
+            catalogDao.updateStatus(stat, id);
+        });
+    }
+
     public LiveData<List<Catalog>> getAllCatalogs(){
         return catalogDao.getAllCatalogs();
     }

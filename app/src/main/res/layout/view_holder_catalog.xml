@@ -62,6 +62,15 @@
                 style="?attr/materialButtonOutlinedStyle"
                 />
 
+<!--            <Button-->
+<!--                android:id="@+id/button_close_list"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                android:text="@string/button_show_list"-->
+<!--                style="?attr/materialButtonOutlinedStyle"-->
+<!--                />-->
+
             <Button
                 android:id="@+id/button_delete_list"
                 android:layout_width="50dp"

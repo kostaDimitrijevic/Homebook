@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData;
 import com.example.homebook.data.JoinItemsCatalog;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 import javax.inject.Inject;
 
@@ -32,8 +34,16 @@ public class CatalogItemsRepository {
         });
     }
 
-    public LiveData<List<CatalogItems>> retrieveItemsByCatalog(long idC){
-        return catalogItemsDao.retrieveItemsByCatalog(idC);
+    public List<CatalogItems> retrieveItemIdsByCatalog(long idC){
+
+        Future<List<CatalogItems>> list = executorService.submit(() -> catalogItemsDao.retrieveItemIdsByCatalog(idC));
+
+        try {
+            return list.get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public LiveData<List<JoinItemsCatalog>> getItemsForCatalog(long idC){

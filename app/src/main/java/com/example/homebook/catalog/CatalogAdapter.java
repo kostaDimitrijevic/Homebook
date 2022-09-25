@@ -70,8 +70,8 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
                 binding.status.setTextColor(Color.GREEN);
             }
             else{
-                binding.status.setText("PROCESSED");
-                binding.status.setTextColor(Color.YELLOW);
+                binding.status.setText("CLOSED");
+                binding.status.setTextColor(Color.RED);
             }
 
             binding.buttonDeleteList.setOnClickListener(view -> {

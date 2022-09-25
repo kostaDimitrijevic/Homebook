@@ -21,6 +21,7 @@ import com.example.homebook.MainActivity;
 import com.example.homebook.R;
 import com.example.homebook.catalog.CatalogViewModel;
 import com.example.homebook.data.catalogdata.Catalog;
+import com.example.homebook.data.catalogitemsdata.CatalogItems;
 import com.example.homebook.data.itemsdata.Item;
 import com.example.homebook.databinding.FragmentCatalogItemsBinding;
 import com.example.homebook.item.ItemViewModel;
@@ -77,9 +78,9 @@ public class CatalogItemsFragment extends Fragment {
 
             catalogViewModel.getItemsForCatalog().observe(getViewLifecycleOwner(), catalogItemsAdapter::setJoinItemsCatalogList);
 
-            binding.submitList.setVisibility(View.INVISIBLE);
-            binding.warning.setVisibility(View.INVISIBLE);
-            binding.buttonAddMoreItems.setVisibility(View.INVISIBLE);
+            binding.submitList.setVisibility(View.GONE);
+            binding.warning.setVisibility(View.GONE);
+            binding.buttonAddMoreItems.setVisibility(View.GONE);
             binding.floatingActionButton.setVisibility(View.VISIBLE);
             binding.floatingActionButton.inflate(R.menu.list_options);
 
@@ -111,7 +112,7 @@ public class CatalogItemsFragment extends Fragment {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
-                                                        Toast.makeText(mainActivity, "Shopping list sent to user:" + userEmail, Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(mainActivity, "Shopping list sent to user:" + toUserEmail, Toast.LENGTH_SHORT).show();
                                                     } else {
                                                         Toast.makeText(mainActivity, "Error, SENDING FAILED", Toast.LENGTH_SHORT).show();
                                                     }
@@ -125,6 +126,23 @@ public class CatalogItemsFragment extends Fragment {
                     case R.id.maps:
                         navController.navigate(CatalogItemsFragmentDirections.actionShowMap());
                         return false;
+                    case R.id.close:
+                        List<CatalogItems> items = catalogViewModel.getItemIdsByCatalogId(catalogViewModel.getCurrentCatalog());
+                        if(userCatalog.equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                            for (CatalogItems i : items) {
+                                itemViewModel.updateAddToAmount(i.getIdI(), i.getAmount());
+                            }
+                            catalogViewModel.updateStatus(1, catalogViewModel.getCurrentCatalog());
+                        }
+                        else{
+                            for (CatalogItems i : items) {
+                                itemViewModel.deleteItem(i.getIdI());
+                            }
+                            catalogViewModel.deleteCatalogItems(catalogViewModel.getCurrentCatalog());
+                            catalogViewModel.deleteCatalog(catalogViewModel.getCurrentCatalog());
+                        }
+
+                        navController.navigateUp();
                 }
 
                 return true;
