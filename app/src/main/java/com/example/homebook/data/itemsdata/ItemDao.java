@@ -28,6 +28,9 @@ public interface ItemDao {
     @Query("DELETE FROM items WHERE id=:id")
     void delete(long id);
 
+    @Query("SELECT * FROM items WHERE id=:id")
+    Item getItemById(long id);
+
     @Query("UPDATE items SET amount=:amount WHERE id=:id")
     void updateAmount(long id, int amount);
 }

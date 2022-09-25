@@ -5,6 +5,7 @@ import com.example.homebook.data.JoinItemsCatalog;
 import java.util.List;
 
 public class Catalog {
+    private long id;
     private String userEmail;
     private String toUserEmail;
     private String catalogName;
@@ -70,5 +71,13 @@ public class Catalog {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

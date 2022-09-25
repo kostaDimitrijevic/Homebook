@@ -82,12 +82,16 @@ public class ItemViewModel extends ViewModel {
         savedStateHandle.set(CURRENT_CATEGORY, currentCategoryId);
     }
 
-    public void insertItem(Item item){
-        itemRepository.insert(item.getItemName(), item.getIdC(), item.getIdS(), item.getAmount());
+    public long insertItem(Item item){
+        return itemRepository.insert(item.getItemName(), item.getIdC(), item.getIdS(), item.getAmount());
     }
 
     public void deleteItem(long id){
         itemRepository.delete(id);
+    }
+
+    public Item getItemById(long id){
+        return itemRepository.getItemById(id);
     }
 
     public void updateAmount(long id, int amount){

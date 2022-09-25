@@ -18,8 +18,11 @@ import android.widget.LinearLayout;
 
 import com.example.homebook.MainActivity;
 import com.example.homebook.R;
+import com.example.homebook.data.JoinItemsCatalog;
 import com.example.homebook.data.firebase.Catalog;
+import com.example.homebook.data.itemsdata.Item;
 import com.example.homebook.databinding.FragmentCatalogBinding;
+import com.example.homebook.item.ItemViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -30,6 +33,7 @@ public class CatalogFragment extends Fragment {
     private FragmentCatalogBinding binding;
     private MainActivity mainActivity;
     private CatalogViewModel catalogViewModel;
+    private ItemViewModel itemViewModel;
     private NavController navController;
 
     public CatalogFragment() {
@@ -42,7 +46,7 @@ public class CatalogFragment extends Fragment {
         mainActivity = (MainActivity) requireActivity();
 
         catalogViewModel = new ViewModelProvider(mainActivity).get(CatalogViewModel.class);
-
+        itemViewModel = new ViewModelProvider(mainActivity).get(ItemViewModel.class);
     }
 
     @Override
@@ -52,14 +56,20 @@ public class CatalogFragment extends Fragment {
         binding = FragmentCatalogBinding.inflate(inflater, container, false);
 
         if(MainActivity.firebaseCatalogList.size() > 0){
-            for (Catalog catalog: MainActivity.firebaseCatalogList) {
-                catalogViewModel.insertCatalog(new com.example.homebook.data.catalogdata.Catalog(0, catalog.getCatalogName(), 0, catalog.getUserEmail(), catalog.getDate()));
+            for (int i = MainActivity.readFirebaseCatalogs; i < MainActivity.firebaseCatalogList.size(); i = ++MainActivity.readFirebaseCatalogs) {
+                Catalog catalog = MainActivity.firebaseCatalogList.get(i);
+                long id = catalogViewModel.insertCatalog(new com.example.homebook.data.catalogdata.Catalog(0, catalog.getCatalogName(), 0, catalog.getUserEmail(), catalog.getDate()));
+                for (JoinItemsCatalog joinItem : catalog.getCatalogItems()) {
+                    long idI = itemViewModel.insertItem(new Item(0, joinItem.getItemName(), id, null, joinItem.getAmount()));
+                    Item item = itemViewModel.getItemById(idI);
+                    catalogViewModel.insertItemForCatalog(id, item);
+                }
             }
-
         }
 
-        CatalogAdapter catalogAdapter = new CatalogAdapter(catalogViewModel, name ->{
+        CatalogAdapter catalogAdapter = new CatalogAdapter(catalogViewModel, (name, user) ->{
             CatalogFragmentDirections.ActionToCatalogItems action = CatalogFragmentDirections.actionToCatalogItems();
+            action.setUserCatalog(user);
             action.setShowCatalog(true);
             action.setCatalogName(name);
             navController.navigate(action);

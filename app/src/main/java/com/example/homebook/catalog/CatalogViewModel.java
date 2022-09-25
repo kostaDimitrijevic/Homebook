@@ -12,6 +12,7 @@ import com.example.homebook.data.catalogdata.CatalogRepository;
 import com.example.homebook.data.catalogitemsdata.CatalogItemsRepository;
 import com.example.homebook.data.itemsdata.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -26,6 +27,7 @@ public class CatalogViewModel extends ViewModel {
     private final CatalogItemsRepository catalogItemsRepository;
     private LiveData<List<Catalog>> catalogList;
     private LiveData<List<JoinItemsCatalog>> joinItemsCatalogList;
+    private List<JoinItemsCatalog> firebaseItemCatalogList = new ArrayList<>();
     private long currentCatalog;
     private static final String CURRENT_CATALOG = "current-catalog";
     private String catalogName;
@@ -71,6 +73,10 @@ public class CatalogViewModel extends ViewModel {
         this.savedStateHandle.set(CURRENT_CATALOG, currentCatalog);
     }
 
+    public long getCurrentCatalog() {
+        return currentCatalog;
+    }
+
     public String getCatalogName() {
         return catalogName;
     }
@@ -85,6 +91,14 @@ public class CatalogViewModel extends ViewModel {
 
     public void setShowCatalog(boolean showCatalog) {
         this.showCatalog = showCatalog;
+    }
+
+    public List<JoinItemsCatalog> getFirebaseItemCatalogList() {
+        return firebaseItemCatalogList;
+    }
+
+    public void setFirebaseItemCatalogList(List<JoinItemsCatalog> firebaseItemCatalogList) {
+        this.firebaseItemCatalogList = firebaseItemCatalogList;
     }
 }
 

@@ -25,6 +25,10 @@
             android:defaultValue=""
             app:argType="string"/>
         <argument
+            android:name="userCatalog"
+            android:defaultValue=""
+            app:argType="string"/>
+        <argument
             android:name="showCatalog"
             android:defaultValue="false"
             app:argType="boolean"

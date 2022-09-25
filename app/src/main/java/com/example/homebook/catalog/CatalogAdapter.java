@@ -17,7 +17,7 @@ import java.util.List;
 public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder> {
 
     public interface Callback<T>{
-        void Invoke(T parameter);
+        void Invoke(T parameter, T param);
     }
 
     private List<Catalog> catalogs = new ArrayList<>();
@@ -81,7 +81,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
 
             binding.buttonShowList.setOnClickListener(view -> {
                 catalogViewModel.setCurrentCatalog(catalog.getId());
-                callback.Invoke(catalog.getCatalogName());
+                callback.Invoke(catalog.getCatalogName(), catalog.getUser());
             });
         }
     }

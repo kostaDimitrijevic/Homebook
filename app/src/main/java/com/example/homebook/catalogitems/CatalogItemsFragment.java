@@ -1,6 +1,5 @@
 package com.example.homebook.catalogitems;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,7 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -21,7 +19,6 @@ import android.widget.Toast;
 
 import com.example.homebook.MainActivity;
 import com.example.homebook.R;
-import com.example.homebook.catalog.CatalogFragmentDirections;
 import com.example.homebook.catalog.CatalogViewModel;
 import com.example.homebook.data.catalogdata.Catalog;
 import com.example.homebook.data.itemsdata.Item;
@@ -35,7 +32,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -70,15 +66,20 @@ public class CatalogItemsFragment extends Fragment {
         binding = FragmentCatalogItemsBinding.inflate(inflater, container, false);
 
         boolean showCatalog = CatalogItemsFragmentArgs.fromBundle(requireArguments()).getShowCatalog();
+        String userCatalog = CatalogItemsFragmentArgs.fromBundle(requireArguments()).getUserCatalog();
+
         catalogViewModel.setShowCatalog(showCatalog);
         binding.toolbarCatalogItems.setTitle(CatalogItemsFragmentArgs.fromBundle(requireArguments()).getCatalogName());
         catalogViewModel.setCatalogName(CatalogItemsFragmentArgs.fromBundle(requireArguments()).getCatalogName());
         CatalogItemsAdapter catalogItemsAdapter = new CatalogItemsAdapter(catalogViewModel);
 
         if(showCatalog){
+
             catalogViewModel.getItemsForCatalog().observe(getViewLifecycleOwner(), catalogItemsAdapter::setJoinItemsCatalogList);
+
             binding.submitList.setVisibility(View.INVISIBLE);
             binding.warning.setVisibility(View.INVISIBLE);
+            binding.buttonAddMoreItems.setVisibility(View.INVISIBLE);
             binding.floatingActionButton.setVisibility(View.VISIBLE);
             binding.floatingActionButton.inflate(R.menu.list_options);
 

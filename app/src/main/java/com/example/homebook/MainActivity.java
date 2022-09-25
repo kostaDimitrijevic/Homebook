@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static List<Catalog> firebaseCatalogList = new ArrayList<>();
 
+    public static int readFirebaseCatalogs = 0;
+
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (isGranted) {
