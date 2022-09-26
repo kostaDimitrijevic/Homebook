@@ -6,6 +6,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.homebook.data.analyticsdata.AnalyticsItem;
+import com.example.homebook.data.analyticsdata.AnalyticsItemDao;
 import com.example.homebook.data.catalogdata.Catalog;
 import com.example.homebook.data.catalogdata.CatalogDao;
 import com.example.homebook.data.catalogitemsdata.CatalogItems;
@@ -17,7 +19,7 @@ import com.example.homebook.data.itemsdata.ItemDao;
 import com.example.homebook.data.subcategorydata.Subcategory;
 import com.example.homebook.data.subcategorydata.SubcategoryDao;
 
-@Database(entities = {Category.class, Item.class, Subcategory.class, Catalog.class, CatalogItems.class}, version = 1, exportSchema = false)
+@Database(entities = {Category.class, Item.class, Subcategory.class, Catalog.class, CatalogItems.class, AnalyticsItem.class}, version = 1, exportSchema = false)
 public abstract class HomebookDatabase extends RoomDatabase {
 
     public abstract CategoryDao categoryDao();
@@ -25,6 +27,7 @@ public abstract class HomebookDatabase extends RoomDatabase {
     public abstract SubcategoryDao subcategoryDao();
     public abstract CatalogDao catalogDao();
     public abstract CatalogItemsDao catalogItemsDao();
+    public abstract AnalyticsItemDao analyticsItemDao();
 
     private static volatile HomebookDatabase instance = null;
     private static final String DATABASE_NAME = "homebook.db";

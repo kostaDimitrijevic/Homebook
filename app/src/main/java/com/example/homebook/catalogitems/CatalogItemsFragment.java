@@ -19,7 +19,10 @@ import android.widget.Toast;
 
 import com.example.homebook.MainActivity;
 import com.example.homebook.R;
+import com.example.homebook.analytics.AnalyticsViewModel;
 import com.example.homebook.catalog.CatalogViewModel;
+import com.example.homebook.data.JoinItemsCatalog;
+import com.example.homebook.data.analyticsdata.AnalyticsItem;
 import com.example.homebook.data.catalogdata.Catalog;
 import com.example.homebook.data.catalogitemsdata.CatalogItems;
 import com.example.homebook.data.itemsdata.Item;
@@ -41,8 +44,11 @@ import java.util.Map;
 public class CatalogItemsFragment extends Fragment {
 
     private FragmentCatalogItemsBinding binding;
+
     private CatalogViewModel catalogViewModel;
     private ItemViewModel itemViewModel;
+    private AnalyticsViewModel analyticsViewModel;
+
     private NavController navController;
     private MainActivity mainActivity;
 
@@ -58,7 +64,7 @@ public class CatalogItemsFragment extends Fragment {
 
         itemViewModel = new ViewModelProvider(mainActivity).get(ItemViewModel.class);
         catalogViewModel = new ViewModelProvider(mainActivity).get(CatalogViewModel.class);
-
+        analyticsViewModel = new ViewModelProvider(mainActivity).get(AnalyticsViewModel.class);
     }
 
     @Override
@@ -127,22 +133,35 @@ public class CatalogItemsFragment extends Fragment {
                         navController.navigate(CatalogItemsFragmentDirections.actionShowMap());
                         return false;
                     case R.id.close:
-                        List<CatalogItems> items = catalogViewModel.getItemIdsByCatalogId(catalogViewModel.getCurrentCatalog());
-                        if(userCatalog.equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
-                            for (CatalogItems i : items) {
-                                itemViewModel.updateAddToAmount(i.getIdI(), i.getAmount());
+                        catalogViewModel.getCatalogItems().observe(getViewLifecycleOwner(), catalogItems -> {
+                            List<JoinItemsCatalog> joinItemsCatalogs = catalogViewModel.getItemsForCatalog().getValue();
+                            if(userCatalog.equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                                for (CatalogItems i : catalogItems) {
+                                    itemViewModel.updateAddToAmount(i.getIdI(), i.getAmount());
+                                }
+                                catalogViewModel.deleteCatalogItems(catalogViewModel.getCurrentCatalog());
+                                for(JoinItemsCatalog joinItem : joinItemsCatalogs){
+                                    AnalyticsItem analyticsItem = analyticsViewModel.getItemByName(joinItem.getItemName());
+                                    if(analyticsItem != null){
+                                        analyticsViewModel.update(analyticsItem.getAmountBought(), analyticsItem.getId());
+                                    }
+                                    else{
+                                        analyticsViewModel.insert(joinItem.getItemName(), joinItem.getAmount());
+                                    }
+                                }
+                                catalogViewModel.updateStatus(1, catalogViewModel.getCurrentCatalog());
                             }
-                            catalogViewModel.updateStatus(1, catalogViewModel.getCurrentCatalog());
-                        }
-                        else{
-                            for (CatalogItems i : items) {
-                                itemViewModel.deleteItem(i.getIdI());
+                            else{
+                                for (CatalogItems i : catalogItems) {
+                                    itemViewModel.deleteItem(i.getIdI());
+                                }
+                                catalogViewModel.deleteCatalogItems(catalogViewModel.getCurrentCatalog());
+                                catalogViewModel.deleteCatalog(catalogViewModel.getCurrentCatalog());
                             }
-                            catalogViewModel.deleteCatalogItems(catalogViewModel.getCurrentCatalog());
-                            catalogViewModel.deleteCatalog(catalogViewModel.getCurrentCatalog());
-                        }
 
-                        navController.navigateUp();
+                            navController.navigateUp();
+                        });
+
                 }
 
                 return true;

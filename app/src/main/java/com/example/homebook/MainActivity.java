@@ -47,13 +47,13 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Intent intent = new Intent();
-        intent.setClass(this, FirebaseService.class);
-        this.startService(intent);
-
         if(savedInstanceState == null){
             setupBottomNavigation();
         }
+
+        Intent intent = new Intent();
+        intent.setClass(this, FirebaseService.class);
+        this.startService(intent);
     }
 
     @Override

@@ -40,6 +40,7 @@ public class CatalogItems {
         this.id = id;
         this.idC = idC;
         this.idI = idI;
+        this.amount = amount;
     }
 
     public long getId() {

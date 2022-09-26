@@ -28,6 +28,7 @@ public class CatalogViewModel extends ViewModel {
     private final CatalogItemsRepository catalogItemsRepository;
     private LiveData<List<Catalog>> catalogList;
     private LiveData<List<JoinItemsCatalog>> joinItemsCatalogList;
+    private LiveData<List<CatalogItems>> catalogItemsList;
     private long currentCatalog;
     private static final String CURRENT_CATALOG = "current-catalog";
     private String catalogName;
@@ -42,6 +43,8 @@ public class CatalogViewModel extends ViewModel {
         catalogList = this.catalogRepository.getAllCatalogs();
         joinItemsCatalogList = Transformations.switchMap(this.savedStateHandle.getLiveData(CURRENT_CATALOG, 0L),
                 (Function<Long, LiveData<List<JoinItemsCatalog>>>) this.catalogItemsRepository::getItemsForCatalog);
+        catalogItemsList = Transformations.switchMap(this.savedStateHandle.getLiveData(CURRENT_CATALOG, 0L),
+                (Function<Long, LiveData<List<CatalogItems>>>) this.catalogItemsRepository::retrieveItemIdsByCatalog);
     }
 
     public long insertCatalog(Catalog catalog){
@@ -65,8 +68,8 @@ public class CatalogViewModel extends ViewModel {
         return joinItemsCatalogList;
     }
 
-    public List<CatalogItems> getItemIdsByCatalogId(long id){
-        return catalogItemsRepository.retrieveItemIdsByCatalog(id);
+    public LiveData<List<CatalogItems>> getCatalogItems(){
+        return catalogItemsList;
     }
 
     public void insertItemForCatalog(long idC, Item item){

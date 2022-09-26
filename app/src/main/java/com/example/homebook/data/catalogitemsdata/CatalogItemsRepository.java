@@ -34,16 +34,8 @@ public class CatalogItemsRepository {
         });
     }
 
-    public List<CatalogItems> retrieveItemIdsByCatalog(long idC){
-
-        Future<List<CatalogItems>> list = executorService.submit(() -> catalogItemsDao.retrieveItemIdsByCatalog(idC));
-
-        try {
-            return list.get();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public LiveData<List<CatalogItems>> retrieveItemIdsByCatalog(Long idC){
+        return catalogItemsDao.retrieveItemIdsByCatalog(idC);
     }
 
     public LiveData<List<JoinItemsCatalog>> getItemsForCatalog(long idC){

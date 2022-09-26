@@ -2,6 +2,7 @@ package com.example.homebook.di;
 
 import android.content.Context;
 
+import com.example.homebook.data.analyticsdata.AnalyticsItemDao;
 import com.example.homebook.data.catalogdata.CatalogDao;
 import com.example.homebook.data.catalogitemsdata.CatalogItemsDao;
 import com.example.homebook.data.categorydata.CategoryDao;
@@ -42,5 +43,10 @@ public interface DatabaseModule {
     @Provides
     static CatalogItemsDao provideCatalogItemsDao(@ApplicationContext Context context){
         return HomebookDatabase.getInstance(context).catalogItemsDao();
+    }
+
+    @Provides
+    static AnalyticsItemDao provideAnalyticsItemDao(@ApplicationContext Context context){
+        return HomebookDatabase.getInstance(context).analyticsItemDao();
     }
 }
