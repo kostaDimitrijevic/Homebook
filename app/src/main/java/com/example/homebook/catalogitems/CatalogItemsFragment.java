@@ -139,7 +139,6 @@ public class CatalogItemsFragment extends Fragment {
                                 for (CatalogItems i : catalogItems) {
                                     itemViewModel.updateAddToAmount(i.getIdI(), i.getAmount());
                                 }
-                                catalogViewModel.deleteCatalogItems(catalogViewModel.getCurrentCatalog());
                                 for(JoinItemsCatalog joinItem : joinItemsCatalogs){
                                     AnalyticsItem analyticsItem = analyticsViewModel.getItemByName(joinItem.getItemName());
                                     if(analyticsItem != null){
@@ -149,6 +148,7 @@ public class CatalogItemsFragment extends Fragment {
                                         analyticsViewModel.insert(joinItem.getItemName(), joinItem.getAmount());
                                     }
                                 }
+                                catalogViewModel.updateDate(DateTimeUtil.getSimpleDateFormat().format(new Date()), catalogViewModel.getCurrentCatalog());
                                 catalogViewModel.updateStatus(1, catalogViewModel.getCurrentCatalog());
                             }
                             else{

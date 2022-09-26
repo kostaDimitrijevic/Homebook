@@ -85,6 +85,10 @@ public class CatalogViewModel extends ViewModel {
         catalogRepository.updateStatus(stat, idC);
     }
 
+    public void updateDate(String date, long idC){
+        catalogRepository.updateDate(date, idC);
+    }
+
     public long getCurrentCatalog() {
         return currentCatalog;
     }

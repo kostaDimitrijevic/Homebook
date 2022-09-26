@@ -42,6 +42,12 @@ public class CatalogRepository {
         });
     }
 
+    public void updateDate(String date, long id){
+        executorService.submit(() -> {
+            catalogDao.updateDate(date, id);
+        });
+    }
+
     public LiveData<List<Catalog>> getAllCatalogs(){
         return catalogDao.getAllCatalogs();
     }

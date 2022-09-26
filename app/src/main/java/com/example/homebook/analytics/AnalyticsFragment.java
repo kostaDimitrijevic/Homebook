@@ -51,62 +51,65 @@ public class AnalyticsFragment extends Fragment {
         binding = FragmentAnalyticsBinding.inflate(inflater, container,false);
 
         analyticsViewModel.getAnalyticsItemList().observe(getViewLifecycleOwner(), analyticsItems -> {
-
-            PieChart pieChart = binding.chart;
-            Description description = new Description();
-            description.setText("Top five most purchased items in your inventory");
-            description.setTextSize(15);
-            pieChart.setDescription(description);
-            pieChart.setHoleRadius(0f);
-            pieChart.setTransparentCircleAlpha(0);
-            pieChart.setUsePercentValues(true);
-
-            ArrayList<PieEntry> yEntries = new ArrayList<>();
-            ArrayList<String> xEntries = new ArrayList<>();
-
-            for (int i = 0; i < analyticsItems.size(); i++) {
-                yEntries.add(new PieEntry(analyticsItems.get(i).getAmountBought(), i));
-            }
-
-            for (int i = 0; i < analyticsItems.size(); i++) {
-                xEntries.add(analyticsItems.get(i).getItemName());
-            }
-
-            PieDataSet pieDataSet = new PieDataSet(yEntries, "Item number of purchase");
-            pieDataSet.setSliceSpace(2);
-            pieDataSet.setValueTextSize(12);
-
-            ArrayList<Integer> colors = new ArrayList<>();
-            colors.add(Color.RED);
-            colors.add(Color.BLUE);
-            colors.add(Color.YELLOW);
-            colors.add(Color.MAGENTA);
-            colors.add(Color.GREEN);
-
-            pieDataSet.setColors(colors);
-
-            Legend legend = pieChart.getLegend();
-            legend.setEnabled(true);
-            legend.setTextSize(15);
-            legend.setTextColor(Color.BLACK);
-            legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
-            legend.setForm(Legend.LegendForm.SQUARE);
-
-            List<LegendEntry> legendEntries = new ArrayList<>();
-
-            for (int i = 0; i < analyticsItems.size(); i++) {
-                LegendEntry legendEntry = new LegendEntry();
-                legendEntry.formColor = colors.get(i);
-                legendEntry.label = xEntries.get(i);
-                legendEntries.add(legendEntry);
-            }
-            legend.setCustom(legendEntries);
-
-            PieData pieData = new PieData(pieDataSet);
-            pieChart.setData(pieData);
-            pieChart.invalidate();
+            createPieChart(analyticsItems);
         });
 
         return binding.getRoot();
+    }
+
+    private void createPieChart(List<AnalyticsItem> analyticsItems){
+        PieChart pieChart = binding.chart;
+        Description description = new Description();
+        description.setText("Top five most purchased items in your inventory");
+        description.setTextSize(15);
+        pieChart.setDescription(description);
+        pieChart.setHoleRadius(0f);
+        pieChart.setTransparentCircleAlpha(0);
+        pieChart.setUsePercentValues(true);
+
+        ArrayList<PieEntry> yEntries = new ArrayList<>();
+        ArrayList<String> xEntries = new ArrayList<>();
+
+        for (int i = 0; i < analyticsItems.size(); i++) {
+            yEntries.add(new PieEntry(analyticsItems.get(i).getAmountBought(), i));
+        }
+
+        for (int i = 0; i < analyticsItems.size(); i++) {
+            xEntries.add(analyticsItems.get(i).getItemName());
+        }
+
+        PieDataSet pieDataSet = new PieDataSet(yEntries, "Item number of purchase");
+        pieDataSet.setSliceSpace(2);
+        pieDataSet.setValueTextSize(12);
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.RED);
+        colors.add(Color.BLUE);
+        colors.add(Color.YELLOW);
+        colors.add(Color.MAGENTA);
+        colors.add(Color.GREEN);
+
+        pieDataSet.setColors(colors);
+
+        Legend legend = pieChart.getLegend();
+        legend.setEnabled(true);
+        legend.setTextSize(15);
+        legend.setTextColor(Color.BLACK);
+        legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
+        legend.setForm(Legend.LegendForm.SQUARE);
+
+        List<LegendEntry> legendEntries = new ArrayList<>();
+
+        for (int i = 0; i < analyticsItems.size(); i++) {
+            LegendEntry legendEntry = new LegendEntry();
+            legendEntry.formColor = colors.get(i);
+            legendEntry.label = xEntries.get(i);
+            legendEntries.add(legendEntry);
+        }
+        legend.setCustom(legendEntries);
+
+        PieData pieData = new PieData(pieDataSet);
+        pieChart.setData(pieData);
+        pieChart.invalidate();
     }
 }

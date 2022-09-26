@@ -20,4 +20,7 @@ public interface CatalogDao {
 
     @Query("UPDATE catalog SET status=:stat WHERE id=:idC")
     void updateStatus(int stat, long idC);
+
+    @Query("UPDATE catalog SET date=:date WHERE id=:idC")
+    void updateDate(String date, long idC);
 }
