@@ -51,6 +51,7 @@ public class CatalogItemsFragment extends Fragment {
 
     private NavController navController;
     private MainActivity mainActivity;
+    private boolean submitClicked;
 
     public CatalogItemsFragment() {
         // Required empty public constructor
@@ -71,6 +72,8 @@ public class CatalogItemsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentCatalogItemsBinding.inflate(inflater, container, false);
+
+        submitClicked = false;
 
         boolean showCatalog = CatalogItemsFragmentArgs.fromBundle(requireArguments()).getShowCatalog();
         String userCatalog = CatalogItemsFragmentArgs.fromBundle(requireArguments()).getUserCatalog();
@@ -183,7 +186,7 @@ public class CatalogItemsFragment extends Fragment {
             for (Item item : itemsToInsert) {
                 this.catalogViewModel.insertItemForCatalog(idC, item);
             }
-
+            submitClicked = true;
             navController.navigateUp();
         });
 
@@ -200,6 +203,13 @@ public class CatalogItemsFragment extends Fragment {
             selectItemDialogFragment.show(mainActivity.getSupportFragmentManager(), "select-item-dialog");
         });
 
+        getParentFragmentManager().addOnBackStackChangedListener(() -> {
+            if(!submitClicked){
+                catalogItemsAdapter.getCatalogItemsList().clear();
+            }
+
+        });
+
         return binding.getRoot();
     }
 
@@ -208,4 +218,6 @@ public class CatalogItemsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
     }
+
+
 }

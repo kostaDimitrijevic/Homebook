@@ -45,12 +45,20 @@ public class FirebaseService extends Service {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             if(dataSnapshot.getValue(Catalog.class) != null){
+                boolean newData = false;
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Catalog catalog = data.child("catalog").getValue(Catalog.class);
                     if (catalog.getToUserEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
                         MainActivity.firebaseCatalogList.add(catalog);
                         reference.child(data.getKey()).removeValue();
+                        newData = true;
                     }
+                }
+
+                if (newData){
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getBaseContext());
+
+                    notificationManager.notify(NOTIFICATION_ID, getNotification());
                 }
             }
         }
@@ -73,8 +81,7 @@ public class FirebaseService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
 
-//        createNotificationChannel();
-//        startForeground(NOTIFICATION_ID, getNotification());
+        createNotificationChannel();
 
         if(!serviceStarted){
             serviceStarted = true;
@@ -108,18 +115,18 @@ public class FirebaseService extends Service {
 
     private Notification getNotification(){
 
-        Intent intent = new Intent();
-        intent.setClass(this, MainActivity.class);
-        intent.setAction(MainActivity.INTENT_ACTION_NOTIFICATION);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+//        Intent intent = new Intent();
+//        intent.setClass(this, MainActivity.class);
+//        intent.setAction(MainActivity.INTENT_ACTION_NOTIFICATION);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         return new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.outline_receipt_24)
                 .setContentText(getString(R.string.homebook_notification_content_title))
                 .setContentText(getString(R.string.homebook_notification_content_text))
-                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setColorized(true)
                 .setColor(ContextCompat.getColor(this, R.color.teal_200))
                 .build();
