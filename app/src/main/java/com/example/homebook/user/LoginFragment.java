@@ -77,7 +77,7 @@ public class LoginFragment extends Fragment {
 
     private void login() {
 
-        String email = binding.emailAddress.getEditText().getText().toString();
+        String email = binding.emailAddress.getEditText().getText().toString().trim();
         String password = binding.password.getEditText().getText().toString();
 
         if(email.isEmpty()){

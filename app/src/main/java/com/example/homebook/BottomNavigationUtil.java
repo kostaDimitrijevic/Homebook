@@ -22,7 +22,8 @@ public class BottomNavigationUtil {
     }
 
     private static NavHostFragmentChanger navHostFragmentChanger;
-    private static boolean login_passed = false;
+    public static boolean login_passed = false;
+    private static String homeTag;
 
     public static void setup(
             BottomNavigationView bottomNavigationView,
@@ -50,14 +51,14 @@ public class BottomNavigationUtil {
                 if(bottomNavigationView.getSelectedItemId() == navGraphId && login_passed){
                     attachNavHostFragment(fragmentManager, navHostFragment, i == 0);
                 }
-                else if(navGraphId != R.id.nav_graph_login){
+                else{
                     detachNavHostFragment(fragmentManager, navHostFragment);
                 }
             }
 
         }
 
-        String homeTag = navGraphIdToTagMap.get(homeNavGraphId);
+        homeTag = navGraphIdToTagMap.get(homeNavGraphId);
         AtomicReference<String> currentTagWrapper;
         if(bottomNavigationView.getVisibility() != View.VISIBLE){
             currentTagWrapper = new AtomicReference<>(homeTag);
@@ -182,5 +183,13 @@ public class BottomNavigationUtil {
 
     public static NavController changeNavHostFragment(int id){
         return navHostFragmentChanger.change(id);
+    }
+
+    public String getHomeTag() {
+        return BottomNavigationUtil.homeTag;
+    }
+
+    public void setHomeTag(String homeTag) {
+        BottomNavigationUtil.homeTag = homeTag;
     }
 }

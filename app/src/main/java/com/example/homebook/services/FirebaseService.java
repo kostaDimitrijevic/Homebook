@@ -4,12 +4,14 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -39,13 +41,15 @@ public class FirebaseService extends Service {
     public ExecutorService executorService;
 
     private boolean serviceStarted = false;
+    private boolean newData;
     private DatabaseReference reference;
 
     ValueEventListener postListener = new ValueEventListener() {
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             if(dataSnapshot.getValue(Catalog.class) != null){
-                boolean newData = false;
+               newData = false;
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Catalog catalog = data.child("catalog").getValue(Catalog.class);
                     if (catalog.getToUserEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
@@ -57,8 +61,8 @@ public class FirebaseService extends Service {
 
                 if (newData){
                     NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getBaseContext());
-
                     notificationManager.notify(NOTIFICATION_ID, getNotification());
+                    newData = false;
                 }
             }
         }
@@ -106,28 +110,29 @@ public class FirebaseService extends Service {
     private void createNotificationChannel() {
 
         NotificationChannelCompat notificationChannel = new NotificationChannelCompat
-                .Builder(NOTIFICATION_CHANNEL_ID, NotificationManagerCompat.IMPORTANCE_LOW)
+                .Builder(NOTIFICATION_CHANNEL_ID, NotificationManagerCompat.IMPORTANCE_DEFAULT)
                 .setName(getString(R.string.homebook_notification_channel_name))
                 .build();
 
         NotificationManagerCompat.from(this).createNotificationChannel(notificationChannel);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private Notification getNotification(){
 
-//        Intent intent = new Intent();
-//        intent.setClass(this, MainActivity.class);
-//        intent.setAction(MainActivity.INTENT_ACTION_NOTIFICATION);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//
-//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setAction(MainActivity.INTENT_ACTION_NOTIFICATION);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
         return new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.outline_receipt_24)
                 .setContentText(getString(R.string.homebook_notification_content_title))
                 .setContentText(getString(R.string.homebook_notification_content_text))
+                .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setColorized(true)
+                .setAutoCancel(true)
                 .setColor(ContextCompat.getColor(this, R.color.teal_200))
                 .build();
     }

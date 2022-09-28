@@ -57,7 +57,7 @@ public class RegisterFragment extends Fragment {
     }
 
     private void registerUser(){
-        String email = binding.emailAddress.getEditText().getText().toString();
+        String email = binding.emailAddress.getEditText().getText().toString().trim();
         String password = binding.password.getEditText().getText().toString();
         String firstname = binding.firstname.getEditText().getText().toString();
         String lastname = binding.lastname.getEditText().getText().toString();

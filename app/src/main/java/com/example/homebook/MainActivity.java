@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.homebook.catalog.CatalogFragmentDirections;
 import com.example.homebook.data.firebase.Catalog;
 import com.example.homebook.databinding.ActivityMainBinding;
 import com.example.homebook.services.FirebaseService;
@@ -27,20 +29,11 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    public static final String INTENT_ACTION_NOTIFICATION = "com.example.runningapplication.NOTIFICATION";
+    public static final String INTENT_ACTION_NOTIFICATION = "com.example.homebook.NOTIFICATION";
 
     public static List<Catalog> firebaseCatalogList = new ArrayList<>();
 
     public static int readFirebaseCatalogs = 0;
-
-    private final ActivityResultLauncher<String> requestPermissionLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                if (isGranted) {
-                    // FCM SDK (and your app) can post notifications.
-                } else {
-                    // TODO: Inform user that that your app will not show notifications.
-                }
-            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +42,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         if(savedInstanceState == null){
+            BottomNavigationUtil.login_passed = false;
             setupBottomNavigation();
+        }
+
+        if(getIntent().getAction().equals(INTENT_ACTION_NOTIFICATION)){
+            NavController navController = BottomNavigationUtil.changeNavHostFragment(R.id.bottom_navigation_catalog);
         }
 
         Intent intent = new Intent();
