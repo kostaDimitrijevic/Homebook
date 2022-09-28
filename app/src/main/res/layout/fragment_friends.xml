@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".friends.FriendsFragment">
+
+    <TextView
+        android:id="@+id/your_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your friend list:"
+        android:textAppearance="?attr/textAppearanceHeadline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/your_friends_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/your_friends"
+        tools:listitem="@layout/view_holder_friends"
+        tools:itemCount="3"
+        android:layout_margin="10dp"
+        />
+
+    <TextView
+        android:id="@+id/pending_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pending friend list:"
+        android:textAppearance="?attr/textAppearanceHeadline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/your_friends_recycler_view"
+        android:layout_marginTop="10dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pending_friends_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pending_friends"
+        tools:listitem="@layout/view_holder_friends"
+        tools:itemCount="3"
+        android:layout_margin="10dp"
+        />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/add_new_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="add friend"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:backgroundTint="#0A03DA"
+        app:icon="@drawable/baseline_add_20"
+        app:iconTint="@color/white"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
