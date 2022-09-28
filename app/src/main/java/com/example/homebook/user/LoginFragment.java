@@ -73,6 +73,11 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+        if(savedInstanceState != null){
+            binding.emailAddress.getEditText().setText(savedInstanceState.getString("email"));
+            binding.password.getEditText().setText(savedInstanceState.getString("password"));
+        }
+
     }
 
     private void login() {
@@ -118,5 +123,15 @@ public class LoginFragment extends Fragment {
 
                     binding.loginProgressBar.setVisibility(View.GONE);
                 });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if(binding != null){
+            outState.putString("email", binding.emailAddress.getEditText().getText().toString().trim());
+            outState.putString("password", binding.password.getEditText().getText().toString());
+        }
     }
 }

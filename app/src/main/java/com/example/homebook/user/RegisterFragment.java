@@ -3,6 +3,7 @@ package com.example.homebook.user;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 
@@ -134,5 +135,29 @@ public class RegisterFragment extends Fragment {
                     }
                     binding.registerProgressBar.setVisibility(View.GONE);
                 });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(binding != null){
+            outState.putString("email", binding.emailAddress.getEditText().getText().toString().trim());
+            outState.putString("firstname", binding.firstname.getEditText().getText().toString());
+            outState.putString("lastname", binding.lastname.getEditText().getText().toString());
+            outState.putString("password", binding.password.getEditText().getText().toString());
+            outState.putString("confirm", binding.confirmPassword.getEditText().getText().toString());
+        }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if(savedInstanceState != null){
+            binding.emailAddress.getEditText().setText(savedInstanceState.getString("email"));
+            binding.firstname.getEditText().setText(savedInstanceState.getString("firstname"));
+            binding.lastname.getEditText().setText(savedInstanceState.getString("lastname"));
+            binding.password.getEditText().setText(savedInstanceState.getString("password"));
+            binding.confirmPassword.getEditText().setText(savedInstanceState.getString("confirm"));
+        }
     }
 }
