@@ -14,12 +14,14 @@ import com.example.homebook.data.catalogitemsdata.CatalogItems;
 import com.example.homebook.data.catalogitemsdata.CatalogItemsDao;
 import com.example.homebook.data.categorydata.Category;
 import com.example.homebook.data.categorydata.CategoryDao;
+import com.example.homebook.data.frienddata.Friend;
+import com.example.homebook.data.frienddata.FriendDao;
 import com.example.homebook.data.itemsdata.Item;
 import com.example.homebook.data.itemsdata.ItemDao;
 import com.example.homebook.data.subcategorydata.Subcategory;
 import com.example.homebook.data.subcategorydata.SubcategoryDao;
 
-@Database(entities = {Category.class, Item.class, Subcategory.class, Catalog.class, CatalogItems.class, AnalyticsItem.class}, version = 1, exportSchema = false)
+@Database(entities = {Category.class, Item.class, Subcategory.class, Catalog.class, CatalogItems.class, AnalyticsItem.class, Friend.class}, version = 1, exportSchema = false)
 public abstract class HomebookDatabase extends RoomDatabase {
 
     public abstract CategoryDao categoryDao();
@@ -28,6 +30,7 @@ public abstract class HomebookDatabase extends RoomDatabase {
     public abstract CatalogDao catalogDao();
     public abstract CatalogItemsDao catalogItemsDao();
     public abstract AnalyticsItemDao analyticsItemDao();
+    public abstract FriendDao friendDao();
 
     private static volatile HomebookDatabase instance = null;
     private static final String DATABASE_NAME = "homebook.db";

@@ -7,6 +7,7 @@ import com.example.homebook.data.catalogdata.CatalogDao;
 import com.example.homebook.data.catalogitemsdata.CatalogItemsDao;
 import com.example.homebook.data.categorydata.CategoryDao;
 import com.example.homebook.data.HomebookDatabase;
+import com.example.homebook.data.frienddata.FriendDao;
 import com.example.homebook.data.itemsdata.ItemDao;
 import com.example.homebook.data.subcategorydata.SubcategoryDao;
 
@@ -48,5 +49,10 @@ public interface DatabaseModule {
     @Provides
     static AnalyticsItemDao provideAnalyticsItemDao(@ApplicationContext Context context){
         return HomebookDatabase.getInstance(context).analyticsItemDao();
+    }
+
+    @Provides
+    static FriendDao provideFriendDao(@ApplicationContext Context context){
+        return HomebookDatabase.getInstance(context).friendDao();
     }
 }
