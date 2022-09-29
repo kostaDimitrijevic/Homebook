@@ -96,40 +96,8 @@ public class CatalogItemsFragment extends Fragment {
             binding.floatingActionButton.setOnActionSelectedListener(actionItem -> {
                 switch (actionItem.getId()){
                     case R.id.list_send: {
-                        final EditText input = new EditText(mainActivity);
-                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(60, 100);
-                        input.setLayoutParams(lp);
-
-                        new MaterialAlertDialogBuilder(mainActivity)
-                                .setTitle("Insert users email:")
-                                .setView(input)
-                                .setNeutralButton(R.string.neutral_btn, (dialog, which) -> {
-                                    // nothing happens
-                                })
-                                .setNegativeButton(R.string.decline_btn, (dialog, which) -> {
-                                    // nothing happens
-                                })
-                                .setPositiveButton(R.string.accept_btn, (dialog, which) -> {
-                                    String toUserEmail = input.getText().toString();
-                                    String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-                                    String date = DateTimeUtil.getSimpleDateFormat().format(new Date());
-                                    com.example.homebook.data.firebase.Catalog catalog = new com.example.homebook.data.firebase.Catalog(userEmail, toUserEmail, catalogViewModel.getCatalogName(), date, 0, catalogViewModel.getItemsForCatalog().getValue());
-                                    DatabaseReference reference = FirebaseDatabase.getInstance("https://homebook-e8d20-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Catalogs").push();
-                                    Map<String, Object> map = new HashMap<>();
-                                    map.put("catalog", catalog);
-                                    reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
-                                                        Toast.makeText(mainActivity, "Shopping list sent to user:" + toUserEmail, Toast.LENGTH_SHORT).show();
-                                                    } else {
-                                                        Toast.makeText(mainActivity, "Error, SENDING FAILED", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }
-                                            });
-                                })
-                                .show();
-
+                        SelectUserDialogFragment selectUserDialogFragment = new SelectUserDialogFragment(this::sendCatalog);
+                        selectUserDialogFragment.show(mainActivity.getSupportFragmentManager(), "select-user-dialog");
                         return false;
                     }
                     case R.id.maps:
@@ -219,5 +187,22 @@ public class CatalogItemsFragment extends Fragment {
         navController = Navigation.findNavController(view);
     }
 
-
+    private void sendCatalog(String toUserEmail){
+        String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        String date = DateTimeUtil.getSimpleDateFormat().format(new Date());
+        com.example.homebook.data.firebase.Catalog catalog = new com.example.homebook.data.firebase.Catalog(userEmail, toUserEmail, catalogViewModel.getCatalogName(), date, 0, catalogViewModel.getItemsForCatalog().getValue());
+        DatabaseReference reference = FirebaseDatabase.getInstance("https://homebook-e8d20-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Catalogs").push();
+        Map<String, Object> map = new HashMap<>();
+        map.put("catalog", catalog);
+        reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(mainActivity, "Shopping list sent to user:" + toUserEmail, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mainActivity, "Error, SENDING FAILED", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.homebook.data.frienddata.Friend;
 import com.example.homebook.data.frienddata.FriendRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,6 +21,7 @@ public class FriendViewModel extends ViewModel {
     private SavedStateHandle savedStateHandle;
     private LiveData<List<Friend>> pendingFriends;
     private LiveData<List<Friend>> acceptedFriends;
+    private List<Friend> forSendingList = new ArrayList<>();
 
     @Inject
     public FriendViewModel(FriendRepository friendRepository, SavedStateHandle savedStateHandle) {
@@ -48,5 +50,13 @@ public class FriendViewModel extends ViewModel {
 
     public void updateStatus(int status, long id){
         friendRepository.updateStatus(status, id);
+    }
+
+    public List<Friend> getForSendingList() {
+        return forSendingList;
+    }
+
+    public void setForSendingList(List<Friend> forSendingList) {
+        this.forSendingList = forSendingList;
     }
 }
