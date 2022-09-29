@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.homebook.data.frienddata.Friend;
 import com.example.homebook.databinding.ViewHolderFriendsBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FriendsAcceptedAdapter extends RecyclerView.Adapter<FriendsAcceptedAdapter.FriendsViewHolder> {
 
-    private List<Friend> acceptedFriends;
+    private List<Friend> acceptedFriends = new ArrayList<>();
     private FriendViewModel friendViewModel;
 
     public FriendsAcceptedAdapter(FriendViewModel friendViewModel) {
@@ -23,6 +24,7 @@ public class FriendsAcceptedAdapter extends RecyclerView.Adapter<FriendsAccepted
 
     public void setAcceptedFriends(List<Friend> acceptedFriends) {
         this.acceptedFriends = acceptedFriends;
+        notifyDataSetChanged();
     }
 
     @NonNull

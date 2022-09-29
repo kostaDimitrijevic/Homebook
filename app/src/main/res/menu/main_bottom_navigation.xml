@@ -12,6 +12,12 @@
         android:title="@string/menu_navigation_catalog"
         android:gravity="center"/>
     <item
+        android:id="@+id/bottom_navigation_friends"
+        android:icon="@drawable/outline_people_24"
+        android:title="@string/friends"
+        android:gravity="center"
+        />
+    <item
         android:id="@+id/bottom_navigation_analytics"
         android:icon="@drawable/outline_analytics_24"
         android:title="@string/menu_navigation_analytics"

@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.homebook.data.frienddata.Friend;
 import com.example.homebook.databinding.ViewHolderFriendsBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FriendsPendingAdaptor extends RecyclerView.Adapter<FriendsPendingAdaptor.FriendViewHolder> {
 
-    private List<Friend> pendingFriends;
+    private List<Friend> pendingFriends = new ArrayList<>();
     private FriendViewModel friendViewModel;
 
     public FriendsPendingAdaptor(FriendViewModel friendViewModel) {
@@ -23,6 +24,7 @@ public class FriendsPendingAdaptor extends RecyclerView.Adapter<FriendsPendingAd
 
     public void setPendingFriends(List<Friend> pendingFriends) {
         this.pendingFriends = pendingFriends;
+        notifyDataSetChanged();
     }
 
     @NonNull

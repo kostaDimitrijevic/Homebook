@@ -9,6 +9,8 @@ import com.example.homebook.data.frienddata.FriendRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
@@ -19,6 +21,7 @@ public class FriendViewModel extends ViewModel {
     private LiveData<List<Friend>> pendingFriends;
     private LiveData<List<Friend>> acceptedFriends;
 
+    @Inject
     public FriendViewModel(FriendRepository friendRepository, SavedStateHandle savedStateHandle) {
         this.friendRepository = friendRepository;
         this.savedStateHandle = savedStateHandle;

@@ -13,7 +13,7 @@
     <string name="goto_register"><u>Don\'t have an account, register here</u></string>
 
     <string name="menu_navigation_categories">Categories</string>
-    <string name="menu_navigation_catalog">Catalog</string>
+    <string name="menu_navigation_catalog">Catalogs</string>
     <string name="menu_navigation_analytics">Analytics</string>
 
     <string name="button_subcategories">Subcategories</string>
@@ -38,4 +38,5 @@
     <string name="homebook_notification_content_text">
         You have new grocery list in catalog section!
     </string>
+    <string name="friends">Friends</string>
 </resources>
