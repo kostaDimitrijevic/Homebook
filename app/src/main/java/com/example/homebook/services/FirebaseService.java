@@ -45,9 +45,13 @@ public class FirebaseService extends Service {
     private boolean serviceStarted = false;
     private boolean newData;
     private boolean newRequest;
+    private boolean newAccept;
+
     private DatabaseReference reference;
     private DatabaseReference requestReference;
+    private DatabaseReference acceptReference;
 
+    // new catalog listener
     private final ValueEventListener postListener = new ValueEventListener() {
         @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
@@ -77,6 +81,7 @@ public class FirebaseService extends Service {
         }
     };
 
+    // friend request listener
     private final ValueEventListener requestListener = new ValueEventListener() {
         @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
@@ -88,14 +93,44 @@ public class FirebaseService extends Service {
                     if (request.getTo().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
                         MainActivity.pendingFriends.add(new Friend(0, request.getFrom(), request.getFirstname(), request.getLastname(), 0));
                         requestReference.child(data.getKey()).removeValue();
-                        newData = true;
+                        newRequest = true;
                     }
                 }
 
-                if (newData){
+                if (newRequest){
                     NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getBaseContext());
                     notificationManager.notify(REQUEST_NOTIFICATION_ID, getNewRequestNotification());
-                    newData = false;
+                    newRequest = false;
+                }
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
+
+    //accept listener
+    private final ValueEventListener acceptListener = new ValueEventListener() {
+        @RequiresApi(api = Build.VERSION_CODES.M)
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+            if(snapshot.getValue(Request.class) != null && FirebaseAuth.getInstance().getCurrentUser() != null){
+                newAccept = false;
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    Request request = data.child("accept_request").getValue(Request.class);
+                    if (request.getTo().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
+                        MainActivity.acceptedFriends.add(new Friend(0, request.getFrom(), request.getFirstname(), request.getLastname(), 1));
+                        acceptReference.child(data.getKey()).removeValue();
+                        newAccept = true;
+                    }
+                }
+
+                if (newAccept){
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getBaseContext());
+                    notificationManager.notify(ACCEPT_NOTIFICATION_ID, getAcceptNotification());
+                    newAccept = false;
                 }
             }
         }
@@ -109,6 +144,7 @@ public class FirebaseService extends Service {
     private static final String NOTIFICATION_CHANNEL_ID = "homebook-notification-channel";
     private static final int NOTIFICATION_ID = 1;
     private static final int REQUEST_NOTIFICATION_ID = 2;
+    private static final int ACCEPT_NOTIFICATION_ID = 3;
 
     @Override
     public void onCreate() {
@@ -141,6 +177,9 @@ public class FirebaseService extends Service {
 
         requestReference = FirebaseDatabase.getInstance("https://homebook-e8d20-default-rtdb.europe-west1.firebasedatabase.app/").getReference("FriendRequests");
         requestReference.addValueEventListener(requestListener);
+
+        acceptReference = FirebaseDatabase.getInstance("https://homebook-e8d20-default-rtdb.europe-west1.firebasedatabase.app/").getReference("AcceptRequests");
+        acceptReference.addValueEventListener(acceptListener);
     }
 
     private void createNotificationChannel() {
@@ -184,6 +223,25 @@ public class FirebaseService extends Service {
                 .setSmallIcon(R.drawable.outline_receipt_24)
                 .setContentText("New Request")
                 .setContentText("You have new request in the friends section!")
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setColorized(true)
+                .setAutoCancel(true)
+                .setColor(ContextCompat.getColor(this, R.color.teal_200))
+                .build();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private Notification getAcceptNotification(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setAction(MainActivity.INTENT_ACTION_REQUEST_NOTIFICATION);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+        return new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+                .setSmallIcon(R.drawable.outline_receipt_24)
+                .setContentText("Accept")
+                .setContentText("User accepted your request!")
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setColorized(true)

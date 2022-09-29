@@ -71,7 +71,14 @@ public class FriendsFragment extends Fragment {
             }
         }
 
-        FriendsPendingAdaptor friendsPendingAdaptor = new FriendsPendingAdaptor(friendViewModel);
+        if(MainActivity.acceptedFriends.size() > 0){
+            for (int i = MainActivity.readFirebaseAccepts; i < MainActivity.acceptedFriends.size(); i = ++MainActivity.readFirebaseAccepts) {
+                Friend friend = MainActivity.acceptedFriends.get(i);
+                friendViewModel.addFriend(friend);
+            }
+        }
+
+        FriendsPendingAdaptor friendsPendingAdaptor = new FriendsPendingAdaptor(friendViewModel, this::sendAcceptRequest);
         FriendsAcceptedAdapter friendsAcceptedAdapter = new FriendsAcceptedAdapter(friendViewModel);
 
         friendViewModel.getAcceptedFriends().observe(getViewLifecycleOwner(), friends -> {
@@ -154,5 +161,34 @@ public class FriendsFragment extends Fragment {
             }
         });
 
+    }
+
+    private void sendAcceptRequest(String to){
+        DatabaseReference reference = FirebaseDatabase.getInstance("https://homebook-e8d20-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users");
+        reference.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DataSnapshot dataSnapshot = task.getResult();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    User user = data.getValue(User.class);
+                    if(user.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                        Request request = new Request(user.getEmail(), to, user.getFirstname(), user.getLastname());
+                        DatabaseReference reqReference = FirebaseDatabase.getInstance("https://homebook-e8d20-default-rtdb.europe-west1.firebasedatabase.app/").getReference("AcceptRequests").push();
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("accept_request", request);
+                        reqReference.updateChildren(map).addOnCompleteListener(taskReq -> {
+                            if (taskReq.isSuccessful()) {
+                                Toast.makeText(mainActivity, "You accepted user:" + to, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(mainActivity, "Error", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+            else {
+                Log.d("firebase", "ERROR");
+            }
+        });
     }
 }

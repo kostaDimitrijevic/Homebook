@@ -35,9 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
     public static List<Catalog> firebaseCatalogList = new ArrayList<>();
     public static List<Friend> pendingFriends = new ArrayList<>();
+    public static List<Friend> acceptedFriends = new ArrayList<>();
 
     public static int readFirebaseCatalogs = 0;
     public static int readFirebaseRequests = 0;
+    public static int readFirebaseAccepts = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
