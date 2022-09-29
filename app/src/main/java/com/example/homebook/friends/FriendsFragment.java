@@ -79,7 +79,7 @@ public class FriendsFragment extends Fragment {
         }
 
         FriendsPendingAdaptor friendsPendingAdaptor = new FriendsPendingAdaptor(friendViewModel, this::sendAcceptRequest);
-        FriendsAcceptedAdapter friendsAcceptedAdapter = new FriendsAcceptedAdapter(friendViewModel);
+        FriendsAcceptedAdapter friendsAcceptedAdapter = new FriendsAcceptedAdapter(friendViewModel, mainActivity);
 
         friendViewModel.getAcceptedFriends().observe(getViewLifecycleOwner(), friends -> {
             if(friends.size() == 0){

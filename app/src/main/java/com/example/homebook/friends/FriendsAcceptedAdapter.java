@@ -4,23 +4,38 @@ import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.homebook.MainActivity;
+import com.example.homebook.R;
 import com.example.homebook.data.frienddata.Friend;
 import com.example.homebook.databinding.ViewHolderFriendsBinding;
+import com.example.homebook.services.DateTimeUtil;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FriendsAcceptedAdapter extends RecyclerView.Adapter<FriendsAcceptedAdapter.FriendsViewHolder> {
 
     private List<Friend> acceptedFriends = new ArrayList<>();
-    private FriendViewModel friendViewModel;
+    private final FriendViewModel friendViewModel;
+    private final MainActivity mainActivity;
 
-    public FriendsAcceptedAdapter(FriendViewModel friendViewModel) {
+    public FriendsAcceptedAdapter(FriendViewModel friendViewModel, MainActivity mainActivity) {
         this.friendViewModel = friendViewModel;
+        this.mainActivity = mainActivity;
     }
 
     public void setAcceptedFriends(List<Friend> acceptedFriends) {
@@ -66,9 +81,21 @@ public class FriendsAcceptedAdapter extends RecyclerView.Adapter<FriendsAccepted
             this.binding.friendLast.setText(friend.getLastname());
 
             this.binding.buttonDeleteFriend.setOnClickListener(view -> {
-                friendViewModel.removeFriend(friend.getId());
-                acceptedFriends.remove(position);
-                notifyItemRemoved(position);
+                new MaterialAlertDialogBuilder(mainActivity)
+                        .setTitle("ARE YOU SURE THAT YOU WANT TO REMOVE FRIEND:" + friend.getUsername())
+                        .setNeutralButton(R.string.neutral_btn, (dialog, which) -> {
+                            // nothing happens
+                        })
+                        .setNegativeButton(R.string.decline_btn, (dialog, which) -> {
+                            // nothing happens
+                        })
+                        .setPositiveButton(R.string.accept_btn, (dialog, which) -> {
+                            friendViewModel.removeFriend(friend.getId());
+                            acceptedFriends.remove(position);
+                            notifyItemRemoved(position);
+                        })
+                        .show();
+
             });
         }
     }
