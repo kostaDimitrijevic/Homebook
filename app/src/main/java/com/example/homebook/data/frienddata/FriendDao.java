@@ -15,6 +15,9 @@ public interface FriendDao {
     @Query("UPDATE friend SET status=:status WHERE id=:id")
     void updateStatus(int status, long id);
 
+    @Query("DELETE FROM friend WHERE id=:id")
+    void delete(long id);
+
     @Query("SELECT * FROM friend WHERE status=0")
     LiveData<List<Friend>> getPendingFriends();
 

@@ -34,6 +34,10 @@ public class FriendViewModel extends ViewModel {
         return friendRepository.addFriend(friend.getUsername(), friend.getFirstname(), friend.getLastname(), friend.getStatus());
     }
 
+    public void removeFriend(long id){
+        friendRepository.delete(id);
+    }
+
     public LiveData<List<Friend>> getPendingFriends(){
         return friendRepository.getPendingFriends();
     }

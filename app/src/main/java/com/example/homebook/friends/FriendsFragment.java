@@ -131,18 +131,24 @@ public class FriendsFragment extends Fragment {
 
         return binding.getRoot();
     }
-
+    private static boolean found = false;
     private void sendRequest(String from, String to){
 
         friendViewModel.getAcceptedFriends().observe(getViewLifecycleOwner(), friends -> {
             for (Friend friend:
                  friends) {
                 if(friend.getUsername().equals(to)){
+                    found = true;
                     Toast.makeText(mainActivity, "You are already friends with" + to, Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
         });
+
+        if(found){
+            found = false;
+            return;
+        }
 
         DatabaseReference reference = FirebaseDatabase.getInstance("https://homebook-e8d20-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users");
         reference.get().addOnCompleteListener(task -> {

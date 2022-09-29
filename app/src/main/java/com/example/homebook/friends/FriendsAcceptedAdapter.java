@@ -1,5 +1,6 @@
 package com.example.homebook.friends;
 
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,12 @@ public class FriendsAcceptedAdapter extends RecyclerView.Adapter<FriendsAccepted
             this.binding.friendUsername.setText(friend.getUsername());
             this.binding.friendName.setText(friend.getFirstname());
             this.binding.friendLast.setText(friend.getLastname());
+
+            this.binding.buttonDeleteFriend.setOnClickListener(view -> {
+                friendViewModel.removeFriend(friend.getId());
+                acceptedFriends.remove(position);
+                notifyItemRemoved(position);
+            });
         }
     }
 }

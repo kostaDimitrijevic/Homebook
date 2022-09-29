@@ -36,6 +36,12 @@ public class FriendRepository {
         });
     }
 
+    public void delete(long id){
+        executorService.submit(() -> {
+            friendDao.delete(id);
+        });
+    }
+
     public LiveData<List<Friend>> getPendingFriends(){
         return friendDao.getPendingFriends();
     }

@@ -82,6 +82,12 @@ public class FriendsPendingAdaptor extends RecyclerView.Adapter<FriendsPendingAd
                 notifyItemRemoved(position);
                 callback.Invoke(friend.getUsername());
             });
+
+            this.binding.buttonRejectFriend.setOnClickListener(v -> {
+                friendViewModel.removeFriend(friend.getId());
+                pendingFriends.remove(position);
+                notifyItemRemoved(position);
+            });
         }
     }
 }
