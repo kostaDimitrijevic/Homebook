@@ -36,6 +36,7 @@ public class CategoryFragment extends Fragment {
     private CategoryViewModel categoryViewModel;
     private MainActivity mainActivity;
     private NavController navController;
+    private boolean addCategoryClicked = false;
 
     public CategoryFragment() {
         // Required empty public constructor
@@ -90,6 +91,7 @@ public class CategoryFragment extends Fragment {
        binding.recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
 
        binding.addCategoryBtn.setOnClickListener(view -> {
+           addCategoryClicked = true;
            final EditText input = new EditText(mainActivity);
            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(60, 100);
            input.setLayoutParams(lp);
@@ -99,13 +101,16 @@ public class CategoryFragment extends Fragment {
                    .setView(input)
                    .setNeutralButton(R.string.neutral_btn, (dialog, which) -> {
                     // nothing happens
+                       addCategoryClicked = false;
                    })
                    .setNegativeButton(R.string.decline_btn, (dialog, which) -> {
                     // nothing happens
+                       addCategoryClicked = false;
                    })
                    .setPositiveButton(R.string.accept_btn, (dialog, which) -> {
                        String newCategory = input.getText().toString();
                        categoryViewModel.insertCategory(newCategory);
+                       addCategoryClicked = false;
                    })
                    .show();
        });
@@ -117,5 +122,26 @@ public class CategoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+        if(savedInstanceState != null){
+            if(savedInstanceState.getBoolean("clicked")){
+                binding.addCategoryBtn.callOnClick();
+            }
+        }
+
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(binding != null){
+            if(addCategoryClicked){
+                outState.putBoolean("clicked", true);
+                addCategoryClicked = false;
+            }
+            else{
+                outState.putBoolean("clicked", false);
+            }
+        }
+
     }
 }

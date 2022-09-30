@@ -51,7 +51,9 @@ public class CatalogItemsFragment extends Fragment {
 
     private NavController navController;
     private MainActivity mainActivity;
+    private SelectItemDialogFragment selectItemDialogFragment;
     private boolean submitClicked;
+    private  boolean addMoreItemsClicked = false;
 
     public CatalogItemsFragment() {
         // Required empty public constructor
@@ -161,7 +163,9 @@ public class CatalogItemsFragment extends Fragment {
 
 
         binding.buttonAddMoreItems.setOnClickListener(view -> {
-            SelectItemDialogFragment selectItemDialogFragment = new SelectItemDialogFragment(itemsToAdd->{
+            addMoreItemsClicked = true;
+            selectItemDialogFragment = new SelectItemDialogFragment(itemsToAdd->{
+                addMoreItemsClicked = false;
                 if(itemsToAdd.size() > 0){
                     catalogItemsAdapter.getCatalogItemsList().addAll(itemsToAdd);
                     catalogItemsAdapter.setCatalogItemsList(catalogItemsAdapter.getCatalogItemsList());
@@ -185,6 +189,11 @@ public class CatalogItemsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+        if(savedInstanceState != null){
+            if(savedInstanceState.getBoolean("clicked_add_more")){
+                binding.buttonAddMoreItems.callOnClick();
+            }
+        }
     }
 
     private void sendCatalog(String toUserEmail){
@@ -204,5 +213,36 @@ public class CatalogItemsFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(binding != null){
+            if(selectItemDialogFragment != null){
+                selectItemDialogFragment.dismiss();
+                if(selectItemDialogFragment.isDismissedRegular()){
+                    addMoreItemsClicked = false;
+                    selectItemDialogFragment.setDismissedRegular(false);
+                }
+                else{
+                    addMoreItemsClicked = true;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(binding != null){
+            if(addMoreItemsClicked){
+                outState.putBoolean("clicked_add_more", true);
+                addMoreItemsClicked = false;
+            }
+            else{
+                outState.putBoolean("clicked_add_more", false);
+            }
+        }
     }
 }

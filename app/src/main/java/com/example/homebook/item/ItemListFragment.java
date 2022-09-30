@@ -29,6 +29,7 @@ public class ItemListFragment extends Fragment {
     private ItemViewModel itemViewModel;
     private MainActivity mainActivity;
     private NavController navController;
+    private boolean addItemClick = false;
 
     public ItemListFragment() {
         // Required empty public constructor
@@ -86,5 +87,10 @@ public class ItemListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 }

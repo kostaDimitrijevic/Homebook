@@ -35,6 +35,7 @@ public class CatalogFragment extends Fragment {
     private CatalogViewModel catalogViewModel;
     private ItemViewModel itemViewModel;
     private NavController navController;
+    private boolean clickedAddCatalog = false;
 
     public CatalogFragment() {
         // Required empty public constructor
@@ -80,6 +81,7 @@ public class CatalogFragment extends Fragment {
         binding.catalogRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
 
         binding.addCatalogBtn.setOnClickListener(view -> {
+            clickedAddCatalog = true;
             final EditText input = new EditText(mainActivity);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(60, 100);
             input.setLayoutParams(lp);
@@ -89,11 +91,14 @@ public class CatalogFragment extends Fragment {
                     .setView(input)
                     .setNeutralButton(R.string.neutral_btn, (dialog, which) -> {
                         // nothing happens
+                        clickedAddCatalog = false;
                     })
                     .setNegativeButton(R.string.decline_btn, (dialog, which) -> {
                         // nothing happens
+                        clickedAddCatalog = false;
                     })
                     .setPositiveButton(R.string.accept_btn, (dialog, which) -> {
+                        clickedAddCatalog = false;
                         String newCatalog = input.getText().toString();
                         CatalogFragmentDirections.ActionToCatalogItems action = CatalogFragmentDirections.actionToCatalogItems();
                         action.setShowCatalog(false);
@@ -110,5 +115,24 @@ public class CatalogFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+        if(savedInstanceState != null){
+            if(savedInstanceState.getBoolean("clicked_add_cat")){
+                binding.addCatalogBtn.callOnClick();
+            }
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(binding != null){
+            if(clickedAddCatalog){
+                outState.putBoolean("clicked_add_cat", true);
+                clickedAddCatalog = false;
+            }
+            else{
+                outState.putBoolean("clicked_add_cat", false);
+            }
+        }
     }
 }

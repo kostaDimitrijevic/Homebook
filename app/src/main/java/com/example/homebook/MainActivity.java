@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     public static int readFirebaseRequests = 0;
     public static int readFirebaseAccepts = 0;
 
+    private boolean setupDone = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +69,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        binding.bottomNavigation.setVisibility(View.VISIBLE);
+        if(BottomNavigationUtil.login_passed){
+            binding.bottomNavigation.setVisibility(View.VISIBLE);
+        }
         setupBottomNavigation();
     }
 

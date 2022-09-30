@@ -30,6 +30,7 @@ public class SelectItemDialogFragment extends DialogFragment {
     private MainActivity mainActivity;
     private ItemViewModel itemViewModel;
     private Callback<List<Item>> callback;
+    private boolean dismissedRegular = false;
 
     public SelectItemDialogFragment(Callback<List<Item>> callback) {
         this.callback = callback;
@@ -57,6 +58,7 @@ public class SelectItemDialogFragment extends DialogFragment {
 
         binding.selectItemsButton.setOnClickListener(view -> {
             dismiss();
+            dismissedRegular = true;
         });
 
         return binding.getRoot();
@@ -66,5 +68,13 @@ public class SelectItemDialogFragment extends DialogFragment {
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         this.callback.Invoke(itemViewModel.getItemsToAdd());
+    }
+
+    public boolean isDismissedRegular() {
+        return dismissedRegular;
+    }
+
+    public void setDismissedRegular(boolean dismissedRegular) {
+        this.dismissedRegular = dismissedRegular;
     }
 }

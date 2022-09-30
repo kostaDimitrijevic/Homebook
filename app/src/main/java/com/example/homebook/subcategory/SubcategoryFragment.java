@@ -32,6 +32,7 @@ public class SubcategoryFragment extends Fragment {
     private NavController navController;
     private SubcategoryViewModel subcategoryViewModel;
     private long idCat;
+    private boolean clickedAddSub = false;
 
     public SubcategoryFragment() {
         // Required empty public constructor
@@ -69,6 +70,7 @@ public class SubcategoryFragment extends Fragment {
         binding.recyclerViewSub.setLayoutManager(new LinearLayoutManager(mainActivity));
 
         binding.addSubcategory.setOnClickListener(view -> {
+            clickedAddSub = true;
             final EditText input = new EditText(mainActivity);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(60, 100);
             input.setLayoutParams(lp);
@@ -78,11 +80,14 @@ public class SubcategoryFragment extends Fragment {
                     .setView(input)
                     .setNeutralButton(R.string.neutral_btn, (dialog, which) -> {
                         // nothing happens
+                        clickedAddSub = false;
                     })
                     .setNegativeButton(R.string.decline_btn, (dialog, which) -> {
                         // nothing happens
+                        clickedAddSub = false;
                     })
                     .setPositiveButton(R.string.accept_btn, (dialog, which) -> {
+                        clickedAddSub = false;
                         String newSubcategory = input.getText().toString();
                         subcategoryViewModel.insertSubcategory(new Subcategory(0, idCat, newSubcategory));
                         subcategoryViewModel.setCurrentCategoryId(idCat);
@@ -95,7 +100,25 @@ public class SubcategoryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         navController = Navigation.findNavController(view);
+        if(savedInstanceState != null){
+            if(savedInstanceState.getBoolean("clicked_add_sub")){
+                binding.addSubcategory.callOnClick();
+            }
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(binding != null){
+            if(clickedAddSub){
+                outState.putBoolean("clicked_add_sub", true);
+                clickedAddSub = false;
+            }
+            else{
+                outState.putBoolean("clicked_add_sub", false);
+            }
+        }
     }
 }

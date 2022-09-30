@@ -3,6 +3,7 @@ package com.example.homebook.friends;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -43,6 +44,7 @@ public class FriendsFragment extends Fragment {
     private FragmentFriendsBinding binding;
     private MainActivity mainActivity;
     private FriendViewModel friendViewModel;
+    private boolean clickedAddFriend = false;
 
     @Inject
     public ExecutorService executorService;
@@ -108,6 +110,7 @@ public class FriendsFragment extends Fragment {
         binding.pendingFriendsRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
 
         binding.addNewFriend.setOnClickListener(view -> {
+            clickedAddFriend = true;
             final EditText input = new EditText(mainActivity);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(60, 100);
             input.setLayoutParams(lp);
@@ -117,11 +120,14 @@ public class FriendsFragment extends Fragment {
                     .setView(input)
                     .setNeutralButton(R.string.neutral_btn, (dialog, which) -> {
                         // nothing happens
+                        clickedAddFriend = false;
                     })
                     .setNegativeButton(R.string.decline_btn, (dialog, which) -> {
                         // nothing happens
+                        clickedAddFriend = false;
                     })
                     .setPositiveButton(R.string.accept_btn, (dialog, which) -> {
+                        clickedAddFriend = false;
                         String toUserEmail = input.getText().toString();
                         String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                         sendRequest(userEmail, toUserEmail);
@@ -206,5 +212,29 @@ public class FriendsFragment extends Fragment {
                 Log.d("firebase", "ERROR");
             }
         });
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if(savedInstanceState != null){
+            if(savedInstanceState.getBoolean("clicked_add_friend")){
+                binding.addNewFriend.callOnClick();
+            }
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(binding != null){
+            if(clickedAddFriend){
+                outState.putBoolean("clicked_add_friend", true);
+                clickedAddFriend = false;
+            }
+            else{
+                outState.putBoolean("clicked_add_friend", false);
+            }
+        }
     }
 }
