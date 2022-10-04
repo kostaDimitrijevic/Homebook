@@ -6,15 +6,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".friends.FriendsFragment">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_friend_list"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FRIENDS"
+            android:textColor="@color/white"
+            android:textAppearance="?attr/textAppearanceHeadline6"/>
+    </com.google.android.material.appbar.MaterialToolbar>
+
     <TextView
         android:id="@+id/your_friends"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your friend list:"
         android:textAppearance="?attr/textAppearanceHeadline5"
+        android:textColor="#0A03DA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_friend_list"
         android:layout_marginTop="10dp"
         />
 
@@ -36,6 +53,7 @@
         android:layout_height="wrap_content"
         android:text="Pending friend list:"
         android:textAppearance="?attr/textAppearanceHeadline5"
+        android:textColor="#0A03DA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/your_friends_recycler_view"

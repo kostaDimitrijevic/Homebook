@@ -71,9 +71,9 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
             }
             else{
                 binding.itemAmount.setText(String.valueOf(item.getAmount()));
-                binding.itemAmount.setTextColor(Color.BLACK);
+                binding.itemAmount.setTextColor(Color.parseColor("#0A03DA"));
                 binding.itemCountLabel.setText("Amount:");
-                binding.itemCountLabel.setTextColor(Color.BLACK);
+                binding.itemCountLabel.setTextColor(Color.parseColor("#0A03DA"));
             }
 
             this.binding.buttonItemDelete.setOnClickListener(view -> {

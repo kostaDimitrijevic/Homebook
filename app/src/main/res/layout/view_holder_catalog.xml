@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="8dp"
+    android:layout_margin="13dp"
+    app:cardBackgroundColor="#DFD3C3">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?attr/textAppearanceBody1"
+            android:textColor="#0A03DA"
             tools:text="@tools:sample/date/ddmmyy" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,6 +38,7 @@
                 app:layout_constraintStart_toStartOf="@id/con"
                 app:layout_constraintTop_toTopOf="@id/con"
                 app:layout_constraintBottom_toBottomOf="@id/con"
+                android:textColor="#0A03DA"
                 />
 
             <TextView
@@ -43,13 +47,14 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?attr/textAppearanceHeadline5"
                 tools:text="STATUS"
-                app:layout_constraintStart_toEndOf="@id/catalog_label"
+                android:layout_marginEnd="10dp"
                 app:layout_constraintEnd_toEndOf="@id/con"
                 app:layout_constraintTop_toTopOf="@id/con"
+                android:textColor="#0A03DA"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -60,36 +65,52 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/button_show_list"
                 style="?attr/materialButtonOutlinedStyle"
+                app:backgroundTint="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 />
-
-<!--            <Button-->
-<!--                android:id="@+id/button_close_list"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginEnd="8dp"-->
-<!--                android:text="@string/button_show_list"-->
-<!--                style="?attr/materialButtonOutlinedStyle"-->
-<!--                />-->
 
             <Button
                 android:id="@+id/button_delete_list"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                app:backgroundTint="@color/white"
+                app:backgroundTint="#DFD3C3"
                 app:icon="@drawable/outline_delete_black_36"
-                app:iconTint="@color/black"
+                app:iconTint="#0A03DA"
                 android:padding="8dp"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
+                app:layout_constraintStart_toEndOf="@id/button_show_list"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/owner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="Owner: "
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="#0A03DA"
+                app:layout_constraintEnd_toStartOf="@id/user_list"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 />
 
             <TextView
                 android:id="@+id/user_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?attr/textAppearanceHeadline5"
-                android:layout_marginLeft="30dp"
-                tools:text="User"/>
-        </LinearLayout>
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="#0A03DA"
+                tools:text="User"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

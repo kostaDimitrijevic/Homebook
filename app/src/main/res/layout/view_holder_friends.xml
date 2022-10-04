@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="#DFD3C3">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginStart="10dp"
             >
 
             <TextView
@@ -23,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="Friends username:"
                 android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="#0A03DA"
                 />
             <TextView
                 android:id="@+id/friend_username"
@@ -31,19 +34,22 @@
                 tools:text="username"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:layout_marginLeft="8dp"
+                android:textColor="#0A03DA"
                 />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginStart="10dp">
 
             <TextView
                 android:id="@+id/friend_name_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Firstname:"
-                android:textAppearance="?attr/textAppearanceHeadline6"/>
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="#0A03DA"/>
 
             <TextView
                 android:id="@+id/friend_name"
@@ -52,19 +58,22 @@
                 tools:text="firstname"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:layout_marginLeft="8dp"
+                android:textColor="#0A03DA"
                 />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginStart="10dp">
 
             <TextView
                 android:id="@+id/friend_last_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lastname:"
-                android:textAppearance="?attr/textAppearanceHeadline6"/>
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="#0A03DA"/>
 
             <TextView
                 android:id="@+id/friend_last"
@@ -73,6 +82,7 @@
                 tools:text="lastname"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:layout_marginLeft="8dp"
+                android:textColor="#0A03DA"
                 />
         </LinearLayout>
         <LinearLayout
@@ -85,8 +95,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:layout_marginStart="10dp"
                 android:text="Accept"
                 style="?attr/materialButtonOutlinedStyle"
+                app:backgroundTint="@color/white"
                 />
 
             <Button
@@ -96,6 +108,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="Reject"
                 style="?attr/materialButtonOutlinedStyle"
+                app:backgroundTint="@color/white"
                 />
 
             <Button
@@ -104,8 +117,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="Remove firend"
+                android:layout_marginStart="10dp"
                 style="?attr/materialButtonOutlinedStyle"
                 android:visibility="gone"
+                app:backgroundTint="@color/white"
                 />
         </LinearLayout>
     </LinearLayout>

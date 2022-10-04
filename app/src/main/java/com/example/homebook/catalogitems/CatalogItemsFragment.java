@@ -51,9 +51,14 @@ public class CatalogItemsFragment extends Fragment {
 
     private NavController navController;
     private MainActivity mainActivity;
+
+    private SelectUserDialogFragment selectUserDialogFragment;
     private SelectItemDialogFragment selectItemDialogFragment;
+
     private boolean submitClicked;
-    private  boolean addMoreItemsClicked = false;
+    private boolean addMoreItemsClicked = false;
+    private boolean actionBtnClicked = false;
+    private int idAction;
 
     public CatalogItemsFragment() {
         // Required empty public constructor
@@ -98,7 +103,8 @@ public class CatalogItemsFragment extends Fragment {
             binding.floatingActionButton.setOnActionSelectedListener(actionItem -> {
                 switch (actionItem.getId()){
                     case R.id.list_send: {
-                        SelectUserDialogFragment selectUserDialogFragment = new SelectUserDialogFragment(this::sendCatalog);
+                        idAction = R.id.list_send;
+                        selectUserDialogFragment = new SelectUserDialogFragment(this::sendCatalog);
                         selectUserDialogFragment.show(mainActivity.getSupportFragmentManager(), "select-user-dialog");
                         return false;
                     }
@@ -229,6 +235,10 @@ public class CatalogItemsFragment extends Fragment {
                     addMoreItemsClicked = true;
                 }
             }
+
+            if(selectUserDialogFragment != null){
+                selectUserDialogFragment.dismiss();
+            }
         }
     }
 
@@ -242,6 +252,14 @@ public class CatalogItemsFragment extends Fragment {
             }
             else{
                 outState.putBoolean("clicked_add_more", false);
+            }
+
+            if(actionBtnClicked){
+                outState.putBoolean("clicked_add_action", true);
+                actionBtnClicked = false;
+            }
+            else{
+                outState.putBoolean("clicked_add_action", false);
             }
         }
     }

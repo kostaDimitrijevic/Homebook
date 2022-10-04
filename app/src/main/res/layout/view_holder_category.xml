@@ -6,7 +6,8 @@
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_margin="10dp"
+    app:cardBackgroundColor="#DFD3C3">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,6 +34,7 @@
                 android:id="@+id/category_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#0A03DA"
                 tools:text="Category"
                 android:textAppearance="?attr/textAppearanceHeadline5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,9 +46,9 @@
                 android:id="@+id/button_delete"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                app:backgroundTint="@color/white"
+                app:backgroundTint="#DFD3C3"
                 app:icon="@drawable/outline_delete_black_36"
-                app:iconTint="@color/black"
+                app:iconTint="#0A03DA"
                 android:padding="8dp"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_marginStart="155dp"
@@ -69,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="@string/button_subcategories"
+                app:backgroundTint="@color/white"
                 style="?attr/materialButtonOutlinedStyle"
                 />
             <Button
@@ -76,6 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/button_show_items"
+                app:backgroundTint="@color/white"
                 style="?attr/materialButtonOutlinedStyle"
                 />
         </LinearLayout>

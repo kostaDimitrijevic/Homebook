@@ -137,8 +137,8 @@ public class CatalogItemsAdapter extends RecyclerView.Adapter<CatalogItemsAdapte
             this.binding.amountToBuy.setText(String.valueOf(joinItem.getAmount()));
             this.binding.amountToBuy.setTextColor(Color.GREEN);
 
-            this.binding.buttonAmount.setVisibility(View.INVISIBLE);
-            this.binding.buttonItemDelete.setVisibility(View.INVISIBLE);
+            this.binding.buttonAmount.setVisibility(View.GONE);
+            this.binding.buttonItemDelete.setVisibility(View.GONE);
 
         }
     }

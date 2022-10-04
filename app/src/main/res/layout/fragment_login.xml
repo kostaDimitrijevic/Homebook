@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceHeadline2"
-        android:textColor="@color/black"
+        android:textColor="#0A03DA"
         android:textAlignment="center"
         android:text="@string/homebook"
         android:textStyle="bold"
@@ -26,6 +26,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/email"
         app:layout_constraintTop_toBottomOf="@id/register_homebook"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/outline_people_24"
         android:layout_marginTop="70dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
@@ -67,7 +69,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginTop="12dp"
-        android:textColor="@color/black"
+        android:textColor="#0A03DA"
         />
 
     <Button
