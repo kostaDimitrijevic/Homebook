@@ -180,14 +180,7 @@ public class CatalogItemsFragment extends Fragment {
             });
             selectItemDialogFragment.show(mainActivity.getSupportFragmentManager(), "select-item-dialog");
         });
-
-        getParentFragmentManager().addOnBackStackChangedListener(() -> {
-            if(!submitClicked){
-                catalogItemsAdapter.getCatalogItemsList().clear();
-            }
-
-        });
-
+        
         return binding.getRoot();
     }
 
