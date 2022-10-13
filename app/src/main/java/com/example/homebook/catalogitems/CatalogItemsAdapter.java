@@ -37,6 +37,14 @@ public class CatalogItemsAdapter extends RecyclerView.Adapter<CatalogItemsAdapte
     }
 
     public void setCatalogItemsList(List<Item> catalogItemsList) {
+        for (Item item:
+             catalogItemsList) {
+            this.catalogItemsList.add(new Item(item.getId(), item.getItemName(), item.getIdC(), item.getIdS(), item.getAmount()));
+        }
+        notifyDataSetChanged();
+    }
+
+    public void setExistingCatalogItemList(List<Item> catalogItemsList){
         this.catalogItemsList = catalogItemsList;
         notifyDataSetChanged();
     }

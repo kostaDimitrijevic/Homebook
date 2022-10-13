@@ -2,6 +2,7 @@ package com.example.homebook.catalogitems;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -108,9 +109,6 @@ public class CatalogItemsFragment extends Fragment {
                         selectUserDialogFragment.show(mainActivity.getSupportFragmentManager(), "select-user-dialog");
                         return false;
                     }
-                    case R.id.maps:
-                        navController.navigate(CatalogItemsFragmentDirections.actionShowMap());
-                        return false;
                     case R.id.close:
                         catalogViewModel.getCatalogItems().observe(getViewLifecycleOwner(), catalogItems -> {
                             List<JoinItemsCatalog> joinItemsCatalogs = catalogViewModel.getItemsForCatalog().getValue();
@@ -174,13 +172,23 @@ public class CatalogItemsFragment extends Fragment {
                 addMoreItemsClicked = false;
                 if(itemsToAdd.size() > 0){
                     catalogItemsAdapter.getCatalogItemsList().addAll(itemsToAdd);
-                    catalogItemsAdapter.setCatalogItemsList(catalogItemsAdapter.getCatalogItemsList());
+                    catalogItemsAdapter.setExistingCatalogItemList(catalogItemsAdapter.getCatalogItemsList());
                     itemViewModel.getItemsToAdd().clear();
                 }
             });
             selectItemDialogFragment.show(mainActivity.getSupportFragmentManager(), "select-item-dialog");
         });
-        
+
+        mainActivity.getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if(!addMoreItemsClicked){
+                    catalogItemsAdapter.getCatalogItemsList().clear();
+                }
+                navController.navigateUp();
+            }
+        });
+
         return binding.getRoot();
     }
 

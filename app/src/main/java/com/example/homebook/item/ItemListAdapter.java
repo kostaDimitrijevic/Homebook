@@ -87,7 +87,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
                 input.setLayoutParams(lp);
 
                 new MaterialAlertDialogBuilder(binding.getRoot().getContext())
-                        .setTitle("Insert name of your category:")
+                        .setTitle("Insert new amount for " + binding.itemLabel.getText().toString() + ":")
                         .setView(input)
                         .setNeutralButton(R.string.neutral_btn, (dialog, which) -> {
                             // nothing happens

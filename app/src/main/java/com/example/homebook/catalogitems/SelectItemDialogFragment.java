@@ -65,6 +65,12 @@ public class SelectItemDialogFragment extends DialogFragment {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getDialog().getWindow().getAttributes().width = ViewGroup.LayoutParams.MATCH_PARENT;
+    }
+
+    @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         this.callback.Invoke(itemViewModel.getItemsToAdd());

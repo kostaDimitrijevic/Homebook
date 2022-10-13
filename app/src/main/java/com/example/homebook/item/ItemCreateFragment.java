@@ -12,6 +12,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.homebook.MainActivity;
 import com.example.homebook.R;
@@ -50,17 +51,22 @@ public class ItemCreateFragment extends Fragment {
         });
 
         binding.buttonNewItem.setOnClickListener(view -> {
-            String itemName = binding.itemName.getEditText().getText().toString();
-            int amount = Integer.parseInt(binding.itemAmount.getEditText().getText().toString());
-            long categoryId = ItemCreateFragmentArgs.fromBundle(requireArguments()).getCategoryId();
-            long subcategoryId = ItemCreateFragmentArgs.fromBundle(requireArguments()).getSubcategoryId();
-            if(subcategoryId == -1){
-                itemViewModel.insertItem(new Item(0, itemName, categoryId, null, amount));
+            if(!binding.itemName.getEditText().getText().toString().equals("") && !binding.itemAmount.getEditText().getText().toString().equals("")){
+                String itemName = binding.itemName.getEditText().getText().toString();
+                int amount = Integer.parseInt(binding.itemAmount.getEditText().getText().toString());
+                long categoryId = ItemCreateFragmentArgs.fromBundle(requireArguments()).getCategoryId();
+                long subcategoryId = ItemCreateFragmentArgs.fromBundle(requireArguments()).getSubcategoryId();
+                if(subcategoryId == -1){
+                    itemViewModel.insertItem(new Item(0, itemName, categoryId, null, amount));
+                }
+                else{
+                    itemViewModel.insertItem(new Item(0, itemName, categoryId, subcategoryId, amount));
+                }
+                navController.navigateUp();
             }
             else{
-                itemViewModel.insertItem(new Item(0, itemName, categoryId, subcategoryId, amount));
+                Toast.makeText(mainActivity, "You need to fill all the fields", Toast.LENGTH_SHORT).show();
             }
-            navController.navigateUp();
         });
 
         return binding.getRoot();

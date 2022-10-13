@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.homebook.MainActivity;
 import com.example.homebook.R;
@@ -100,10 +101,15 @@ public class CatalogFragment extends Fragment {
                     .setPositiveButton(R.string.accept_btn, (dialog, which) -> {
                         clickedAddCatalog = false;
                         String newCatalog = input.getText().toString();
-                        CatalogFragmentDirections.ActionToCatalogItems action = CatalogFragmentDirections.actionToCatalogItems();
-                        action.setShowCatalog(false);
-                        action.setCatalogName(newCatalog);
-                        navController.navigate(action);
+                        if(newCatalog.equals("")){
+                            Toast.makeText(mainActivity, "You need to enter name of the new list!", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            CatalogFragmentDirections.ActionToCatalogItems action = CatalogFragmentDirections.actionToCatalogItems();
+                            action.setShowCatalog(false);
+                            action.setCatalogName(newCatalog);
+                            navController.navigate(action);
+                        }
                     })
                     .show();
         });

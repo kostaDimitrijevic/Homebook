@@ -9,12 +9,6 @@
         android:background="@color/white"
         />
     <item
-        android:id="@+id/maps"
-        android:title="Show near markets"
-        android:icon="@drawable/outline_place_white_24"
-        android:background="@color/white"
-        />
-    <item
         android:id="@+id/close"
         android:title="Close list"
         android:icon="@drawable/outline_cancel_24"

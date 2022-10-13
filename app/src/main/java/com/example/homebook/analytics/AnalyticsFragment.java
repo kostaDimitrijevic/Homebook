@@ -96,16 +96,23 @@ public class AnalyticsFragment extends Fragment {
             BarChart barChart = binding.barChart;
             Description description = new Description();
             description.setText("How many times a month you did the shopping");
+            description.setTextColor(Color.parseColor("#0A03DA"));
             description.setTextSize(15);
             barChart.animateY(1000);
+            barChart.setBorderColor(Color.parseColor("#0A03DA"));
+            barChart.setHorizontalScrollBarEnabled(true);
+            barChart.setVerticalScrollBarEnabled(true);
             barChart.setEnabled(true);
             barChart.setDescription(description);
-            barChart.setFitBars(true);
             barChart.setDrawBorders(false);
-            barChart.getXAxis().setDrawAxisLine(false);
+
             YAxis rightAxis = barChart.getAxisRight();
-            //hiding the right y-axis line, default true if not set
-            rightAxis.setDrawAxisLine(false);
+            barChart.getAxisLeft().setAxisMaximum(10f);
+            barChart.getAxisLeft().setGridColor(Color.parseColor("#0A03DA"));
+            barChart.getAxisLeft().setAxisLineColor(Color.parseColor("#0A03DA"));
+            rightAxis.setAxisMaximum(10f);
+            rightAxis.setGridColor(Color.parseColor("#0A03DA"));
+            rightAxis.setAxisLineColor(Color.parseColor("#0A03DA"));
 
             ArrayList<BarEntry> entries = new ArrayList<>();
 
@@ -118,12 +125,18 @@ public class AnalyticsFragment extends Fragment {
             legend.setEnabled(false);
 
             barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months));
+            barChart.getXAxis().setGranularity(1f);
+            barChart.getXAxis().setLabelCount(months.length);
+            barChart.getXAxis().setLabelRotationAngle(270);
+            barChart.getXAxis().setGridColor(Color.parseColor("#0A03DA"));
+            barChart.getXAxis().setTextColor(Color.parseColor("#0A03DA"));
 
             BarDataSet barDataSet = new BarDataSet(entries, "Number of times");
             barDataSet.setColors(colors);
             barDataSet.setValueTextSize(12);
 
             BarData barData = new BarData(barDataSet);
+            barData.setValueTextColor(Color.parseColor("#0A03DA"));
             barChart.setData(barData);
             barChart.invalidate();
         });
@@ -133,6 +146,7 @@ public class AnalyticsFragment extends Fragment {
         PieChart pieChart = binding.pieChart;
         Description description = new Description();
         description.setText("Top five most purchased items in your inventory");
+        description.setTextColor(Color.parseColor("#0A03DA"));
         description.setTextSize(15);
         pieChart.setDescription(description);
         pieChart.setHoleRadius(0f);
@@ -157,7 +171,7 @@ public class AnalyticsFragment extends Fragment {
         ArrayList<Integer> colors = new ArrayList<>();
         colors.add(Color.RED);
         colors.add(Color.BLUE);
-        colors.add(Color.YELLOW);
+        colors.add(Color.CYAN);
         colors.add(Color.MAGENTA);
         colors.add(Color.GREEN);
 
@@ -166,9 +180,11 @@ public class AnalyticsFragment extends Fragment {
         Legend legend = pieChart.getLegend();
         legend.setEnabled(true);
         legend.setTextSize(15);
-        legend.setTextColor(Color.BLACK);
+        legend.setTextColor(Color.parseColor("#0A03DA"));
         legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
         legend.setForm(Legend.LegendForm.SQUARE);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
 
         List<LegendEntry> legendEntries = new ArrayList<>();
 
@@ -181,6 +197,7 @@ public class AnalyticsFragment extends Fragment {
         legend.setCustom(legendEntries);
 
         PieData pieData = new PieData(pieDataSet);
+        pieData.setValueTextColor(Color.WHITE);
         pieChart.setData(pieData);
         pieChart.invalidate();
     }

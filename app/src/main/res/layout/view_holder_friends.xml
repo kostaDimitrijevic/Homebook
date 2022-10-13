@@ -25,8 +25,8 @@
                 android:layout_height="wrap_content"
                 android:text="Friends username:"
                 android:textAppearance="?attr/textAppearanceHeadline6"
-                android:textColor="#0A03DA"
-                />
+                android:textColor="#0A03DA" />
+
             <TextView
                 android:id="@+id/friend_username"
                 android:layout_width="wrap_content"
