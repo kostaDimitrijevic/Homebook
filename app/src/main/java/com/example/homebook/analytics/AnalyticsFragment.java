@@ -95,7 +95,7 @@ public class AnalyticsFragment extends Fragment {
 
             BarChart barChart = binding.barChart;
             Description description = new Description();
-            description.setText("How many times a month you did the shopping");
+            description.setText("");
             description.setTextColor(Color.parseColor("#0A03DA"));
             description.setTextSize(15);
             barChart.animateY(1000);

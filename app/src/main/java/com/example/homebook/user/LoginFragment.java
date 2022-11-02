@@ -86,27 +86,25 @@ public class LoginFragment extends Fragment {
         String password = binding.password.getEditText().getText().toString();
 
         if(email.isEmpty()){
+            binding.emailAddress.setErrorEnabled(true);
             binding.emailAddress.setError("Email is required!");
             binding.emailAddress.requestFocus();
             return;
         }
+        else{
+            binding.emailAddress.setErrorEnabled(false);
+            binding.emailAddress.clearFocus();
+        }
 
         if(password.isEmpty()){
+            binding.password.setErrorEnabled(true);
             binding.password.setError("Password is required!");
             binding.password.requestFocus();
             return;
         }
-
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            binding.emailAddress.setError("Please provide valid email!");
-            binding.emailAddress.requestFocus();
-            return;
-        }
-
-        if(password.length() < 6){
-            binding.password.setError("Password needs at least 6 characters");
-            binding.password.requestFocus();
-            return;
+        else{
+            binding.password.setErrorEnabled(false);
+            binding.password.clearFocus();
         }
 
         binding.loginProgressBar.setVisibility(View.VISIBLE);

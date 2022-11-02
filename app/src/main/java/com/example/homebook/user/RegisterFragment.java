@@ -65,49 +65,85 @@ public class RegisterFragment extends Fragment {
         String confirmPassword = binding.confirmPassword.getEditText().getText().toString();
 
         if(email.isEmpty()){
+            binding.emailAddress.setErrorEnabled(true);
             binding.emailAddress.setError("Email is required!");
             binding.emailAddress.requestFocus();
             return;
         }
+        else{
+            binding.emailAddress.setErrorEnabled(false);
+            binding.emailAddress.clearFocus();
+        }
         if(firstname.isEmpty()){
+            binding.firstname.setErrorEnabled(true);
             binding.firstname.setError("Firstname is required!");
             binding.firstname.requestFocus();
             return;
         }
+        else {
+            binding.firstname.setErrorEnabled(false);
+            binding.firstname.clearFocus();
+        }
         if(lastname.isEmpty()){
+            binding.lastname.setErrorEnabled(true);
             binding.lastname.setError("Lastname is required!");
             binding.lastname.requestFocus();
             return;
         }
+        else{
+            binding.lastname.setErrorEnabled(false);
+            binding.lastname.clearFocus();
+        }
         if(password.isEmpty()){
+            binding.password.setErrorEnabled(true);
             binding.password.setError("Password is required!");
             binding.password.requestFocus();
             return;
         }
+        else{
+            binding.password.setErrorEnabled(false);
+            binding.password.clearFocus();
+        }
         if(confirmPassword.isEmpty()){
+            binding.confirmPassword.setErrorEnabled(true);
             binding.confirmPassword.setError("Confirm password is required!");
             binding.confirmPassword.requestFocus();
             return;
         }
-
+        else{
+            binding.confirmPassword.setErrorEnabled(false);
+            binding.confirmPassword.clearFocus();
+        }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            binding.emailAddress.setErrorEnabled(true);
             binding.emailAddress.setError("Please provide valid email!");
             binding.emailAddress.requestFocus();
             return;
         }
-
+        else{
+            binding.emailAddress.setErrorEnabled(false);
+            binding.emailAddress.clearFocus();
+        }
         if(password.length() < 6){
+            binding.password.setErrorEnabled(true);
             binding.password.setError("Password needs at least 6 characters");
             binding.password.requestFocus();
             return;
         }
-
+        else{
+            binding.password.setErrorEnabled(false);
+            binding.password.clearFocus();
+        }
         if(!confirmPassword.equals(password)){
+            binding.confirmPassword.setErrorEnabled(true);
             binding.confirmPassword.setError("Passwords need to match!");
             binding.confirmPassword.requestFocus();
             return;
         }
-
+        else{
+            binding.confirmPassword.setErrorEnabled(false);
+            binding.confirmPassword.clearFocus();
+        }
         binding.registerProgressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(mainActivity, task -> {
